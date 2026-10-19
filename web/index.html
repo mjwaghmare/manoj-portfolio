@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Replaced by the value of `flutter build web --base-href`. Must start and end with "/". -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <title>Manoj Waghmare | Senior Flutter Developer</title>
+  <meta name="description" content="Manoj Waghmare is a Senior Flutter Developer in Pune, India with 7+ years of experience building production Android and iOS apps with Flutter and Dart.">
+  <meta name="author" content="Manoj Waghmare">
+  <meta name="keywords" content="Manoj Waghmare, Senior Flutter Developer, Flutter, Dart, Android, iOS, mobile developer, Pune">
+  <meta name="robots" content="index, follow">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#FDFDFE" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#080E16" media="(prefers-color-scheme: dark)">
+
+  <!-- Open Graph / social previews. Add og:url and og:image once the site has a public domain. -->
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Manoj Waghmare | Senior Flutter Developer">
+  <meta property="og:description" content="Senior Flutter Developer with 7+ years of experience building production Android and iOS apps.">
+  <meta property="profile:first_name" content="Manoj">
+  <meta property="profile:last_name" content="Waghmare">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Manoj Waghmare | Senior Flutter Developer">
+  <meta name="twitter:description" content="Senior Flutter Developer with 7+ years of experience building production Android and iOS apps.">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Manoj Waghmare",
+    "jobTitle": "Senior Flutter Developer",
+    "address": { "@type": "PostalAddress", "addressLocality": "Pune", "addressCountry": "IN" },
+    "knowsAbout": ["Flutter", "Dart", "Android", "iOS", "REST APIs", "Mobile application architecture"],
+    "sameAs": [
+      "https://github.com/mjwaghmare",
+      "https://www.linkedin.com/in/manoj-waghmare-90a883124/"
+    ]
+  }
+  </script>
+
+  <!-- iOS / PWA -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Manoj Waghmare">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    html, body { margin: 0; height: 100%; background: #FDFDFE; }
+    html.dark, html.dark body { background: #080E16; }
+  </style>
+  <script>
+    // Paint the saved (or system) theme background before Flutter loads, so there is no flash.
+    // Must match ThemeProvider's key; shared_preferences stores it as "flutter.is_dark_mode".
+    (function () {
+      var dark = false;
+      try {
+        var saved = window.localStorage.getItem('flutter.is_dark_mode');
+        dark = saved === null
+          ? window.matchMedia('(prefers-color-scheme: dark)').matches
+          : saved === 'true';
+      } catch (e) {}
+      if (dark) document.documentElement.classList.add('dark');
+    })();
+  </script>
+</head>
+<body>
+  <noscript>
+    <h1>Manoj Waghmare — Senior Flutter Developer</h1>
+    <p>Senior Flutter Developer in Pune, India with 7+ years of experience building production Android and iOS applications. This site requires JavaScript.</p>
+    <p><a href="https://github.com/mjwaghmare">GitHub</a> · <a href="https://www.linkedin.com/in/manoj-waghmare-90a883124/">LinkedIn</a></p>
+  </noscript>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

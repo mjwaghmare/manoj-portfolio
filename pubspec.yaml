@@ -1,0 +1,66 @@
+name: manoj_portfolio
+description: "Personal portfolio of Manoj Waghmare, Senior Flutter Developer."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.13.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_svg: ^2.3.0
+  shared_preferences: ^2.5.6
+  url_launcher: ^6.3.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/images/projects/
+    # Technology logos from Devicon (MIT License).
+    - assets/icons/tech/
+
+  fonts:
+    # Fonts below are SIL Open Font License 1.1 and subset to Latin; licenses sit next to each file.
+    # Family names must match lib/core/theme/app_fonts.dart.
+    # Plus Jakarta Sans: primary UI and body font.
+    - family: PlusJakartaSans
+      fonts:
+        - asset: assets/fonts/PlusJakartaSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/PlusJakartaSans-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/PlusJakartaSans-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/PlusJakartaSans-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/PlusJakartaSans-ExtraBold.ttf
+          weight: 800
+    # Bebas Neue: stats and timeline dates.
+    - family: BebasNeue
+      fonts:
+        - asset: assets/fonts/BebasNeue-Regular.ttf
+    # Playfair Display: italic editorial accent in headings.
+    - family: PlayfairDisplay
+      fonts:
+        - asset: assets/fonts/PlayfairDisplay-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+    # Caveat: the handwritten hero note.
+    - family: Caveat
+      fonts:
+        - asset: assets/fonts/Caveat.ttf
+    # GitHub, LinkedIn and YouTube glyphs from Font Awesome Free Brands (SIL OFL 1.1).
+    - family: BrandIcons
+      fonts:
+        - asset: assets/fonts/BrandIcons.ttf
