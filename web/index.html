@@ -95,7 +95,7 @@
       -webkit-background-clip: text; background-clip: text;
       color: transparent;
       animation: loader-shimmer 3s linear infinite;
-      transition: opacity 0.35s ease, transform 0.35s ease;
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
     #loader .text.out { opacity: 0; transform: translateY(-0.25em); }
     #loader .text.enter { opacity: 0; transform: translateY(0.25em); transition: none; }
@@ -159,8 +159,8 @@
           text.classList.add('enter');
           void text.offsetWidth; // Commit the start position so the entrance animates.
           text.classList.remove('enter');
-        }, 350);
-      }, 2200);
+        }, 300);
+      }, 1500);
 
       // Reveal once the font is in (or after a short wait), so the text never swaps typeface mid-fade.
       var reveal = function () { loader.classList.add('ready'); };
