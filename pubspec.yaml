@@ -27,7 +27,6 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/images/projects/
     # Technology logos from Devicon (MIT License).
     - assets/icons/tech/
 
