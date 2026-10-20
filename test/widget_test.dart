@@ -7,7 +7,6 @@ import 'package:manoj_portfolio/data/portfolio_data.dart';
 import 'package:manoj_portfolio/main.dart';
 import 'package:manoj_portfolio/models/project_model.dart';
 import 'package:manoj_portfolio/sections/contact_section.dart';
-import 'package:manoj_portfolio/sections/footer_section.dart';
 import 'package:manoj_portfolio/widgets/gradient_widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -180,17 +179,6 @@ void main() {
     expect((emailY - linkedInY).abs(), lessThan(1.0));
     expect((emailY - gitHubY).abs(), lessThan(1.0));
     expect((emailY - youTubeY).abs(), lessThan(1.0));
-  });
-
-  testWidgets('footer links every social profile', (tester) async {
-    await _pumpApp(tester, size: const Size(1440, 900));
-
-    for (final label in ['LinkedIn', 'GitHub', 'YouTube']) {
-      expect(
-        find.descendant(of: find.byType(FooterSection), matching: find.byTooltip(label), skipOffstage: false),
-        findsOneWidget,
-      );
-    }
   });
 }
 

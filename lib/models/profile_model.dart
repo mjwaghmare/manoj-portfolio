@@ -65,6 +65,6 @@ class ProfileModel {
   /// Handwritten lines beside the portrait. Empty hides the note.
   final List<String> handwrittenNote;
 
-  /// Social profiles in display order, as shown in the footer.
+  /// Social profiles in display order.
   List<SocialLink> get socialLinks => [linkedin, github, youtube];
 }
