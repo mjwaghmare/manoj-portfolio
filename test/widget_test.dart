@@ -5,6 +5,7 @@ import 'package:manoj_portfolio/core/theme/theme_provider.dart';
 import 'package:manoj_portfolio/data/portfolio_data.dart';
 import 'package:manoj_portfolio/main.dart';
 import 'package:manoj_portfolio/models/project_model.dart';
+import 'package:manoj_portfolio/sections/contact_section.dart';
 import 'package:manoj_portfolio/widgets/gradient_widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -143,9 +144,11 @@ void main() {
   testWidgets('contact options render on the same horizontal line on desktop', (tester) async {
     await _pumpApp(tester, size: const Size(1440, 900));
 
-    final emailY = tester.getCenter(find.text('Email')).dy;
-    final linkedInY = tester.getCenter(find.text('LinkedIn')).dy;
-    final gitHubY = tester.getCenter(find.text('GitHub')).dy;
+    // Scoped to the contact section, since "GitHub" is also a Tech Stack skill.
+    Finder contact(String label) => find.descendant(of: find.byType(ContactSection), matching: find.text(label));
+    final emailY = tester.getCenter(contact('Email')).dy;
+    final linkedInY = tester.getCenter(contact('LinkedIn')).dy;
+    final gitHubY = tester.getCenter(contact('GitHub')).dy;
 
     expect((emailY - linkedInY).abs(), lessThan(1.0));
     expect((emailY - gitHubY).abs(), lessThan(1.0));

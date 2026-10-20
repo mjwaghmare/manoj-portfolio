@@ -4,6 +4,7 @@ import '../core/constants/brand_icons.dart';
 import '../models/experience_model.dart';
 import '../models/profile_model.dart';
 import '../models/project_model.dart';
+import '../models/skill_group_model.dart';
 import '../models/tech_item_model.dart';
 
 /// All portfolio content lives here. Edit this file to update the site.
@@ -55,14 +56,54 @@ abstract final class PortfolioData {
     (value: null, icon: Icons.location_on_rounded, color: Color(0xFF5B85F7), label: 'Pune\nIndia'),
   ];
 
+  /// Core platform logos, shown as large tiles above [skillGroups].
   static const techStack = [
     TechItemModel(name: 'Flutter', svgAsset: 'assets/icons/tech/flutter.svg'),
     TechItemModel(name: 'Dart', svgAsset: 'assets/icons/tech/dart.svg'),
     TechItemModel(name: 'Android', svgAsset: 'assets/icons/tech/android.svg'),
     TechItemModel(name: 'iOS', svgAsset: 'assets/icons/tech/apple.svg', monochrome: true),
-    TechItemModel(name: 'Firebase', svgAsset: 'assets/icons/tech/firebase.svg'),
-    TechItemModel(name: 'REST APIs', icon: Icons.cloud_outlined),
-    TechItemModel(name: 'Go', svgAsset: 'assets/icons/tech/go.svg'),
+  ];
+
+  /// Grouped as in the resume's Technical Skills, most senior-relevant first.
+  static const skillGroups = [
+    SkillGroupModel(
+      title: 'State & Architecture',
+      icon: Icons.account_tree_outlined,
+      skills: [
+        'Provider',
+        'BLoC/Cubit',
+        'Clean Architecture',
+        'Dependency Injection',
+        'SOLID',
+        'Design Patterns',
+        'Futures & Streams',
+      ],
+    ),
+    SkillGroupModel(
+      title: 'Testing & Performance',
+      icon: Icons.speed_rounded,
+      skills: ['Unit tests', 'Widget tests', 'Integration tests', 'Debugging', 'Memory & performance'],
+    ),
+    SkillGroupModel(
+      title: 'CI/CD & Tools',
+      icon: Icons.rocket_launch_outlined,
+      skills: ['Fastlane', 'Bitbucket Pipelines', 'Git', 'GitHub', 'Postman', 'JIRA'],
+    ),
+    SkillGroupModel(
+      title: 'Networking & Data',
+      icon: Icons.cloud_outlined,
+      skills: ['REST APIs', 'WebSockets', 'Dio', 'Firebase', 'MongoDB', 'Hive'],
+    ),
+    SkillGroupModel(
+      title: 'Integrations',
+      icon: Icons.extension_outlined,
+      skills: ['Stripe', 'OneSignal', 'Push notifications', 'Deep linking', 'Google Maps'],
+    ),
+    SkillGroupModel(
+      title: 'Auth & Security',
+      icon: Icons.lock_outline_rounded,
+      skills: ['OAuth/SSO', 'JWT refresh', 'Secure storage', 'Biometric auth', 'Trusted-device auth'],
+    ),
   ];
 
   static const experiences = [

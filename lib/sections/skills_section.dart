@@ -4,12 +4,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../core/constants/app_constants.dart';
 import '../core/theme/app_theme.dart';
 import '../data/portfolio_data.dart';
+import '../models/skill_group_model.dart';
 import '../models/tech_item_model.dart';
 import '../widgets/hover_card.dart';
 import '../widgets/responsive_grid.dart';
 import '../widgets/section_container.dart';
 
-/// "Tech Stack": one row of logo tiles on desktop, a 4-column grid below that.
+/// "Tech Stack": a row of core platform logos, then grouped skill cards.
 class SkillsSection extends StatelessWidget {
   const SkillsSection({super.key});
 
@@ -17,13 +18,83 @@ class SkillsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final screen = ScreenSize.of(context);
     const items = PortfolioData.techStack;
+    final spacing = screen.isMobile ? 10.0 : 16.0;
 
     return SectionContainer(
       title: 'Tech Stack',
-      child: ResponsiveGrid(
-        columns: screen.isDesktop ? items.length : 4,
-        spacing: screen.isMobile ? 10 : 16,
-        children: [for (final item in items) _TechTile(item)],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ResponsiveGrid(
+            columns: items.length,
+            spacing: spacing,
+            children: [for (final item in items) _TechTile(item)],
+          ),
+          SizedBox(height: spacing),
+          ResponsiveGrid(
+            columns: switch (screen) {
+              ScreenSize.desktop => 3,
+              ScreenSize.tablet => 2,
+              ScreenSize.mobile => 1,
+            },
+            spacing: spacing,
+            children: [for (final group in PortfolioData.skillGroups) _SkillGroupCard(group)],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SkillGroupCard extends StatelessWidget {
+  const _SkillGroupCard(this.group);
+
+  final SkillGroupModel group;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = PortfolioColors.of(context);
+
+    return HoverCard(
+      color: colors.tileBackground,
+      borderColor: colors.tileBorder,
+      restingShadow: true,
+      child: Padding(
+        padding: const EdgeInsets.all(22),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(group.icon, size: 22, color: const Color(0xFF2F74F2)),
+                const SizedBox(width: 10),
+                Flexible(
+                  child: Text(
+                    group.title,
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: theme.colorScheme.onSurface),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                for (final skill in group.skills)
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(color: colors.badgeBackground, borderRadius: BorderRadius.circular(8)),
+                    child: Text(
+                      skill,
+                      style: TextStyle(fontSize: 13.5, fontWeight: FontWeight.w500, color: colors.badgeText),
+                    ),
+                  ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
