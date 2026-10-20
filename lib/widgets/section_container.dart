@@ -4,6 +4,7 @@ import '../core/constants/app_constants.dart';
 import '../core/theme/app_fonts.dart';
 import '../core/theme/app_theme.dart';
 import 'gradient_widgets.dart';
+import 'reveal_on_scroll.dart';
 
 /// Centers section content at [AppConstants.maxContentWidth] with responsive padding
 /// and an optional heading.
@@ -37,14 +38,16 @@ class SectionContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             if (title != null) ...[
-              Row(
-                children: [
-                  // Title takes all the width the trailing widget doesn't need.
-                  Expanded(
-                    child: Align(alignment: AlignmentDirectional.centerStart, child: SectionTitle(title!)),
-                  ),
-                  ?trailing,
-                ],
+              RevealOnScroll(
+                child: Row(
+                  children: [
+                    // Title takes all the width the trailing widget doesn't need.
+                    Expanded(
+                      child: Align(alignment: AlignmentDirectional.centerStart, child: SectionTitle(title!)),
+                    ),
+                    ?trailing,
+                  ],
+                ),
               ),
               SizedBox(height: screen.isMobile ? 18 : 20),
             ],

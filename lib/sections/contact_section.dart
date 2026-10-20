@@ -5,6 +5,7 @@ import '../core/constants/app_constants.dart';
 import '../core/theme/app_theme.dart';
 import '../data/portfolio_data.dart';
 import '../widgets/external_link.dart';
+import '../widgets/reveal_on_scroll.dart';
 import '../widgets/section_container.dart';
 
 class ContactSection extends StatelessWidget {
@@ -20,19 +21,21 @@ class ContactSection extends StatelessWidget {
     final screen = ScreenSize.of(context);
     final profile = PortfolioData.profile;
 
-    final intro = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SectionTitle('Let\'s Work Together', accentWord: 'Together'),
-        const SizedBox(height: 16),
-        Text(
-          profile.contactMessage,
-          style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16, color: colors.textMuted),
-        ),
-      ],
+    final intro = RevealOnScroll(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SectionTitle('Let\'s Work Together', accentWord: 'Together'),
+          const SizedBox(height: 16),
+          Text(
+            profile.contactMessage,
+            style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16, color: colors.textMuted),
+          ),
+        ],
+      ),
     );
 
-    final items = [
+    final contactItems = [
       _ContactItem(
         url: 'mailto:${profile.email}',
         label: 'Email',
@@ -77,6 +80,12 @@ class ContactSection extends StatelessWidget {
           child: Icon(profile.youtube.icon, size: 22, color: Colors.white),
         ),
       ),
+    ];
+
+    // The items follow the message, one after another.
+    final items = [
+      for (final (index, item) in contactItems.indexed)
+        RevealOnScroll(delay: RevealOnScroll.stagger(index + 1), child: item),
     ];
 
     // Items keep their natural width so no value is cut off: one line spread across the

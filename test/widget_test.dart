@@ -8,6 +8,7 @@ import 'package:manoj_portfolio/main.dart';
 import 'package:manoj_portfolio/models/project_model.dart';
 import 'package:manoj_portfolio/sections/contact_section.dart';
 import 'package:manoj_portfolio/widgets/gradient_widgets.dart';
+import 'package:manoj_portfolio/widgets/reveal_on_scroll.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<ThemeProvider> _pumpApp(WidgetTester tester, {required Size size, Map<String, Object> prefs = const {}}) async {
@@ -109,6 +110,83 @@ void main() {
     expect(find.text('PCLive247'), findsWidgets);
   });
 
+  testWidgets('sections reveal each time they scroll into view', (tester) async {
+    await _pumpApp(tester, size: const Size(1440, 900));
+
+    double headingOpacity() => tester
+        .widget<FadeTransition>(
+          find.descendant(
+            of: find.ancestor(of: find.text('Featured Projects'), matching: find.byType(RevealOnScroll)),
+            matching: find.byType(FadeTransition),
+          ),
+        )
+        .opacity
+        .value;
+
+    expect(headingOpacity(), 0);
+
+    await tester.tap(find.widgetWithText(TextButton, 'Projects'));
+    await tester.pumpAndSettle();
+    expect(headingOpacity(), 1);
+
+    // Leaving resets it, and coming back plays it again.
+    await tester.tap(find.widgetWithText(TextButton, 'Home'));
+    await tester.pumpAndSettle();
+    expect(headingOpacity(), 0);
+
+    await tester.tap(find.widgetWithText(TextButton, 'Projects'));
+    await tester.pumpAndSettle();
+    expect(headingOpacity(), 1);
+  });
+
+  testWidgets('a changed reveal delay applies to the next reveal', (tester) async {
+    final controller = ScrollController();
+    addTearDown(controller.dispose);
+    Widget page(Duration delay) => MaterialApp(
+      home: SingleChildScrollView(
+        controller: controller,
+        child: Column(
+          children: [
+            const SizedBox(height: 2000),
+            RevealOnScroll(
+              delay: delay,
+              child: const SizedBox(height: 100, child: Text('late')),
+            ),
+            const SizedBox(height: 2000),
+          ],
+        ),
+      ),
+    );
+    double opacity() => tester
+        .widget<FadeTransition>(find.descendant(of: find.byType(RevealOnScroll), matching: find.byType(FadeTransition)))
+        .opacity
+        .value;
+
+    await tester.pumpWidget(page(const Duration(seconds: 1)));
+    await tester.pumpWidget(page(Duration.zero));
+
+    controller.jumpTo(1800);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+
+    // With the original one-second delay it would still be invisible here.
+    expect(opacity(), 1);
+  });
+
+  testWidgets('reduced motion shows every section without animating', (tester) async {
+    tester.platformDispatcher.accessibilityFeaturesTestValue = const FakeAccessibilityFeatures(disableAnimations: true);
+    addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
+    await _pumpApp(tester, size: const Size(1440, 900));
+
+    // Each reveal's own fade is its first; later ones belong to content such as the hidden copy button.
+    final reveals = find.byType(RevealOnScroll).evaluate().toList();
+    expect(reveals, isNotEmpty);
+    for (final reveal in reveals) {
+      final fade = find.descendant(of: find.byWidget(reveal.widget), matching: find.byType(FadeTransition)).first;
+      expect(tester.widget<FadeTransition>(fade).opacity.value, 1);
+    }
+  });
+
   testWidgets('"Let\'s talk" in the header scrolls to the contact section', (tester) async {
     await _pumpApp(tester, size: const Size(1440, 900));
 
@@ -181,4 +259,3 @@ void main() {
     expect((emailY - youTubeY).abs(), lessThan(1.0));
   });
 }
-

@@ -8,6 +8,7 @@ import '../models/skill_group_model.dart';
 import '../models/tech_item_model.dart';
 import '../widgets/hover_card.dart';
 import '../widgets/responsive_grid.dart';
+import '../widgets/reveal_on_scroll.dart';
 import '../widgets/section_container.dart';
 
 /// "Tech Stack": a row of core platform logos, then grouped skill cards.
@@ -19,6 +20,11 @@ class SkillsSection extends StatelessWidget {
     final screen = ScreenSize.of(context);
     const items = PortfolioData.techStack;
     final spacing = screen.isMobile ? 10.0 : 16.0;
+    final groupColumns = switch (screen) {
+      ScreenSize.desktop => 3,
+      ScreenSize.tablet => 2,
+      ScreenSize.mobile => 1,
+    };
 
     return SectionContainer(
       title: 'Tech Stack',
@@ -28,17 +34,20 @@ class SkillsSection extends StatelessWidget {
           ResponsiveGrid(
             columns: items.length,
             spacing: spacing,
-            children: [for (final item in items) _TechTile(item)],
+            children: [
+              for (final (index, item) in items.indexed)
+                RevealOnScroll(delay: RevealOnScroll.stagger(index), child: _TechTile(item)),
+            ],
           ),
           SizedBox(height: spacing),
           ResponsiveGrid(
-            columns: switch (screen) {
-              ScreenSize.desktop => 3,
-              ScreenSize.tablet => 2,
-              ScreenSize.mobile => 1,
-            },
+            columns: groupColumns,
             spacing: spacing,
-            children: [for (final group in PortfolioData.skillGroups) _SkillGroupCard(group)],
+            // Staggered within each row; every row starts when it scrolls into view.
+            children: [
+              for (final (index, group) in PortfolioData.skillGroups.indexed)
+                RevealOnScroll(delay: RevealOnScroll.stagger(index % groupColumns), child: _SkillGroupCard(group)),
+            ],
           ),
         ],
       ),

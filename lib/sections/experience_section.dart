@@ -5,6 +5,7 @@ import '../core/theme/app_fonts.dart';
 import '../core/theme/app_theme.dart';
 import '../data/portfolio_data.dart';
 import '../models/experience_model.dart';
+import '../widgets/reveal_on_scroll.dart';
 import '../widgets/section_container.dart';
 
 class ExperienceSection extends StatelessWidget {
@@ -21,7 +22,14 @@ class ExperienceSection extends StatelessWidget {
         children: [
           const SizedBox(height: 10),
           for (final (index, experience) in experiences.indexed)
-            _TimelineEntry(experience: experience, isFirst: index == 0, isLast: index == experiences.length - 1),
+            // Each entry reveals as it scrolls into view, so the timeline fills in top to bottom.
+            RevealOnScroll(
+              child: _TimelineEntry(
+                experience: experience,
+                isFirst: index == 0,
+                isLast: index == experiences.length - 1,
+              ),
+            ),
         ],
       ),
     );

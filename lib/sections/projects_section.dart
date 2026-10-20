@@ -6,6 +6,7 @@ import '../data/portfolio_data.dart';
 import '../widgets/external_link.dart';
 import '../widgets/project_card.dart';
 import '../widgets/responsive_grid.dart';
+import '../widgets/reveal_on_scroll.dart';
 import '../widgets/section_container.dart';
 
 class ProjectsSection extends StatelessWidget {
@@ -41,7 +42,14 @@ class ProjectsSection extends StatelessWidget {
       child: ResponsiveGrid(
         columns: columns,
         spacing: 28,
-        children: [for (final project in PortfolioData.projects) ProjectCard(project: project)],
+        // Staggered left to right within each row.
+        children: [
+          for (final (index, project) in PortfolioData.projects.indexed)
+            RevealOnScroll(
+              delay: RevealOnScroll.stagger(index % columns),
+              child: ProjectCard(project: project),
+            ),
+        ],
       ),
     );
   }

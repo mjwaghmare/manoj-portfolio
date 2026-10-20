@@ -5,6 +5,7 @@ import '../core/theme/app_fonts.dart';
 import '../core/theme/app_theme.dart';
 import '../data/portfolio_data.dart';
 import '../widgets/gradient_widgets.dart';
+import '../widgets/reveal_on_scroll.dart';
 import '../widgets/section_container.dart';
 
 class AboutSection extends StatelessWidget {
@@ -15,18 +16,24 @@ class AboutSection extends StatelessWidget {
     final screen = ScreenSize.of(context);
     final textTheme = Theme.of(context).textTheme;
 
-    final intro = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SectionTitle('About Me'),
-        const SizedBox(height: 12),
-        Text(PortfolioData.profile.about, style: textTheme.bodyMedium?.copyWith(fontSize: 16, height: 1.65)),
-      ],
+    final intro = RevealOnScroll(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SectionTitle('About Me'),
+          const SizedBox(height: 12),
+          Text(PortfolioData.profile.about, style: textTheme.bodyMedium?.copyWith(fontSize: 16, height: 1.65)),
+        ],
+      ),
     );
 
+    // The cards follow the text, one after another.
     final cards = [
-      for (final item in PortfolioData.aboutHighlights)
-        _HighlightCard(value: item.value, icon: item.icon, iconColor: item.color, label: item.label),
+      for (final (index, item) in PortfolioData.aboutHighlights.indexed)
+        RevealOnScroll(
+          delay: RevealOnScroll.stagger(index + 1),
+          child: _HighlightCard(value: item.value, icon: item.icon, iconColor: item.color, label: item.label),
+        ),
     ];
 
     return SectionContainer(
