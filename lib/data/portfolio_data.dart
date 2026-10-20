@@ -21,7 +21,7 @@ abstract final class PortfolioData {
     initials: 'MW',
     // Trimmed, transparent version of assets/images/profile.png (the MWStudio wordmark).
     logoAsset: 'assets/images/mwstudio_logo.png',
-    role: 'Senior Flutter Developer',
+    role: 'Senior Mobile Developer',
     location: 'Pune, India',
     email: 'mjwaghmare@gmail.com',
     // Served from web/Manoj_Waghmare_Resume.pdf. Replace the file to update it.
@@ -30,8 +30,8 @@ abstract final class PortfolioData {
     photoAsset: 'assets/images/mj.png',
     // \u2011 is a non-breaking hyphen (mapped to the hyphen glyph in the bundled font),
     // so "high-performance" never splits across lines.
-    headline: 'Building high\u2011performance mobile experiences with Flutter.',
-    headlineAccent: 'with Flutter.',
+    headline: 'Building high\u2011performance mobile experiences',
+    headlineAccent: 'mobile experiences',
     heroIntroLines: ['7+ years building scalable, production-ready', 'apps for Android and iOS.'],
     about:
         'I\'m a Senior Flutter Developer with over 7 years of experience in mobile application development. '
@@ -71,24 +71,28 @@ abstract final class PortfolioData {
       role: 'Senior Mobile Developer',
       period: '2021 - Present',
       description:
-          'Building production-grade Flutter apps for Android and iOS, from architecture and feature '
-          'development to testing, performance work and app-store releases.',
+          'Build and maintain production Flutter apps for Android and iOS across multiple client projects, '
+          'including greenfield apps taken from architecture to release as sole mobile engineer. Integrate '
+          'real-time WebSockets, Stripe payments, push notifications and OAuth/SSO, and secure networking with '
+          'JWT refresh interceptors and biometric authentication. Coordinate releases with Fastlane and '
+          'Bitbucket Pipelines.',
     ),
     ExperienceModel(
       company: 'Aceventura Services',
       role: 'Android / Flutter Developer',
       period: '2018 - 2020',
       description:
-          'Delivered Android and Flutter applications with responsive interfaces, REST API integrations '
-          'and platform-specific features, and improved app performance.',
+          'Built and shipped native Android apps, plus some Flutter work, for both client projects and in-house '
+          'products: responsive UIs, REST API integrations and platform-specific features. Diagnosed production '
+          'issues, optimized performance and maintained existing codebases.',
     ),
     ExperienceModel(
       company: 'Freelance',
       role: 'Android Developer',
       period: '2017 - 2018',
       description:
-          'Built Android application features, integrated backend APIs and resolved defects '
-          'based on client requirements.',
+          'Delivered Android features across multiple client apps: built to client specifications, integrated '
+          'their backend APIs and resolved reported defects.',
     ),
   ];
 

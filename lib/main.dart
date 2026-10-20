@@ -30,7 +30,7 @@ class PortfolioApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Manoj Waghmare | Senior Flutter Developer',
+          title: 'Manoj Waghmare | Portfolio 📱',
           theme: AppTheme.light,
           darkTheme: AppTheme.dark,
           themeMode: themeProvider.themeMode,

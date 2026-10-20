@@ -119,4 +119,34 @@ void main() {
 
     expect(resumeSizes, contains(contact));
   }, variant: TargetPlatformVariant.only(TargetPlatform.macOS));
+
+  testWidgets('download resume shows progress, then a done message, then resets', (tester) async {
+    await _pumpApp(tester, size: const Size(1440, 900));
+
+    await tester.tap(find.widgetWithText(GradientButton, 'Download Resume').first);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(find.text('Downloading…'), findsOneWidget);
+
+    await tester.pump(const Duration(milliseconds: 2000));
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(find.text('Saved. Hire me?'), findsOneWidget);
+
+    await tester.pump(const Duration(milliseconds: 2600));
+    await tester.pumpAndSettle();
+    expect(find.text('Saved. Hire me?'), findsNothing);
+    expect(find.widgetWithText(GradientButton, 'Download Resume'), findsWidgets);
+  });
+
+  testWidgets('contact options render on the same horizontal line on desktop', (tester) async {
+    await _pumpApp(tester, size: const Size(1440, 900));
+
+    final emailY = tester.getCenter(find.text('Email')).dy;
+    final linkedInY = tester.getCenter(find.text('LinkedIn')).dy;
+    final gitHubY = tester.getCenter(find.text('GitHub')).dy;
+
+    expect((emailY - linkedInY).abs(), lessThan(1.0));
+    expect((emailY - gitHubY).abs(), lessThan(1.0));
+  });
 }
+

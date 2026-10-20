@@ -64,11 +64,23 @@ class GradientButton extends StatelessWidget {
     this.radius = 12,
     this.glow = true,
     this.fontSize = 15.5,
+    this.child,
+    this.progress,
+    this.progressOpacity = 1,
     super.key,
   });
 
   final String label;
   final VoidCallback? onPressed;
+
+  /// Replaces the [label] text; [label] still sets the font for this content.
+  final Widget? child;
+
+  /// 0–1 fill drawn across the button from the left, e.g. while a download runs.
+  final double? progress;
+
+  /// Fades the [progress] fill, so it can ease out instead of vanishing.
+  final double progressOpacity;
 
   /// Fixed width; when null the button sizes to its label plus [horizontalPadding].
   final double? width;
@@ -82,6 +94,8 @@ class GradientButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final borderRadius = BorderRadius.circular(radius);
+    final textStyle = TextStyle(fontSize: fontSize, fontWeight: FontWeight.w600, color: Colors.white);
+    final fill = progress;
 
     return Semantics(
       button: true,
@@ -105,16 +119,31 @@ class GradientButton extends StatelessWidget {
             child: InkWell(
               onTap: onPressed,
               borderRadius: borderRadius,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-                child: Center(
-                  widthFactor: 1,
-                  child: Text(
-                    label,
-                    maxLines: 1,
-                    style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.w600, color: Colors.white),
+              child: Stack(
+                children: [
+                  if (fill != null)
+                    Positioned.fill(
+                      child: ClipRRect(
+                        borderRadius: borderRadius,
+                        child: FractionallySizedBox(
+                          alignment: Alignment.centerLeft,
+                          widthFactor: fill.clamp(0, 1),
+                          child: ColoredBox(color: Colors.white.withValues(alpha: 0.22 * progressOpacity.clamp(0, 1))),
+                        ),
+                      ),
+                    ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+                    child: Center(
+                      widthFactor: 1,
+                      child: DefaultTextStyle.merge(
+                        style: textStyle,
+                        maxLines: 1,
+                        child: child ?? Text(label, maxLines: 1, style: textStyle),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
           ),

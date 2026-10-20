@@ -5,8 +5,7 @@ import '../core/constants/app_constants.dart';
 import '../core/theme/app_theme.dart';
 import '../core/theme/theme_provider.dart';
 import '../data/portfolio_data.dart';
-import 'external_link.dart';
-import 'gradient_widgets.dart';
+import 'resume_download_button.dart';
 import 'section_container.dart';
 
 /// Sticky top bar: logo, centered section navigation and theme toggle.
@@ -273,11 +272,7 @@ class MobileNavDrawer extends StatelessWidget {
               const Spacer(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: ExternalLink(
-                  url: PortfolioData.profile.resumeUrl,
-                  builder: (context, open) =>
-                      GradientButton(label: 'Download Resume', onPressed: open, colors: colors.buttonGradient),
-                ),
+                child: ResumeDownloadButton(url: PortfolioData.profile.resumeUrl, colors: colors.buttonGradient),
               ),
             ],
           ),

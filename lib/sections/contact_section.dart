@@ -36,10 +36,10 @@ class ContactSection extends StatelessWidget {
         label: 'Email',
         value: profile.email,
         icon: Container(
-          width: 56,
-          height: 56,
-          decoration: BoxDecoration(color: colors.contactIconBackground, borderRadius: BorderRadius.circular(14)),
-          child: Icon(Icons.mail_rounded, size: 26, color: colors.contactIcon),
+          width: 42,
+          height: 42,
+          decoration: BoxDecoration(color: colors.contactIconBackground, borderRadius: BorderRadius.circular(10)),
+          child: Icon(Icons.mail_rounded, size: 20, color: colors.contactIcon),
         ),
       ),
       _ContactItem(
@@ -47,10 +47,10 @@ class ContactSection extends StatelessWidget {
         label: profile.linkedin.label,
         value: profile.linkedin.handle,
         icon: Container(
-          width: 48,
-          height: 48,
+          width: 42,
+          height: 42,
           decoration: BoxDecoration(color: _linkedInBlue, borderRadius: BorderRadius.circular(8)),
-          child: Icon(profile.linkedin.icon, size: 28, color: Colors.white),
+          child: Icon(profile.linkedin.icon, size: 22, color: Colors.white),
         ),
       ),
       _ContactItem(
@@ -58,26 +58,26 @@ class ContactSection extends StatelessWidget {
         label: profile.github.label,
         value: profile.github.handle,
         icon: SizedBox.square(
-          dimension: 48,
-          child: Icon(profile.github.icon, size: 40, color: theme.colorScheme.onSurface),
+          dimension: 42,
+          child: Icon(profile.github.icon, size: 32, color: theme.colorScheme.onSurface),
         ),
       ),
     ];
 
     final layout = switch (screen) {
       ScreenSize.desktop => Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Expanded(flex: 40, child: intro),
+          Expanded(flex: 35, child: intro),
           const SizedBox(width: 24),
           Expanded(
-            flex: 60,
-            // Items keep their natural width and spread out; they wrap rather than truncate if space runs short.
-            child: Wrap(
-              alignment: WrapAlignment.spaceBetween,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              spacing: 16,
-              runSpacing: 16,
-              children: items,
+            flex: 65,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                for (final item in items)
+                  Flexible(child: item),
+              ],
             ),
           ),
         ],
@@ -87,7 +87,13 @@ class ContactSection extends StatelessWidget {
         children: [
           intro,
           const SizedBox(height: 28),
-          Wrap(spacing: 40, runSpacing: 20, children: items),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              for (final item in items)
+                Flexible(child: item),
+            ],
+          ),
         ],
       ),
       ScreenSize.mobile => Column(
@@ -132,26 +138,26 @@ class _ContactItem extends StatelessWidget {
       url: url,
       builder: (context, open) => InkWell(
         onTap: open,
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(12),
         child: Padding(
-          padding: const EdgeInsets.all(6),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               ExcludeSemantics(child: icon),
-              const SizedBox(width: 16),
+              const SizedBox(width: 10),
               Flexible(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(label, style: theme.textTheme.titleMedium?.copyWith(fontSize: 15.5)),
+                    Text(label, style: theme.textTheme.titleMedium?.copyWith(fontSize: 14)),
                     const SizedBox(height: 2),
                     Text(
                       value,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 13.5, color: colors.textMuted),
+                      style: TextStyle(fontSize: 12.5, color: colors.textMuted),
                     ),
                   ],
                 ),

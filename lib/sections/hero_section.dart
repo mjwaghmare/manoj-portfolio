@@ -6,9 +6,9 @@ import '../core/constants/app_constants.dart';
 import '../core/theme/app_fonts.dart';
 import '../core/theme/app_theme.dart';
 import '../data/portfolio_data.dart';
-import '../widgets/external_link.dart';
 import '../widgets/fade_slide_in.dart';
 import '../widgets/gradient_widgets.dart';
+import '../widgets/resume_download_button.dart';
 import '../widgets/section_container.dart';
 
 /// Shared by both hero buttons so they render at identical sizes.
@@ -103,17 +103,13 @@ class _HeroIntro extends StatelessWidget {
             spacing: 18,
             runSpacing: 14,
             children: [
-              ExternalLink(
+              ResumeDownloadButton(
                 url: profile.resumeUrl,
-                builder: (context, open) => GradientButton(
-                  label: 'Download Resume',
-                  onPressed: open,
-                  colors: colors.buttonGradient,
-                  width: _heroButtonSize.width,
-                  height: _heroButtonSize.height,
-                  horizontalPadding: 16,
-                  fontSize: 15,
-                ),
+                colors: colors.buttonGradient,
+                width: _heroButtonSize.width,
+                height: _heroButtonSize.height,
+                horizontalPadding: 16,
+                fontSize: 15,
               ),
               _OutlineButton(label: 'Contact Me', onPressed: () => onNavigate(PortfolioSection.contact)),
             ],
