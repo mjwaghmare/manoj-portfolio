@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:manoj_portfolio/core/theme/app_theme.dart';
 import 'package:manoj_portfolio/core/theme/theme_provider.dart';
+import 'package:manoj_portfolio/data/portfolio_data.dart';
 import 'package:manoj_portfolio/main.dart';
 import 'package:manoj_portfolio/models/project_model.dart';
 import 'package:manoj_portfolio/widgets/gradient_widgets.dart';
@@ -43,7 +44,8 @@ void main() {
     await _pumpApp(tester, size: const Size(1440, 900));
 
     for (final type in ProjectType.values) {
-      expect(find.text(type.label, skipOffstage: false), findsOneWidget);
+      final count = PortfolioData.projects.where((project) => project.type == type).length;
+      expect(find.text(type.label, skipOffstage: false), findsNWidgets(count));
     }
   });
 

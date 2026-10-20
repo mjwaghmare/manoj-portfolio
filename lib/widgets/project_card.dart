@@ -4,6 +4,7 @@ import '../core/theme/app_theme.dart';
 import '../models/project_model.dart';
 import 'external_link.dart';
 import 'hover_card.dart';
+import 'project_banner.dart';
 import 'skill_chip.dart';
 
 class ProjectCard extends StatelessWidget {
@@ -45,7 +46,7 @@ class ProjectCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          AspectRatio(aspectRatio: 1.94, child: _ProjectVisual(project: project)),
+          AspectRatio(aspectRatio: 1.94, child: ProjectBanner(project: project)),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 22, 20, 20),
@@ -82,39 +83,6 @@ class ProjectCard extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class _ProjectVisual extends StatelessWidget {
-  const _ProjectVisual({required this.project});
-
-  final ProjectModel project;
-
-  @override
-  Widget build(BuildContext context) {
-    final asset = project.imageAsset;
-
-    return asset != null
-        ? Image.asset(
-            asset,
-            fit: BoxFit.cover,
-            alignment: project.imageAlignment,
-            semanticLabel: '${project.title} app screenshot',
-            // Decode at roughly the displayed size instead of full resolution.
-            cacheWidth: 720,
-          )
-        : ExcludeSemantics(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: project.placeholderGradient,
-                ),
-              ),
-              child: Center(child: Icon(project.placeholderIcon, size: 56, color: Colors.white.withValues(alpha: 0.9))),
-            ),
-          );
   }
 }
 

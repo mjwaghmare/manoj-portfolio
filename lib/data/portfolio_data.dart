@@ -96,33 +96,46 @@ abstract final class PortfolioData {
     ),
   ];
 
+  // Each banner is drawn from `category`, the headline and `bannerGradient`; client apps
+  // never show their screenshots.
   static const projects = [
     ProjectModel(
+      title: 'SmartMariner',
+      // Project descriptions are sized to fill three lines on the desktop card.
+      description:
+          'Marketplace for boat owners, service providers and dealers. Sole mobile engineer, '
+          'from greenfield to production.',
+      type: ProjectType.professional,
+      tags: ['Flutter', 'BLoC/Cubit', 'OAuth/SSO'],
+      category: 'Marine marketplace',
+      headline: 'Owners, providers',
+      headlineAccent: 'and dealers',
+      bannerGradient: [Color(0xFF007A70), Color(0xFF00453F)],
+      url: 'https://apps.apple.com/us/app/smartmariner/id6757733631',
+    ),
+    ProjectModel(
       title: 'PCLive247',
-      description: 'Live auction app for sports cards with real-time bidding, Stripe payments and alerts.',
+      description:
+          'Live auction app for sports cards with real-time WebSocket bidding, Stripe payments and push alerts.',
       type: ProjectType.professional,
       tags: ['Flutter', 'WebSockets', 'Real-time'],
-      placeholderIcon: Icons.gavel_rounded,
-      placeholderGradient: [Color(0xFF14161D), Color(0xFF2C303C)],
-      url: 'https://pclive247.com/',
+      category: 'Sports cards',
+      headline: 'Live auctions,',
+      headlineAccent: 'real-time bids',
+      bannerGradient: [Color(0xFF0A72DA), Color(0xFF003F9E)],
+      url: 'https://apps.apple.com/us/app/pclive247/id6448715934',
     ),
     ProjectModel(
       title: 'Popverse',
-      description: 'Track, discover and manage your favorite TV shows and movies using TMDB.',
+      description:
+          'Track, discover and manage your favorite TV shows and movies, with titles, ratings and trends '
+          'from the TMDB API.',
       type: ProjectType.personal,
       tags: ['Flutter', 'TMDB API', 'Firebase'],
-      placeholderIcon: Icons.movie_filter_outlined,
-      placeholderGradient: [Color(0xFF3A2D6B), Color(0xFF8C6BC8)],
-      imageAsset: 'assets/images/projects/popverse.jpg',
-    ),
-    ProjectModel(
-      title: 'Honeywell PDV',
-      // TODO(manoj): Confirm this description and the tags; no source files were available locally.
-      description: 'Flutter concept for an enterprise portal bringing business dashboards into one app.',
-      type: ProjectType.concept,
-      tags: ['Flutter', 'Dashboards', 'Enterprise'],
-      placeholderIcon: Icons.dashboard_outlined,
-      placeholderGradient: [Color(0xFF4F86D4), Color(0xFFA9C5EC)],
+      category: 'Movie & TV tracker',
+      headline: 'Every show,',
+      headlineAccent: 'one watchlist',
+      bannerGradient: [Color(0xFF8C6BC8), Color(0xFF3A2D6B)],
     ),
   ];
 }
