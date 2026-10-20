@@ -5,10 +5,11 @@ import '../core/constants/app_constants.dart';
 import '../core/theme/app_theme.dart';
 import '../core/theme/theme_provider.dart';
 import '../data/portfolio_data.dart';
+import 'gradient_widgets.dart';
 import 'resume_download_button.dart';
 import 'section_container.dart';
 
-/// Sticky top bar: logo, centered section navigation and theme toggle.
+/// Sticky top bar: logo, centered section navigation, "Let's talk" button and theme toggle.
 /// Navigation collapses into the end drawer below desktop width.
 class PortfolioHeader extends StatelessWidget {
   const PortfolioHeader({
@@ -26,7 +27,8 @@ class PortfolioHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = PortfolioColors.of(context);
-    final showInlineNav = ScreenSize.of(context).isDesktop;
+    final screen = ScreenSize.of(context);
+    final showInlineNav = screen.isDesktop;
     final logo = BrandLogo(onTap: () => onNavigate(PortfolioSection.home));
 
     return Semantics(
@@ -54,6 +56,20 @@ class PortfolioHeader extends StatelessWidget {
                 )
               else
                 const Spacer(),
+              // Phones have no room beside the menu button; their drawer lists Contact.
+              if (!screen.isMobile) ...[
+                GradientButton(
+                  label: 'Let\'s talk',
+                  onPressed: () => onNavigate(PortfolioSection.contact),
+                  colors: colors.buttonGradient,
+                  height: 40,
+                  horizontalPadding: 18,
+                  radius: 20,
+                  glow: false,
+                  fontSize: 14,
+                ),
+                const SizedBox(width: 12),
+              ],
               ThemeTogglePill(themeProvider: themeProvider),
               if (!showInlineNav) ...[
                 const SizedBox(width: 8),
@@ -116,19 +132,21 @@ class _NavItems extends StatelessWidget {
       builder: (context, active, _) => Row(
         mainAxisSize: MainAxisSize.min,
         children: [
+          // Contact is the "Let's talk" button instead.
           for (final section in PortfolioSection.navOrder)
-            Semantics(
-              selected: section == active,
-              child: TextButton(
-                onPressed: () => onNavigate(section),
-                style: TextButton.styleFrom(
-                  foregroundColor: section == active ? activeColor : colors.textMuted,
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  textStyle: theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w500),
+            if (section != PortfolioSection.contact)
+              Semantics(
+                selected: section == active,
+                child: TextButton(
+                  onPressed: () => onNavigate(section),
+                  style: TextButton.styleFrom(
+                    foregroundColor: section == active ? activeColor : colors.textMuted,
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    textStyle: theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w500),
+                  ),
+                  child: Text(section.label),
                 ),
-                child: Text(section.label),
               ),
-            ),
         ],
       ),
     );

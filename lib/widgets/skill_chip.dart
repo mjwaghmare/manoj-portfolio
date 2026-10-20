@@ -13,11 +13,12 @@ class SkillChip extends StatelessWidget {
     final colors = PortfolioColors.of(context);
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(color: colors.tagBackground, borderRadius: BorderRadius.circular(999)),
       child: Text(
         label,
-        style: TextStyle(fontSize: 13.5, height: 1.3, fontWeight: FontWeight.w500, color: colors.tagText),
+        maxLines: 1,
+        style: TextStyle(fontSize: 12.5, height: 1.3, fontWeight: FontWeight.w500, color: colors.tagText),
       ),
     );
   }

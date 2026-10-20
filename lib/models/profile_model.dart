@@ -27,6 +27,7 @@ class ProfileModel {
     required this.contactMessage,
     required this.linkedin,
     required this.github,
+    required this.youtube,
     this.photoAsset,
     this.handwrittenNote = const [],
   });
@@ -55,6 +56,7 @@ class ProfileModel {
   final String contactMessage;
   final SocialLink linkedin;
   final SocialLink github;
+  final SocialLink youtube;
 
   /// Optional portrait in `assets/images/`. A transparent cut-out works best.
   /// A monogram is shown when null.
@@ -63,5 +65,6 @@ class ProfileModel {
   /// Handwritten lines beside the portrait. Empty hides the note.
   final List<String> handwrittenNote;
 
-  List<SocialLink> get socialLinks => [linkedin, github];
+  /// Social profiles in display order, as shown in the footer.
+  List<SocialLink> get socialLinks => [linkedin, github, youtube];
 }

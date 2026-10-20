@@ -14,6 +14,9 @@ import '../models/tech_item_model.dart';
 abstract final class PortfolioData {
   static const _githubUrl = 'https://github.com/mjwaghmare';
 
+  /// Channel from the resume header; change it here if the channel moves.
+  static const _youtubeUrl = 'https://www.youtube.com/@MWStudiooo';
+
   /// Target of the "View All Projects" link.
   static const moreProjectsUrl = _githubUrl;
 
@@ -39,7 +42,10 @@ abstract final class PortfolioData {
         'I build scalable, production-ready cross-platform apps for Android and iOS, focusing on performance, '
         'clean architecture and user experience. I enjoy solving complex problems, working in Agile teams, '
         'and turning ideas into reliable products.',
-    contactMessage: 'I\'m open to new opportunities and interesting projects.\nFeel free to reach out!',
+    // An invitation to talk shop, not a job-search notice; availability lives on the resume and LinkedIn.
+    contactMessage:
+        'Building a mobile product or scaling a Flutter app? Let\'s talk architecture, real-time features '
+        'and getting to production.',
     handwrittenNote: ['Flutter', 'Mobile Apps', 'Clean Code', 'Better UX'],
     linkedin: SocialLink(
       label: 'LinkedIn',
@@ -48,6 +54,7 @@ abstract final class PortfolioData {
       icon: BrandIcons.linkedin,
     ),
     github: SocialLink(label: 'GitHub', url: _githubUrl, handle: '/mjwaghmare', icon: BrandIcons.github),
+    youtube: SocialLink(label: 'YouTube', url: _youtubeUrl, handle: '@MWStudiooo', icon: BrandIcons.youtube),
   );
 
   static const aboutHighlights = [

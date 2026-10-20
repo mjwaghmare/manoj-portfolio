@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:manoj_portfolio/core/theme/app_theme.dart';
 import 'package:manoj_portfolio/core/theme/theme_provider.dart';
@@ -6,6 +7,7 @@ import 'package:manoj_portfolio/data/portfolio_data.dart';
 import 'package:manoj_portfolio/main.dart';
 import 'package:manoj_portfolio/models/project_model.dart';
 import 'package:manoj_portfolio/sections/contact_section.dart';
+import 'package:manoj_portfolio/sections/footer_section.dart';
 import 'package:manoj_portfolio/widgets/gradient_widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,6 +25,16 @@ Future<ThemeProvider> _pumpApp(WidgetTester tester, {required Size size, Map<Str
 }
 
 void main() {
+  // Lay text out with the site's real font instead of the wide test font, so layout
+  // checks such as "one line on desktop" match what visitors see.
+  setUpAll(() async {
+    final loader = FontLoader('PlusJakartaSans');
+    for (final weight in ['Regular', 'Medium', 'SemiBold', 'Bold', 'ExtraBold']) {
+      loader.addFont(rootBundle.load('assets/fonts/PlusJakartaSans-$weight.ttf'));
+    }
+    await loader.load();
+  });
+
   for (final (name, size) in [
     ('desktop', const Size(1440, 900)),
     ('tablet', const Size(820, 1180)),
@@ -98,6 +110,20 @@ void main() {
     expect(find.text('PCLive247'), findsWidgets);
   });
 
+  testWidgets('"Let\'s talk" in the header scrolls to the contact section', (tester) async {
+    await _pumpApp(tester, size: const Size(1440, 900));
+
+    // It replaces the plain Contact link on desktop.
+    expect(find.widgetWithText(TextButton, 'Contact'), findsNothing);
+
+    await tester.tap(find.widgetWithText(GradientButton, 'Let\'s talk'));
+    await tester.pumpAndSettle();
+
+    final scrollable = tester.state<ScrollableState>(find.byType(Scrollable).first);
+    expect(scrollable.position.pixels, greaterThan(0));
+    expect(tester.getCenter(find.byType(ContactSection)).dy, lessThan(900));
+  });
+
   testWidgets('mobile menu opens the navigation drawer', (tester) async {
     await _pumpApp(tester, size: const Size(375, 812));
 
@@ -149,9 +175,22 @@ void main() {
     final emailY = tester.getCenter(contact('Email')).dy;
     final linkedInY = tester.getCenter(contact('LinkedIn')).dy;
     final gitHubY = tester.getCenter(contact('GitHub')).dy;
+    final youTubeY = tester.getCenter(contact('YouTube')).dy;
 
     expect((emailY - linkedInY).abs(), lessThan(1.0));
     expect((emailY - gitHubY).abs(), lessThan(1.0));
+    expect((emailY - youTubeY).abs(), lessThan(1.0));
+  });
+
+  testWidgets('footer links every social profile', (tester) async {
+    await _pumpApp(tester, size: const Size(1440, 900));
+
+    for (final label in ['LinkedIn', 'GitHub', 'YouTube']) {
+      expect(
+        find.descendant(of: find.byType(FooterSection), matching: find.byTooltip(label), skipOffstage: false),
+        findsOneWidget,
+      );
+    }
   });
 }
 

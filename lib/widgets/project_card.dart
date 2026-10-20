@@ -75,7 +75,19 @@ class ProjectCard extends StatelessWidget {
                   Text(project.description, style: TextStyle(fontSize: 15, height: 1.65, color: colors.projectBody)),
                   const Spacer(),
                   const SizedBox(height: 16),
-                  Wrap(spacing: 12, runSpacing: 10, children: [for (final tag in project.tags) SkillChip(tag)]),
+                  // Always one line; scales down rather than wrapping if a card is too narrow.
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Row(
+                      children: [
+                        for (final (index, tag) in project.tags.indexed) ...[
+                          if (index > 0) const SizedBox(width: 8),
+                          SkillChip(tag),
+                        ],
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
