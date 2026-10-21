@@ -20,7 +20,7 @@ class RevealOnScroll extends StatefulWidget {
   State<RevealOnScroll> createState() => _RevealOnScrollState();
 }
 
-class _RevealOnScrollState extends State<RevealOnScroll> with SingleTickerProviderStateMixin {
+class _RevealOnScrollState extends State<RevealOnScroll> with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   static const _duration = Duration(milliseconds: 600);
   static const _rise = 16.0;
 
@@ -32,7 +32,22 @@ class _RevealOnScrollState extends State<RevealOnScroll> with SingleTickerProvid
 
   ScrollableState? _scrollable;
 
+  /// The position [_check] listens to. Tracked separately from [_scrollable] because a
+  /// Scrollable replaces its position when e.g. the pixel ratio or gesture settings change,
+  /// which happens after load on real phones.
+  ScrollPosition? _position;
+
   bool get _hidden => _controller.status == AnimationStatus.dismissed;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  /// The viewport can grow without any scrolling, e.g. when a phone browser's toolbar collapses.
+  @override
+  void didChangeMetrics() => _scheduleCheck();
 
   /// The motion runs in the last [_duration] of the controller, after [RevealOnScroll.delay].
   CurvedAnimation _curve() => CurvedAnimation(
@@ -59,23 +74,29 @@ class _RevealOnScrollState extends State<RevealOnScroll> with SingleTickerProvid
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    if (MediaQuery.disableAnimationsOf(context)) {
+    // Nothing to watch, or no motion wanted: show the content rather than risk hiding it.
+    final scrollable = Scrollable.maybeOf(context);
+    if (MediaQuery.disableAnimationsOf(context) || scrollable == null) {
       _stopListening();
       _controller.value = 1;
       return;
     }
 
-    final scrollable = Scrollable.maybeOf(context);
-    if (scrollable != _scrollable) {
-      _stopListening();
-      _scrollable = scrollable?..position.addListener(_check);
+    // Called again when the Scrollable swaps in a new position, so the listener follows it.
+    _scrollable = scrollable;
+    final position = scrollable.position;
+    if (position != _position) {
+      _position?.removeListener(_check);
+      _position = position..addListener(_check);
     }
-    // Content already on screen when the page loads reveals without any scrolling.
-    WidgetsBinding.instance.addPostFrameCallback((_) => _check());
+    // Content already on screen (or brought there by the swap) reveals without scrolling.
+    _scheduleCheck();
   }
 
+  void _scheduleCheck() => WidgetsBinding.instance.addPostFrameCallback((_) => _check());
+
   void _check() {
-    if (!mounted) return;
+    if (!mounted || _position == null) return;
     final box = context.findRenderObject() as RenderBox?;
     final viewport = _scrollable?.context.findRenderObject() as RenderBox?;
     if (box == null || !box.attached || !box.hasSize || viewport == null || !viewport.hasSize) return;
@@ -94,12 +115,14 @@ class _RevealOnScrollState extends State<RevealOnScroll> with SingleTickerProvid
   }
 
   void _stopListening() {
-    _scrollable?.position.removeListener(_check);
+    _position?.removeListener(_check);
+    _position = null;
     _scrollable = null;
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _stopListening();
     _progress.dispose();
     _controller.dispose();

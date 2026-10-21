@@ -139,6 +139,25 @@ void main() {
     expect(headingOpacity(), 1);
   });
 
+  // Real phones change the pixel ratio or gesture settings after load, which makes the
+  // Scrollable replace its ScrollPosition; reveals must follow the new one.
+  testWidgets('sections still reveal after the scroll position is replaced', (tester) async {
+    await _pumpApp(tester, size: const Size(390, 844));
+
+    tester.view.devicePixelRatio = 2;
+    tester.view.physicalSize = const Size(780, 1688);
+    await tester.pumpAndSettle();
+
+    await tester.drag(find.byType(SingleChildScrollView), const Offset(0, -900));
+    await tester.pumpAndSettle();
+
+    final fade = find.descendant(
+      of: find.ancestor(of: find.text('Tech Stack'), matching: find.byType(RevealOnScroll)),
+      matching: find.byType(FadeTransition),
+    );
+    expect(tester.widget<FadeTransition>(fade.first).opacity.value, 1);
+  });
+
   testWidgets('a changed reveal delay applies to the next reveal', (tester) async {
     final controller = ScrollController();
     addTearDown(controller.dispose);
