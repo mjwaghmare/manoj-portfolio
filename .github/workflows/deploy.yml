@@ -37,7 +37,9 @@ jobs:
       - run: flutter test
 
       # The site is served from /manoj-portfolio/, not the domain root.
-      - run: flutter build web --release --base-href /manoj-portfolio/
+      # --wasm ships dart2wasm + skwasm (with a JS fallback), which blocks the main thread far less
+      # on startup than the JS + CanvasKit build. web/index.html preloads the wasm entrypoint.
+      - run: flutter build web --release --wasm --base-href /manoj-portfolio/
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

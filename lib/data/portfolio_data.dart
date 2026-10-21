@@ -24,14 +24,14 @@ abstract final class PortfolioData {
     name: 'Manoj Waghmare',
     initials: 'MW',
     // Trimmed, transparent version of assets/images/profile.png (the MWStudio wordmark).
-    logoAsset: 'assets/images/mwstudio_logo.png',
+    logoAsset: 'assets/images/mwstudio_logo.webp',
     role: 'Senior Mobile Developer',
     location: 'Pune, India',
     email: 'mjwaghmare@gmail.com',
     // Served from web/Manoj_Waghmare_Resume.pdf. Replace the file to update it.
     resumeUrl: 'Manoj_Waghmare_Resume.pdf',
     // Transparent cut-out portrait. Set to null to show the "MW" monogram instead.
-    photoAsset: 'assets/images/mj.png',
+    photoAsset: 'assets/images/mj.webp',
     // \u2011 is a non-breaking hyphen (mapped to the hyphen glyph in the bundled font),
     // so "high-performance" never splits across lines.
     headline: 'Building high\u2011performance mobile experiences',

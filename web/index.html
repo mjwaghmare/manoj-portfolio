@@ -53,6 +53,29 @@
   <!-- The loader's font is the app's own bundled asset, so Flutter reuses the cached file. -->
   <link rel="preload" href="assets/assets/fonts/PlayfairDisplay-SemiBoldItalic.ttf" as="font" type="font/ttf" crossorigin>
 
+  <!-- flutter_bootstrap.js only discovers these after it runs, so start the downloads now.
+       The site is built with --wasm, so the entrypoint is main.dart.mjs + main.dart.wasm
+       (browsers without WasmGC fall back to main.dart.js, which is left to load on demand).
+       Fonts and images are fetched by the engine with fetch(), hence as="fetch" + crossorigin;
+       they're low priority so they don't hold up the bootstrap and entrypoint.
+       Keep the font list in sync with pubspec.yaml and the image list with PortfolioData. -->
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="flutter_bootstrap.js" as="script">
+  <link rel="modulepreload" href="main.dart.mjs">
+  <link rel="preload" href="main.dart.wasm" as="fetch" crossorigin>
+  <link rel="preload" href="assets/assets/fonts/PlusJakartaSans-Regular.ttf" as="fetch" crossorigin fetchpriority="low">
+  <link rel="preload" href="assets/assets/fonts/PlusJakartaSans-Medium.ttf" as="fetch" crossorigin fetchpriority="low">
+  <link rel="preload" href="assets/assets/fonts/PlusJakartaSans-SemiBold.ttf" as="fetch" crossorigin fetchpriority="low">
+  <link rel="preload" href="assets/assets/fonts/PlusJakartaSans-Bold.ttf" as="fetch" crossorigin fetchpriority="low">
+  <link rel="preload" href="assets/assets/fonts/PlusJakartaSans-ExtraBold.ttf" as="fetch" crossorigin fetchpriority="low">
+  <link rel="preload" href="assets/assets/fonts/BebasNeue-Regular.ttf" as="fetch" crossorigin fetchpriority="low">
+  <link rel="preload" href="assets/assets/fonts/Caveat.ttf" as="fetch" crossorigin fetchpriority="low">
+  <link rel="preload" href="assets/assets/fonts/BrandIcons.ttf" as="fetch" crossorigin fetchpriority="low">
+  <link rel="preload" href="assets/fonts/MaterialIcons-Regular.otf" as="fetch" crossorigin fetchpriority="low">
+  <link rel="preload" href="assets/assets/images/mwstudio_logo.webp" as="fetch" crossorigin fetchpriority="low">
+  <link rel="preload" href="assets/assets/images/mj.webp" as="fetch" crossorigin fetchpriority="low">
+
   <style>
     html, body { margin: 0; height: 100%; background: #FDFDFE; }
     html.dark, html.dark body { background: #080E16; }
