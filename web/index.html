@@ -75,6 +75,16 @@
   <link rel="preload" href="assets/fonts/MaterialIcons-Regular.otf" as="fetch" crossorigin fetchpriority="low">
   <link rel="preload" href="assets/assets/images/mwstudio_logo.webp" as="fetch" crossorigin fetchpriority="low">
   <link rel="preload" href="assets/assets/images/mj.webp" as="fetch" crossorigin fetchpriority="low">
+  <!-- Fetched one after another once the engine has loaded, just before the first frame:
+       the manifests, the engine's built-in Roboto fallback (its URL is fixed per engine version)
+       and the skills logos. Keep the SVG list in sync with PortfolioData.techStack. -->
+  <link rel="preload" href="assets/FontManifest.json" as="fetch" crossorigin>
+  <link rel="preload" href="assets/AssetManifest.bin.json" as="fetch" crossorigin>
+  <link rel="preload" href="https://fonts.gstatic.com/s/roboto/v32/KFOmCnqEu92Fr1Me4GZLCzYlKw.woff2" as="fetch" crossorigin fetchpriority="low">
+  <link rel="preload" href="assets/assets/icons/tech/flutter.svg" as="fetch" crossorigin fetchpriority="low">
+  <link rel="preload" href="assets/assets/icons/tech/dart.svg" as="fetch" crossorigin fetchpriority="low">
+  <link rel="preload" href="assets/assets/icons/tech/android.svg" as="fetch" crossorigin fetchpriority="low">
+  <link rel="preload" href="assets/assets/icons/tech/apple.svg" as="fetch" crossorigin fetchpriority="low">
 
   <style>
     html, body { margin: 0; height: 100%; background: #FDFDFE; }
