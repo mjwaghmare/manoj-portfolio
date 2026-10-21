@@ -144,11 +144,11 @@ abstract final class PortfolioData {
     ),
   ];
 
-  // Each banner is drawn from `category`, the headline and `bannerGradient`; client apps
-  // never show their screenshots.
+  // Each banner is drawn from `category`, the headline and `bannerGradient`. Client apps stay
+  // anonymous: generic titles, no store links and no screenshots.
   static const projects = [
     ProjectModel(
-      title: 'SmartMariner',
+      title: 'Marine Marketplace',
       // Project descriptions are sized to fill three lines on the desktop card.
       description:
           'Marketplace for boat owners, service providers and dealers. Sole mobile engineer, '
@@ -159,10 +159,9 @@ abstract final class PortfolioData {
       headline: 'Owners, providers',
       headlineAccent: 'and dealers',
       bannerGradient: [Color(0xFF007A70), Color(0xFF00453F)],
-      url: 'https://apps.apple.com/us/app/smartmariner/id6757733631',
     ),
     ProjectModel(
-      title: 'PCLive247',
+      title: 'Live Auction App',
       description:
           'Live auction app for sports cards with real-time WebSocket bidding, Stripe payments and push alerts.',
       type: ProjectType.professional,
@@ -171,7 +170,6 @@ abstract final class PortfolioData {
       headline: 'Live auctions,',
       headlineAccent: 'real-time bids',
       bannerGradient: [Color(0xFF0A72DA), Color(0xFF003F9E)],
-      url: 'https://apps.apple.com/us/app/pclive247/id6448715934',
     ),
     ProjectModel(
       title: 'PopVerse',

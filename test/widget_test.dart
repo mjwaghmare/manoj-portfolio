@@ -107,7 +107,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(scrollable.position.pixels, greaterThan(0));
-    expect(find.text('PCLive247'), findsWidgets);
+    expect(find.text('Live Auction App'), findsWidgets);
   });
 
   testWidgets('sections reveal each time they scroll into view', (tester) async {
