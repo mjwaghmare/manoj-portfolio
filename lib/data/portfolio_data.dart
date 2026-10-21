@@ -174,7 +174,7 @@ abstract final class PortfolioData {
       url: 'https://apps.apple.com/us/app/pclive247/id6448715934',
     ),
     ProjectModel(
-      title: 'Popverse',
+      title: 'PopVerse',
       description:
           'Track, discover and manage your favorite TV shows and movies, with titles, ratings and trends '
           'from the TMDB API.',
@@ -184,6 +184,7 @@ abstract final class PortfolioData {
       headline: 'Every show,',
       headlineAccent: 'one watchlist',
       bannerGradient: [Color(0xFF8C6BC8), Color(0xFF3A2D6B)],
+      url: 'https://github.com/mjwaghmare/TellyBinge',
     ),
   ];
 }
