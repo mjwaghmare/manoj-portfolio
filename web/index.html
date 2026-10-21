@@ -95,10 +95,13 @@
       -webkit-background-clip: text; background-clip: text;
       color: transparent;
       animation: loader-shimmer 3s linear infinite;
+    }
+    #loader .phrase {
+      display: inline-block;
       transition: opacity 0.3s ease, transform 0.3s ease;
     }
-    #loader .text.out { opacity: 0; transform: translateY(-0.25em); }
-    #loader .text.enter { opacity: 0; transform: translateY(0.25em); transition: none; }
+    #loader .phrase.out { opacity: 0; transform: translateY(-0.25em); }
+    #loader .phrase.enter { opacity: 0; transform: translateY(0.25em); transition: none; }
 
     #loader .dots span {
       display: inline-block; color: var(--g2);
@@ -114,7 +117,7 @@
     }
     @media (prefers-reduced-motion: reduce) {
       #loader .text, #loader .dots span { animation: none; }
-      #loader .text.out, #loader .text.enter { transform: none; }
+      #loader .phrase.out, #loader .phrase.enter { transform: none; }
       #loader .dots span { opacity: 0.6; }
     }
   </style>
@@ -140,25 +143,26 @@
     <p><a href="https://github.com/mjwaghmare">GitHub</a> · <a href="https://www.linkedin.com/in/manoj-waghmare-90a883124/">LinkedIn</a></p>
   </noscript>
   <div id="loader" role="status" aria-label="Loading">
-    <p class="title" aria-hidden="true"><span class="text">Warming up the widgets</span><span class="dots"><span>.</span><span>.</span><span>.</span></span></p>
+    <p class="title" aria-hidden="true"><span class="phrase"><span class="text">Warming up the widgets</span><span class="dots"><span>.</span><span>.</span><span>.</span></span></span></p>
   </div>
   <script>
     (function () {
       var loader = document.getElementById('loader');
+      var phrase = loader.querySelector('.phrase');
       var text = loader.querySelector('.text');
       var lines = ['Warming up the widgets', 'Painting the pixels', 'Almost there'];
       var index = 0;
 
       // Each line slides up and out, then the next one rises in from below.
       var cycle = setInterval(function () {
-        text.classList.add('out');
+        phrase.classList.add('out');
         setTimeout(function () {
           index = (index + 1) % lines.length;
           text.textContent = lines[index];
-          text.classList.remove('out');
-          text.classList.add('enter');
-          void text.offsetWidth; // Commit the start position so the entrance animates.
-          text.classList.remove('enter');
+          phrase.classList.remove('out');
+          phrase.classList.add('enter');
+          void phrase.offsetWidth; // Commit the start position so the entrance animates.
+          phrase.classList.remove('enter');
         }, 300);
       }, 1500);
 
