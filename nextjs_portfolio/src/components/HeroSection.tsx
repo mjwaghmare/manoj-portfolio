@@ -48,14 +48,11 @@ function HeroVisual() {
 
   return (
     <div className="relative w-full max-w-[500px] aspect-[500/440] select-none mx-auto lg:mr-0">
-      {/* Studio Backlight Aura in Dark Mode */}
-      <div className="absolute left-[6%] top-[12%] w-[72%] h-[76%] rounded-full bg-gradient-to-tr from-blue-600/40 via-indigo-600/35 to-cyan-400/30 blur-[45px] pointer-events-none dark:opacity-100 opacity-20" />
-
       {/* Background Organic Blob (width 390/500 = 78%, height 384/440 = 87.2%, top 56/440 = 12.7%) */}
       <motion.svg
         animate={{
-          scale: [1, 1.025, 1],
-          rotate: [0, 1.2, 0],
+          scale: [1, 1.02, 1],
+          rotate: [0, 1, 0],
         }}
         transition={{
           duration: 7,
@@ -67,39 +64,28 @@ function HeroVisual() {
         fill="none"
       >
         <defs>
-          {/* Luminous Dark Mode Gradient */}
+          {/* Luminous, clean Dark Mode Gradient */}
           <linearGradient id="darkBlobGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#2563eb" stopOpacity="0.9" />
-            <stop offset="45%" stopColor="#3b82f6" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#6366f1" stopOpacity="0.85" />
+            <stop offset="0%" stopColor="#1d4ed8" />
+            <stop offset="50%" stopColor="#2563eb" />
+            <stop offset="100%" stopColor="#4338ca" />
           </linearGradient>
-
-          {/* Glow Filter */}
-          <filter id="blobGlow" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="24" />
-          </filter>
         </defs>
 
-        {/* Dark Mode Luminous Glow Aura */}
-        <path
-          d={blobPath}
-          fill="url(#darkBlobGradient)"
-          filter="url(#blobGlow)"
-          className="hidden dark:block opacity-60"
-        />
-
-        {/* Light Mode Blob */}
+        {/* Light Mode Clean Blob */}
         <path
           d={blobPath}
           fill="var(--blob)"
           className="dark:hidden transition-colors duration-300"
         />
 
-        {/* Dark Mode Gradient Blob */}
+        {/* Dark Mode Minimal Crisp Blob with subtle 1px border stroke */}
         <path
           d={blobPath}
           fill="url(#darkBlobGradient)"
-          className="hidden dark:block opacity-90 transition-opacity"
+          stroke="rgba(255, 255, 255, 0.12)"
+          strokeWidth="1"
+          className="hidden dark:block transition-all"
         />
       </motion.svg>
 
@@ -109,7 +95,7 @@ function HeroVisual() {
         <img
           src={getAssetPath(profile.photoAsset)}
           alt={`Portrait of ${profile.name}`}
-          className="w-full h-full object-contain object-bottom select-none pointer-events-none drop-shadow-[0_12px_24px_rgba(0,0,0,0.4)]"
+          className="w-full h-full object-contain object-bottom select-none pointer-events-none"
         />
       </div>
 
