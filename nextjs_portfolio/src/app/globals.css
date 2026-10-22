@@ -1,0 +1,140 @@
+@import "tailwindcss";
+@source "../components";
+@source "../app";
+
+*, ::before, ::after {
+  box-sizing: border-box;
+}
+
+img, svg, video, canvas, audio, iframe, embed, object {
+  display: block;
+  max-width: 100%;
+}
+
+:root {
+  --background: #FDFDFE;
+  --surface: #FFFFFF;
+  --foreground: #0B0F1A;
+  --heading: #0B0F1A;
+  --body: #505765;
+  --text-muted: #656B7F;
+  --role-text: #3E4353;
+  --brand-g1: #0A5FE0;
+  --brand-g2: #5E3DF7;
+  --button-g1: #425CEA;
+  --button-g2: #7B5EF4;
+  --accent-g1: #2B55EA;
+  --accent-g2: #A955FD;
+  --hero-body: #505765;
+  --nav-active: #0B0F1A;
+  --badge-bg: #EBF0FD;
+  --badge-text: #3E4A66;
+  --stat-card-bg: #F4F6FD;
+  --tile-bg: #F7F8FA;
+  --tile-border: #EEF0F4;
+  --footer-bg: #F7F8FA;
+  --tag-bg: #E8F0FC;
+  --tag-text: #2D66D8;
+  --link: #345DE3;
+  --timeline-line: #C5CDE3;
+  --timeline-dot: #0E5EEF;
+  --blob: #DDE7FC;
+  --blob-glow: rgba(221, 231, 252, 0);
+  --handwriting: #2A2F3A;
+  --card-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+  --card-shadow-hover: 0 12px 28px rgba(0, 0, 0, 0.12);
+  --project-card-bg: #FFFFFF;
+  --project-card-border: #E8EBF1;
+  --project-title: #0B0F1A;
+  --project-body: #5A6070;
+  --contact-icon-bg: #ECF1FD;
+  --contact-icon: #2257F6;
+  --outline-btn-border: #D9DCE3;
+  --outline-btn-bg: #FFFFFF;
+  --toggle-track: #F2F4F7;
+  --toggle-knob: #0F1420;
+  --toggle-icon: #1C2731;
+}
+
+.dark {
+  --background: #080E16;
+  --surface: #101720;
+  --foreground: #F5F7FA;
+  --heading: #F5F7FA;
+  --body: #9AA3B2;
+  --text-muted: #A3AAB8;
+  --role-text: #C9CED8;
+  --brand-g1: #3792F5;
+  --brand-g2: #704DF7;
+  --button-g1: #4B5BEB;
+  --button-g2: #7057F0;
+  --accent-g1: #3B63F0;
+  --accent-g2: #6D7CF5;
+  --hero-body: #E6E8EE;
+  --nav-active: #5B7BF0;
+  --badge-bg: #272D3B;
+  --badge-text: #D7DCE6;
+  --stat-card-bg: #101720;
+  --tile-bg: #111720;
+  --tile-border: #19212C;
+  --footer-bg: #0F161F;
+  --tag-bg: #E8F0FC;
+  --tag-text: #2D66D8;
+  --link: #5B7BE0;
+  --timeline-line: #2A3550;
+  --timeline-dot: #3B7BF6;
+  --blob: #17205A;
+  --blob-glow: rgba(23, 32, 90, 0.7);
+  --handwriting: #D5D9E2;
+  --card-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  --card-shadow-hover: 0 12px 28px rgba(0, 0, 0, 0.55);
+  --project-card-bg: #FFFFFF;
+  --project-card-border: #DCE2EE;
+  --project-title: #0B0F1A;
+  --project-body: #5A6070;
+  --contact-icon-bg: #242C41;
+  --contact-icon: #8EA2E0;
+  --outline-btn-border: #3A4150;
+  --outline-btn-bg: #080E16;
+  --toggle-track: #161D29;
+  --toggle-knob: #2C3445;
+  --toggle-icon: #E5E7EB;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--body);
+  font-family: var(--font-sans), 'Plus Jakarta Sans', system-ui, sans-serif;
+  transition: background-color 0.35s ease, color 0.35s ease;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-display), 'Bebas Neue', sans-serif;
+}
+.font-editorial {
+  font-family: var(--font-editorial), 'Playfair Display', Georgia, serif;
+}
+.font-handwriting {
+  font-family: var(--font-handwriting), 'Caveat', cursive;
+}
+
+.bg-brand-gradient {
+  background: linear-gradient(135deg, var(--brand-g1), var(--brand-g2));
+}
+.bg-button-gradient {
+  background: linear-gradient(135deg, var(--button-g1), var(--button-g2));
+}
+.bg-accent-gradient {
+  background: linear-gradient(135deg, var(--accent-g1), var(--accent-g2));
+}
+.text-brand-gradient {
+  background: linear-gradient(135deg, var(--brand-g1), var(--brand-g2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

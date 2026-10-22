@@ -1,0 +1,57 @@
+# Builds the Flutter web app and publishes it to GitHub Pages on every push to main.
+# Site: https://mjwaghmare.github.io/manoj-portfolio/
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time; a newer push supersedes a queued one.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          # Keep in sync with the local SDK (pubspec requires Dart ^3.13.3).
+          flutter-version: 3.47.4
+          cache: true
+
+      - run: flutter pub get
+
+      # A failing check stops the deploy, so a broken build never goes live.
+      - run: flutter analyze
+      - run: flutter test
+
+      # The site is served from /manoj-portfolio/, not the domain root.
+      # --wasm ships dart2wasm + skwasm (with a JS fallback), which blocks the main thread far less
+      # on startup than the JS + CanvasKit build. web/index.html preloads the wasm entrypoint.
+      - run: flutter build web --release --wasm --base-href /manoj-portfolio/
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

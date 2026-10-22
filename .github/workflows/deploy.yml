@@ -1,4 +1,4 @@
-# Builds the Flutter web app and publishes it to GitHub Pages on every push to main.
+# Builds the Next.js portfolio and publishes it to GitHub Pages on every push to main.
 # Site: https://mjwaghmare.github.io/manoj-portfolio/
 name: Deploy to GitHub Pages
 
@@ -23,28 +23,26 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: subosito/flutter-action@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          channel: stable
-          # Keep in sync with the local SDK (pubspec requires Dart ^3.13.3).
-          flutter-version: 3.47.4
-          cache: true
+          node-version: 20
+          cache: npm
+          cache-dependency-path: nextjs_portfolio/package-lock.json
 
-      - run: flutter pub get
+      - name: Install dependencies & Build static export
+        run: |
+          cd nextjs_portfolio
+          npm ci
+          npm run build
 
-      # A failing check stops the deploy, so a broken build never goes live.
-      - run: flutter analyze
-      - run: flutter test
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
-      # The site is served from /manoj-portfolio/, not the domain root.
-      # --wasm ships dart2wasm + skwasm (with a JS fallback), which blocks the main thread far less
-      # on startup than the JS + CanvasKit build. web/index.html preloads the wasm entrypoint.
-      - run: flutter build web --release --wasm --base-href /manoj-portfolio/
-
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: build/web
+          path: nextjs_portfolio/out
 
   deploy:
     needs: build
