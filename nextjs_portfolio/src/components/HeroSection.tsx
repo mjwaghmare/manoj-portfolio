@@ -113,6 +113,9 @@ function HeroVisual() {
   );
 }
 
+import { Spotlight } from './ui/spotlight';
+import { FlipWords } from './ui/flip-words';
+
 export function HeroSection() {
   const profile = PortfolioData.profile;
 
@@ -121,22 +124,28 @@ export function HeroSection() {
   };
 
   const intro = (
-    <div className="flex flex-col items-start w-full">
+    <div className="flex flex-col items-start w-full relative z-10">
       {/* Name and role tagline */}
       <span className="text-[11px] sm:text-[13.5px] font-bold tracking-[1px] sm:tracking-[1.6px] uppercase text-[var(--link)] mb-[14px]">
         {profile.name} · {profile.role}
       </span>
 
-      {/* Main Headline */}
-      <h1 className="text-[31px] sm:text-[38px] lg:text-[42px] font-extrabold leading-[1.18] tracking-[-0.6px] sm:tracking-[-0.9px] lg:tracking-[-1px] text-[var(--heading)] mb-[18px]">
-        {profile.headline.split(profile.headlineAccent)[0]}
-        <span className="text-brand-gradient">{profile.headlineAccent}</span>
+      {/* Main Headline with Aceternity FlipWords */}
+      <h1 className="text-[31px] sm:text-[38px] lg:text-[44px] font-extrabold leading-[1.18] tracking-[-0.6px] sm:tracking-[-0.9px] lg:tracking-[-1px] text-[var(--heading)] mb-[18px]">
+        Building{' '}
+        <FlipWords
+          words={['high-performance', 'scalable', 'fluid', 'production-grade']}
+          className="font-extrabold text-[var(--link)]"
+        />
+        <br />
+        <span>mobile experiences</span>
       </h1>
 
       {/* Hero Intro text */}
       <p className="text-[17px] lg:text-[19px] leading-[1.78] text-[var(--hero-body)] mb-[32px] max-w-[560px]">
         {profile.heroIntroLines.join(' ')}
       </p>
+
 
       {/* Action Buttons */}
       <div className="flex flex-wrap items-center gap-[18px]">
@@ -159,8 +168,14 @@ export function HeroSection() {
   );
 
   return (
-    <section id="home" className="w-full pt-[22px] sm:pt-[24px] pb-[24px] sm:pb-[44px]">
-      <div className="max-w-[1244px] mx-auto px-5 sm:px-10 lg:px-[72px]">
+    <section id="home" className="relative w-full pt-[22px] sm:pt-[24px] pb-[24px] sm:pb-[44px] overflow-hidden">
+      {/* Ambient Hero Spotlight */}
+      <Spotlight
+        className="-top-40 left-0 md:left-60 md:-top-20"
+        fill="#38bdf8"
+      />
+
+      <div className="max-w-[1244px] mx-auto px-5 sm:px-10 lg:px-[72px] relative z-10">
         {/* Desktop: 57% / 43% side by side */}
         <div className="hidden lg:flex items-center justify-between gap-6">
           <div className="w-[57%] pr-6">{intro}</div>

@@ -5,6 +5,8 @@ import { Briefcase, MapPin } from 'lucide-react';
 import { PortfolioData } from '@/data/portfolio-data';
 import { SectionTitle } from './SectionContainer';
 
+import { CardSpotlight } from './ui/card-spotlight';
+
 export function AboutSection() {
   const profile = PortfolioData.profile;
   const highlights = PortfolioData.aboutHighlights;
@@ -22,16 +24,13 @@ export function AboutSection() {
   const highlightCards = (
     <div className="grid grid-cols-3 gap-2.5 sm:gap-4 w-full">
       {highlights.map((item, idx) => (
-        <div
+        <CardSpotlight
           key={idx}
-          style={{
-            backgroundColor: 'var(--stat-card-bg)',
-            borderColor: 'var(--tile-border)',
-          }}
-          className="min-h-[140px] sm:min-h-[164px] p-2 sm:p-3 rounded-[16px] border flex flex-col items-center justify-center text-center shadow-sm"
+          radius={220}
+          className="min-h-[140px] sm:min-h-[164px] p-2 sm:p-4 rounded-[18px] flex flex-col items-center justify-center text-center cursor-default"
         >
           {/* Top slot (height 30px mobile, 36px desktop) */}
-          <div className="h-[30px] sm:h-[36px] flex items-center justify-center">
+          <div className="h-[30px] sm:h-[36px] flex items-center justify-center transition-transform duration-300 group-hover/spotlight:scale-110">
             {item.value ? (
               <span className="font-display text-[36px] sm:text-[44px] leading-none tracking-[0.5px] text-brand-gradient">
                 {item.value}
@@ -43,13 +42,13 @@ export function AboutSection() {
             )}
           </div>
 
-          <div className="h-2.5 sm:h-4" />
+          <div className="h-2.5 sm:h-3.5" />
 
           {/* Label slot */}
-          <span className="text-[12px] sm:text-[14.5px] leading-[1.45] font-medium text-[var(--heading)]/85 whitespace-pre-line text-center">
+          <span className="text-[12px] sm:text-[14px] leading-[1.45] font-semibold text-[var(--heading)]/85 whitespace-pre-line text-center">
             {item.label}
           </span>
-        </div>
+        </CardSpotlight>
       ))}
     </div>
   );

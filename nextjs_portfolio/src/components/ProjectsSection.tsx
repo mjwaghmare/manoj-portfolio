@@ -4,7 +4,7 @@ import React from 'react';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { PortfolioData, Project } from '@/data/portfolio-data';
 import { SectionContainer } from './SectionContainer';
-import { HoverCard } from './HoverCard';
+import { CardSpotlight } from './ui/card-spotlight';
 
 function PhoneSketchMockup({
   gradient,
@@ -73,10 +73,9 @@ function ProjectCard({ project }: { project: Project }) {
   const typeLabel = project.type === 'professional' ? 'Client App' : 'Personal Project';
 
   return (
-    <HoverCard
-      bg="var(--project-card-bg)"
-      border="var(--project-card-border)"
-      className="flex flex-col h-full"
+    <CardSpotlight
+      radius={380}
+      className="p-0 overflow-hidden flex flex-col h-full bg-[var(--project-card-bg)] border-[var(--project-card-border)] rounded-[20px]"
     >
       {/* Top Banner (Aspect ratio: 1.94) */}
       <div
@@ -168,7 +167,7 @@ function ProjectCard({ project }: { project: Project }) {
           ))}
         </div>
       </div>
-    </HoverCard>
+    </CardSpotlight>
   );
 }
 
