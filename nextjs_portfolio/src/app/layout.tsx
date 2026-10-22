@@ -32,7 +32,11 @@ export const metadata: Metadata = {
     description: 'Senior Mobile Developer with 7+ years of experience building production Android and iOS apps.',
   },
   icons: {
-    icon: '/favicon.png',
+    icon: [
+      { url: '/favicon.png', type: 'image/png' },
+      { url: '/favicon.ico' },
+    ],
+    apple: '/icons/Icon-192.png',
   },
 };
 

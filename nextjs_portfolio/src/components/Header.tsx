@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
+import { TextScramble } from './ui/text-scramble';
 import { PortfolioData } from '@/data/portfolio-data';
 import { getAssetPath } from '@/lib/utils';
 
@@ -48,7 +49,7 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full h-[64px] bg-[var(--background)] border-b border-[var(--tile-border)] transition-colors duration-300">
+    <header className="sticky top-0 z-50 w-full h-[64px] bg-[var(--background)]/85 backdrop-blur-md border-b border-[var(--tile-border)] transition-colors duration-300">
       <div className="max-w-[1244px] h-full mx-auto px-5 sm:px-10 lg:px-[72px] flex items-center justify-between">
         {/* Brand Logo */}
         <button
@@ -67,9 +68,9 @@ export function Header() {
           />
         </button>
 
-        {/* Centered Desktop Nav Items */}
+        {/* Centered Desktop Nav Items with Text Scramble Effect */}
         <nav className="hidden lg:flex items-center justify-center flex-1 mx-8">
-          <div className="flex items-center gap-1">
+          <div className="flex items-center">
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
               return (
@@ -77,23 +78,13 @@ export function Header() {
                   key={item.id}
                   type="button"
                   onClick={() => scrollTo(item.id)}
-                  className={`group relative px-4 py-2.5 text-[15px] transition-colors duration-200 cursor-pointer ${
+                  className={`px-4 py-3 text-[15px] transition-colors duration-150 cursor-pointer ${
                     isActive
                       ? 'text-[var(--nav-active)] font-semibold'
-                      : 'text-[var(--text-muted)] font-medium hover:text-[var(--heading)]'
+                      : 'text-[var(--text-muted)] font-medium hover:text-[var(--nav-active)]'
                   }`}
                 >
-                  <span className="relative inline-block py-1">
-                    {item.label}
-                    {/* Animated growing and shrinking underline on hover and active */}
-                    <span
-                      className={`absolute bottom-0 left-0 h-[2.5px] rounded-full bg-gradient-to-r from-[#38bdf8] via-[#3b82f6] to-[#818cf8] transition-all duration-300 ease-out origin-left ${
-                        isActive
-                          ? 'w-full opacity-100 shadow-[0_0_8px_rgba(56,189,248,0.5)]'
-                          : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100 group-hover:shadow-[0_0_8px_rgba(56,189,248,0.5)]'
-                      }`}
-                    />
-                  </span>
+                  <TextScramble>{item.label}</TextScramble>
                 </button>
               );
             })}
@@ -109,7 +100,7 @@ export function Header() {
             style={{
               background: 'linear-gradient(135deg, var(--button-g1), var(--button-g2))',
             }}
-            className="hidden sm:inline-flex items-center justify-center h-[40px] px-[20px] rounded-full text-white text-[14px] font-semibold hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(94,61,247,0.45)] active:translate-y-0 active:scale-95 transition-all duration-200 cursor-pointer shadow-sm"
+            className="hidden sm:inline-flex items-center justify-center h-[40px] px-[18px] rounded-full text-white text-[14px] font-semibold hover:opacity-95 transition-opacity cursor-pointer shadow-sm"
           >
             Let&apos;s talk
           </button>
@@ -140,22 +131,13 @@ export function Header() {
                   key={item.id}
                   type="button"
                   onClick={() => scrollTo(item.id)}
-                  className={`group relative text-left py-2 text-[16px] transition-colors cursor-pointer w-fit ${
+                  className={`text-left py-2 text-[16px] transition-colors ${
                     isActive
                       ? 'text-[var(--link)] font-bold'
                       : 'text-[var(--text-muted)] font-medium hover:text-[var(--foreground)]'
                   }`}
                 >
-                  <span className="relative inline-block pb-1">
-                    {item.label}
-                    <span
-                      className={`absolute bottom-0 left-0 h-[2px] rounded-full bg-gradient-to-r from-[#38bdf8] via-[#3b82f6] to-[#818cf8] transition-all duration-300 ease-out origin-left ${
-                        isActive
-                          ? 'w-full opacity-100'
-                          : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100'
-                      }`}
-                    />
-                  </span>
+                  <TextScramble>{item.label}</TextScramble>
                 </button>
               );
             })}

@@ -64,11 +64,11 @@ function HeroVisual() {
         fill="none"
       >
         <defs>
-          {/* Luminous, clean Dark Mode Gradient */}
+          {/* Subtle, muted Dark Mode Gradient that blends softly with the theme */}
           <linearGradient id="darkBlobGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#1d4ed8" />
-            <stop offset="50%" stopColor="#2563eb" />
-            <stop offset="100%" stopColor="#4338ca" />
+            <stop offset="0%" stopColor="#1e40af" stopOpacity="0.35" />
+            <stop offset="40%" stopColor="#1e3a8a" stopOpacity="0.30" />
+            <stop offset="100%" stopColor="#0f172a" stopOpacity="0.55" />
           </linearGradient>
         </defs>
 
@@ -79,11 +79,11 @@ function HeroVisual() {
           className="dark:hidden transition-colors duration-300"
         />
 
-        {/* Dark Mode Minimal Crisp Blob with subtle 1px border stroke */}
+        {/* Dark Mode Subtle Frosted Blob with delicate 1px border */}
         <path
           d={blobPath}
           fill="url(#darkBlobGradient)"
-          stroke="rgba(255, 255, 255, 0.12)"
+          stroke="rgba(147, 197, 253, 0.15)"
           strokeWidth="1"
           className="hidden dark:block transition-all"
         />
