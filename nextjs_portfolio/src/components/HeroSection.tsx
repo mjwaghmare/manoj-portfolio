@@ -1,9 +1,13 @@
 'use client';
 
 import React from 'react';
+import { motion } from 'framer-motion';
+import { Mail } from 'lucide-react';
 import { PortfolioData } from '@/data/portfolio-data';
 import { getAssetPath } from '@/lib/utils';
 import { ResumeDownloadButton } from './ResumeDownloadButton';
+import { Spotlight } from './ui/spotlight';
+import { FlipWords } from './ui/flip-words';
 
 function getBlobPath(width: number, height: number): string {
   const normalizedPoints = [
@@ -44,27 +48,60 @@ function HeroVisual() {
 
   return (
     <div className="relative w-full max-w-[500px] aspect-[500/440] select-none mx-auto lg:mr-0">
+      {/* Studio Backlight Aura in Dark Mode */}
+      <div className="absolute left-[6%] top-[12%] w-[72%] h-[76%] rounded-full bg-gradient-to-tr from-blue-600/40 via-indigo-600/35 to-cyan-400/30 blur-[45px] pointer-events-none dark:opacity-100 opacity-20" />
+
       {/* Background Organic Blob (width 390/500 = 78%, height 384/440 = 87.2%, top 56/440 = 12.7%) */}
-      <svg
+      <motion.svg
+        animate={{
+          scale: [1, 1.025, 1],
+          rotate: [0, 1.2, 0],
+        }}
+        transition={{
+          duration: 7,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
         className="absolute left-0 top-[12.7%] w-[78%] h-[87.2%] pointer-events-none"
         viewBox="0 0 390 384"
         fill="none"
       >
         <defs>
-          <filter id="blobGlow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="28" />
+          {/* Luminous Dark Mode Gradient */}
+          <linearGradient id="darkBlobGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#2563eb" stopOpacity="0.9" />
+            <stop offset="45%" stopColor="#3b82f6" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#6366f1" stopOpacity="0.85" />
+          </linearGradient>
+
+          {/* Glow Filter */}
+          <filter id="blobGlow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="24" />
           </filter>
         </defs>
-        {/* Glow halo in dark mode */}
+
+        {/* Dark Mode Luminous Glow Aura */}
         <path
           d={blobPath}
-          fill="var(--blob-glow)"
+          fill="url(#darkBlobGradient)"
           filter="url(#blobGlow)"
-          className="transition-colors duration-300"
+          className="hidden dark:block opacity-60"
         />
-        {/* Solid organic blob shape */}
-        <path d={blobPath} fill="var(--blob)" className="transition-colors duration-300" />
-      </svg>
+
+        {/* Light Mode Blob */}
+        <path
+          d={blobPath}
+          fill="var(--blob)"
+          className="dark:hidden transition-colors duration-300"
+        />
+
+        {/* Dark Mode Gradient Blob */}
+        <path
+          d={blobPath}
+          fill="url(#darkBlobGradient)"
+          className="hidden dark:block opacity-90 transition-opacity"
+        />
+      </motion.svg>
 
       {/* Cut-out Portrait (left 4/500 = 0.8%, right 26/500 = 5.2%, top 0, bottom 0) */}
       <div className="absolute left-[0.8%] right-[5.2%] top-0 bottom-0 overflow-hidden rounded-b-[18px]">
@@ -72,49 +109,76 @@ function HeroVisual() {
         <img
           src={getAssetPath(profile.photoAsset)}
           alt={`Portrait of ${profile.name}`}
-          className="w-full h-full object-contain object-bottom select-none pointer-events-none"
+          className="w-full h-full object-contain object-bottom select-none pointer-events-none drop-shadow-[0_12px_24px_rgba(0,0,0,0.4)]"
         />
       </div>
 
-      {/* Handwritten Hero Note in Caveat (top 24/440 = 5.4%, right 0) */}
-      <div
-        className="absolute right-0 top-[5.4%] text-center font-handwriting text-[20px] sm:text-[24px] lg:text-[27px] leading-[1.08] text-[var(--handwriting)] transition-colors duration-300 pointer-events-none select-none z-10"
-        style={{ transform: 'rotate(-11.5deg)' }}
+      {/* Animated Handwritten Hero Note in Caveat */}
+      <motion.div
+        animate={{
+          y: [0, -6, 0],
+          rotate: [-11.5, -9, -11.5],
+        }}
+        transition={{
+          duration: 4.2,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+        className="absolute right-0 top-[5.4%] text-center font-handwriting text-[21px] sm:text-[25px] lg:text-[28px] leading-[1.12] text-[var(--handwriting)] select-none z-10"
       >
         {profile.handwrittenNote.map((line, idx) => (
-          <div key={idx}>{line}</div>
+          <motion.div
+            key={idx}
+            initial={{ opacity: 0, x: 8 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 + idx * 0.15, duration: 0.4 }}
+            whileHover={{ scale: 1.1, color: '#38bdf8' }}
+            className="cursor-default transition-colors duration-200"
+          >
+            {line}
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
-      {/* Hand-drawn Curved Arrow (top 168/440 = 38.1%, right 14/500 = 2.8%, width 48/500 = 9.6%, height 84/440 = 19%) */}
-      <svg
+      {/* Hand-drawn Animated Curved Arrow */}
+      <motion.svg
+        animate={{
+          y: [0, 4, 0],
+          x: [0, -2, 0],
+        }}
+        transition={{
+          duration: 2.4,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
         className="absolute right-[2.8%] top-[38.1%] w-[9.6%] h-[19%] pointer-events-none z-10"
         viewBox="0 0 48 84"
         fill="none"
       >
-        {/* Quadratic curve */}
-        <path
+        {/* Animated Quadratic curve */}
+        <motion.path
           d="M 37.44 0 Q 50.4 63, 5.76 75.6"
           stroke="var(--handwriting)"
-          strokeWidth="1.8"
+          strokeWidth="2"
           strokeLinecap="round"
-          className="transition-colors duration-300"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 1.2, delay: 0.6, ease: 'easeOut' }}
         />
-        {/* Arrowhead */}
-        <path
+        {/* Animated Arrowhead */}
+        <motion.path
           d="M 5.76 75.6 L 17.45 78.27 M 5.76 75.6 L 14.33 67.0"
           stroke="var(--handwriting)"
-          strokeWidth="1.8"
+          strokeWidth="2"
           strokeLinecap="round"
-          className="transition-colors duration-300"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.6, duration: 0.3 }}
         />
-      </svg>
+      </motion.svg>
     </div>
   );
 }
-
-import { Spotlight } from './ui/spotlight';
-import { FlipWords } from './ui/flip-words';
 
 export function HeroSection() {
   const profile = PortfolioData.profile;
@@ -146,22 +210,17 @@ export function HeroSection() {
         {profile.heroIntroLines.join(' ')}
       </p>
 
-
-      {/* Action Buttons */}
+      {/* Action Buttons with Rich Hover States */}
       <div className="flex flex-wrap items-center gap-[18px]">
         <ResumeDownloadButton width={180} height={48} />
 
         <button
           type="button"
           onClick={scrollToContact}
-          style={{
-            borderColor: 'var(--outline-btn-border)',
-            backgroundColor: 'var(--outline-btn-bg)',
-            color: 'var(--heading)',
-          }}
-          className="w-[180px] h-[48px] px-4 rounded-[12px] border-[1.2px] text-[15px] font-semibold flex items-center justify-center hover:opacity-90 transition-all cursor-pointer shadow-none"
+          className="group w-[180px] h-[48px] px-4 rounded-[14px] border-[1.5px] border-[var(--outline-btn-border)] bg-[var(--outline-btn-bg)] text-[var(--heading)] text-[15px] font-semibold flex items-center justify-center gap-2 hover:-translate-y-1 hover:border-[#38bdf8] hover:text-[#38bdf8] hover:bg-[#38bdf8]/10 hover:shadow-[0_12px_28px_rgba(56,189,248,0.22)] active:translate-y-0 active:scale-[0.98] transition-all duration-300 cursor-pointer shadow-sm"
         >
-          Contact Me
+          <Mail size={16} className="transition-transform duration-300 group-hover:scale-110" />
+          <span>Contact Me</span>
         </button>
       </div>
     </div>
