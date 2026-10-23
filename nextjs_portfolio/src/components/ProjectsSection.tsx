@@ -5,68 +5,7 @@ import { ArrowRight, ExternalLink } from 'lucide-react';
 import { PortfolioData, Project } from '@/data/portfolio-data';
 import { SectionContainer } from './SectionContainer';
 import { CardSpotlight } from './ui/card-spotlight';
-
-function PhoneSketchMockup({
-  gradient,
-  angle,
-  style,
-}: {
-  gradient: [string, string];
-  angle: number;
-  style: React.CSSProperties;
-}) {
-  const [c1, c2] = gradient;
-
-  return (
-    <div
-      className="absolute aspect-[1/2.05] rounded-[16%] bg-[#0B0C10] p-[3.5%] border-[1.5px] border-[#3A3D46] shadow-[0_14px_28px_rgba(0,0,0,0.38)] overflow-hidden select-none pointer-events-none"
-      style={{
-        ...style,
-        transform: `rotate(${angle}deg)`,
-      }}
-    >
-      {/* Inner Screen */}
-      <div className="relative w-full h-full bg-white rounded-[13%] overflow-hidden flex flex-col p-[6%] pt-[18%]">
-        {/* Dynamic Island */}
-        <div className="absolute top-[2.5%] left-1/2 -translate-x-1/2 w-[34%] h-[10%] bg-black rounded-full z-10" />
-
-        {/* Top Mini Banner */}
-        <div
-          className="w-full h-[36%] rounded-[6px] p-[6%] flex flex-col justify-end gap-1 mb-[8%]"
-          style={{ background: `linear-gradient(135deg, ${c1}, ${c2})` }}
-        >
-          <div className="w-[60%] h-[3px] bg-white/90 rounded-full" />
-          <div className="w-[38%] h-[3px] bg-white/55 rounded-full" />
-        </div>
-
-        {/* 3 Mini Chips */}
-        <div className="flex gap-1 mb-[8%]">
-          <div className="flex-1 h-[6px] rounded-full" style={{ backgroundColor: c1 }} />
-          <div className="flex-1 h-[6px] rounded-full opacity-35" style={{ backgroundColor: c1 }} />
-          <div className="flex-1 h-[6px] rounded-full opacity-35" style={{ backgroundColor: c1 }} />
-        </div>
-
-        {/* 2 Mini List Rows */}
-        <div className="flex flex-col gap-1.5">
-          <div className="p-1 rounded-[6px] bg-[#F5F7FB] flex items-center gap-1.5">
-            <div className="w-3.5 h-3.5 rounded-[4px] opacity-40 shrink-0" style={{ backgroundColor: c1 }} />
-            <div className="flex-1 flex flex-col gap-0.5">
-              <div className="w-[80%] h-[2.5px] rounded-full opacity-60" style={{ backgroundColor: c1 }} />
-              <div className="w-[50%] h-[2.5px] rounded-full opacity-40" style={{ backgroundColor: c1 }} />
-            </div>
-          </div>
-          <div className="p-1 rounded-[6px] bg-[#F5F7FB] flex items-center gap-1.5">
-            <div className="w-3.5 h-3.5 rounded-[4px] opacity-40 shrink-0" style={{ backgroundColor: c1 }} />
-            <div className="flex-1 flex flex-col gap-0.5">
-              <div className="w-[80%] h-[2.5px] rounded-full opacity-60" style={{ backgroundColor: c1 }} />
-              <div className="w-[50%] h-[2.5px] rounded-full opacity-40" style={{ backgroundColor: c1 }} />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+import { DualDeviceMockup } from './PhoneMockups';
 
 function ProjectCard({ project }: { project: Project }) {
   const [c1, c2] = project.bannerGradient;
@@ -75,7 +14,7 @@ function ProjectCard({ project }: { project: Project }) {
   return (
     <CardSpotlight
       radius={380}
-      className="p-0 overflow-hidden flex flex-col h-full bg-[var(--project-card-bg)] border-[var(--project-card-border)] rounded-[20px]"
+      className="group p-0 overflow-hidden flex flex-col h-full bg-[var(--project-card-bg)] border-[var(--project-card-border)] rounded-[20px]"
     >
       {/* Top Banner (Aspect ratio: 1.94) */}
       <div
@@ -96,21 +35,8 @@ function ProjectCard({ project }: { project: Project }) {
           </h4>
         </div>
 
-        {/* Dual Phone Frames */}
-        <div className="absolute inset-0 pointer-events-none">
-          {/* Back Phone: left 74%, top 25%, size 25%, angle: 9deg */}
-          <PhoneSketchMockup
-            gradient={project.bannerGradient}
-            angle={9}
-            style={{ left: '74%', top: '25%', width: '25%' }}
-          />
-          {/* Front Phone: left 55%, top 12%, size 29%, angle: -3deg */}
-          <PhoneSketchMockup
-            gradient={project.bannerGradient}
-            angle={-3}
-            style={{ left: '55%', top: '12%', width: '29%' }}
-          />
-        </div>
+        {/* Dual Phone Frames: iOS (top/front) & Android (behind/back) using real mockups */}
+        <DualDeviceMockup project={project} />
       </div>
 
       {/* Card Body: padding 20px 22px 20px 20px */}
