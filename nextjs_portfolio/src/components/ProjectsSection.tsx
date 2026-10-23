@@ -1,136 +1,92 @@
-'use client';
-
-import React from 'react';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { PortfolioData, Project } from '@/data/portfolio-data';
-import { SectionContainer } from './SectionContainer';
-import { CardSpotlight } from './ui/card-spotlight';
 import { DualDeviceMockup } from './PhoneMockups';
+import { FadeIn } from './FadeIn';
+
+const panelColors: Record<string, string> = {
+  'Marine Marketplace': '#0F6B5C',
+  'Live Auction App': '#1F5FD0',
+  PopVerse: '#6B4FB8',
+};
 
 function ProjectCard({ project }: { project: Project }) {
-  const [c1, c2] = project.bannerGradient;
   const typeLabel = project.type === 'professional' ? 'Client App' : 'Personal Project';
 
   return (
-    <CardSpotlight
-      radius={380}
-      className="group p-0 overflow-hidden flex flex-col h-full bg-[var(--project-card-bg)] border-[var(--project-card-border)] rounded-[20px]"
-    >
-      {/* Top Banner (Aspect ratio: 1.94) */}
+    <article data-s className="group flex flex-col bg-[var(--surface)] border border-[var(--rule)] rounded-[20px] overflow-hidden">
       <div
-        className="relative w-full aspect-[1.94/1] overflow-hidden select-none"
-        style={{ background: `linear-gradient(135deg, ${c1}, ${c2})` }}
+        className="relative h-[210px] overflow-hidden p-5 text-white"
+        style={{ background: panelColors[project.title] ?? project.bannerGradient[0] }}
       >
-        {/* Soft white radial center glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(255,255,255,0.2),transparent_70%)]" />
-
-        {/* Banner Left Headline Text */}
-        <div className="absolute left-[6.4%] top-0 bottom-0 w-[45%] flex flex-col justify-center z-10">
-          <span className="text-[10.5px] font-bold tracking-[1.2px] uppercase text-white/80 mb-2">
-            {project.category}
-          </span>
-          <h4 className="text-[21px] font-bold leading-[1.2] tracking-[-0.3px] text-white">
-            {project.headline}{' '}
-            <span className="font-editorial italic font-semibold">{project.headlineAccent}</span>
-          </h4>
+        <div className="relative z-10 max-w-[52%]">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/85">{project.category}</p>
+          <p className="display mt-2 text-[26px] leading-[1.05]">
+            {project.headline} <span className="italic">{project.headlineAccent}</span>
+          </p>
         </div>
-
-        {/* Dual Phone Frames: iOS (top/front) & Android (behind/back) using real mockups */}
-        <DualDeviceMockup project={project} />
+        {/* iOS + Android pair, laid out on the original 1.94:1 banner and pinned to the panel's bottom edge */}
+        <div className="absolute inset-x-0 bottom-0 aspect-[1.94/1]">
+          <DualDeviceMockup project={project} />
+        </div>
       </div>
 
-      {/* Card Body: padding 20px 22px 20px 20px */}
-      <div className="p-5 sm:p-[22px] flex flex-col flex-1">
-        {/* Title row */}
-        <div className="flex items-center justify-between gap-2 mb-2.5">
-          <div className="flex items-center gap-2.5 min-w-0">
+      <div className="p-4 flex flex-col flex-1">
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="text-[15px] font-semibold text-[var(--ink)]">
             {project.url ? (
               <a
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[19px] leading-[1.3] font-bold tracking-[-0.2px] text-[var(--project-title)] hover:text-[var(--link)] flex items-center gap-2 transition-colors truncate"
+                className="inline-flex items-center gap-1.5 hover:text-[var(--accent)]"
               >
-                <span>{project.title}</span>
-                <ExternalLink size={17} className="text-[var(--project-body)] shrink-0" />
+                {project.title}
+                <ExternalLink size={13} aria-hidden />
               </a>
             ) : (
-              <span className="text-[19px] leading-[1.3] font-bold tracking-[-0.2px] text-[var(--project-title)] truncate">
-                {project.title}
-              </span>
+              project.title
             )}
-          </div>
-
-          {/* Type Label */}
-          <div
-            style={{ borderColor: 'var(--project-card-border)' }}
-            className="px-[9px] py-[4px] rounded-[6px] border shrink-0"
-          >
-            <span className="text-[11.5px] font-semibold text-[var(--project-body)] tracking-[0.2px] whitespace-nowrap">
-              {typeLabel}
-            </span>
-          </div>
+          </h3>
+          <span className="shrink-0 rounded-full border border-[var(--rule)] px-2.5 py-0.5 text-[10px] text-[var(--muted)]">
+            {typeLabel}
+          </span>
         </div>
-
-        {/* Description */}
-        <p className="text-[15px] leading-[1.65] text-[var(--project-body)] mb-4 flex-1">
-          {project.description}
-        </p>
-
-        {/* Tags Row: SkillChips (pill full-rounded) */}
-        <div className="flex flex-wrap gap-2 mt-auto">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              style={{
-                backgroundColor: 'var(--tag-bg)',
-                color: 'var(--tag-text)',
-              }}
-              className="px-3 py-1.5 rounded-full text-[12.5px] leading-[1.3] font-medium"
-            >
-              {tag}
-            </span>
+        <p className="mt-3 text-[13px] leading-[1.65] text-[var(--muted)] flex-1">{project.description}</p>
+        <ul className="mt-4 flex flex-wrap gap-x-3 gap-y-1 text-[11px] font-medium text-[var(--ink)]">
+          {project.tags.map((t) => (
+            <li key={t}>{t}</li>
           ))}
-        </div>
+        </ul>
       </div>
-    </CardSpotlight>
+    </article>
   );
 }
 
 export function ProjectsSection() {
   const { projects, moreProjectsUrl } = PortfolioData;
 
-  const viewAllButton = (
-    <a
-      href={moreProjectsUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="hidden sm:inline-flex items-center gap-1.5 text-[14.5px] font-semibold text-[var(--link)] hover:opacity-85 transition-opacity"
-    >
-      <span>View All Projects</span>
-      <ArrowRight size={17} />
-    </a>
-  );
-
   return (
-    <SectionContainer id="projects" title="Featured Projects" trailing={viewAllButton}>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-        {projects.map((project) => (
-          <ProjectCard key={project.title} project={project} />
-        ))}
-      </div>
-
-      <div className="sm:hidden mt-6 text-center">
-        <a
-          href={moreProjectsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-[14.5px] font-semibold text-[var(--link)]"
-        >
-          <span>View All Projects</span>
-          <ArrowRight size={17} />
-        </a>
-      </div>
-    </SectionContainer>
+    <section id="projects" className="border-t border-[color-mix(in_srgb,var(--rule)_40%,transparent)] py-14 md:py-20">
+      <FadeIn className="wrap">
+        <div data-s className="flex items-end justify-between gap-4 mb-10">
+          <h2 className="h2">
+            Featured <span className="accent-word">projects</span>
+          </h2>
+          <a
+            href={moreProjectsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 min-h-11 text-[13px] font-semibold text-[var(--accent)] hover:underline"
+          >
+            View All Projects <ArrowRight size={14} aria-hidden />
+          </a>
+        </div>
+        <div className="grid gap-5 md:grid-cols-3">
+          {projects.map((p) => (
+            <ProjectCard key={p.title} project={p} />
+          ))}
+        </div>
+      </FadeIn>
+    </section>
   );
 }

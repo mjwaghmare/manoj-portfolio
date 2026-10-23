@@ -9,9 +9,9 @@ import { FooterSection } from '@/components/FooterSection';
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)] selection:bg-[#345DE3] selection:text-white transition-colors duration-300">
+    <>
       <Header />
-      <main className="flex-1">
+      <main>
         <HeroSection />
         <AboutSection />
         <TechStackSection />
@@ -20,6 +20,6 @@ export default function Home() {
         <ContactSection />
       </main>
       <FooterSection />
-    </div>
+    </>
   );
 }

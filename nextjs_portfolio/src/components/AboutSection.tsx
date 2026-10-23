@@ -1,72 +1,77 @@
-'use client';
-
-import React from 'react';
-import { Briefcase, MapPin } from 'lucide-react';
 import { PortfolioData } from '@/data/portfolio-data';
-import { SectionTitle } from './SectionContainer';
+import { FadeIn } from './FadeIn';
 
-import { CardSpotlight } from './ui/card-spotlight';
+const focus = ['Performance', 'Clean architecture', 'User experience'];
+
+const stats = [
+  { value: '7+', label: 'Years experience' },
+  { value: 'Mobile apps', label: 'Development' },
+  { value: 'Pune', label: 'India' },
+];
 
 export function AboutSection() {
-  const profile = PortfolioData.profile;
-  const highlights = PortfolioData.aboutHighlights;
-
-  const intro = (
-    <div className="flex flex-col items-start">
-      <SectionTitle text="About Me" />
-      <div className="h-3" />
-      <p className="text-[16px] leading-[1.65] text-[var(--body)] font-normal">
-        {profile.about}
-      </p>
-    </div>
-  );
-
-  const highlightCards = (
-    <div className="grid grid-cols-3 gap-2.5 sm:gap-4 w-full">
-      {highlights.map((item, idx) => (
-        <CardSpotlight
-          key={idx}
-          radius={220}
-          className="min-h-[140px] sm:min-h-[164px] p-2 sm:p-4 rounded-[18px] flex flex-col items-center justify-center text-center cursor-default"
-        >
-          {/* Top slot (height 30px mobile, 36px desktop) */}
-          <div className="h-[30px] sm:h-[36px] flex items-center justify-center transition-transform duration-300 group-hover/spotlight:scale-110">
-            {item.value ? (
-              <span className="font-display text-[36px] sm:text-[44px] leading-none tracking-[0.5px] text-brand-gradient">
-                {item.value}
-              </span>
-            ) : item.icon === 'work' ? (
-              <Briefcase size={32} className="text-[#8B51FA]" />
-            ) : (
-              <MapPin size={32} className="text-[#5B85F7]" />
-            )}
-          </div>
-
-          <div className="h-2.5 sm:h-3.5" />
-
-          {/* Label slot */}
-          <span className="text-[12px] sm:text-[14px] leading-[1.45] font-semibold text-[var(--heading)]/85 whitespace-pre-line text-center">
-            {item.label}
-          </span>
-        </CardSpotlight>
-      ))}
-    </div>
-  );
+  // First sentence becomes the large lead; the rest stays as body text.
+  const current = PortfolioData.experiences[0];
+  const [lead, ...rest] = PortfolioData.profile.about.split(/(?<=\.)\s+/);
 
   return (
-    <section id="about" className="w-full py-5 sm:py-[22px] scroll-mt-20">
-      <div className="max-w-[1244px] mx-auto px-5 sm:px-10 lg:px-[72px]">
-        {/* Wide screens >= 1200px: side by side; Below 1200px: stacked */}
-        <div className="hidden min-[1200px]:flex items-stretch gap-10">
-          <div className="flex-1">{intro}</div>
-          <div className="w-[512px] shrink-0 flex items-center">{highlightCards}</div>
-        </div>
+    <section id="about" className="border-t border-[color-mix(in_srgb,var(--rule)_40%,transparent)] py-16 md:py-24">
+      <FadeIn className="wrap grid gap-10 md:grid-cols-[1fr_2fr] md:gap-16">
+        <h2 data-s className="h2 md:sticky md:top-28 self-start">
+          About <span className="accent-word">me</span>
+        </h2>
+        <div>
+          <p data-s className="display text-[clamp(26px,3.4vw,38px)] leading-[1.15] tracking-[-0.01em] max-w-[24ch]">
+            {lead}
+          </p>
+          <p data-s className="mt-6 max-w-[58ch] text-[16px] leading-[1.75] text-[var(--muted)]">
+            {rest.join(' ')}
+          </p>
+          <dl className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-8">
+            {stats.map((s, i) => (
+              <div data-s key={s.value} className="border-t border-[var(--rule)] pt-5">
+                <dd className={`display text-[44px] leading-none ${i === 0 ? 'text-[var(--accent)]' : ''}`}>
+                  {s.value}
+                </dd>
+                <dt className="mt-3 text-[11px] font-medium uppercase tracking-[0.14em] text-[var(--muted)]">
+                  {s.label}
+                </dt>
+              </div>
+            ))}
+          </dl>
 
-        <div className="flex min-[1200px]:hidden flex-col gap-6">
-          {intro}
-          {highlightCards}
+          <dl className="mt-10">
+            <div data-s className="grid gap-1 sm:grid-cols-[160px_1fr] sm:gap-6 py-5 border-t border-[var(--rule)]">
+              <dt className="text-[11px] font-medium uppercase tracking-[0.14em] text-[var(--muted)] pt-1">
+                Currently at
+              </dt>
+              <dd className="text-[15px]">
+                <span className="display text-[24px] leading-tight">{current.company}</span>
+                <span className="block text-[var(--muted)]">
+                  {current.role} · {current.period.replace(' - ', ' — ')}
+                </span>
+              </dd>
+            </div>
+            <div data-s className="grid gap-1 sm:grid-cols-[160px_1fr] sm:gap-6 py-5 border-t border-[var(--rule)]">
+              <dt className="text-[11px] font-medium uppercase tracking-[0.14em] text-[var(--muted)] pt-1">
+                What I focus on
+              </dt>
+              <dd className="display text-[24px] leading-tight">
+                {focus.map((f, i) => (
+                  <span key={f}>
+                    {i > 0 && (
+                      <span className="text-[var(--faint)]" aria-hidden>
+                        {' / '}
+                      </span>
+                    )}
+                    {f}
+                  </span>
+                ))}
+              </dd>
+            </div>
+          </dl>
         </div>
-      </div>
+      </FadeIn>
     </section>
   );
 }

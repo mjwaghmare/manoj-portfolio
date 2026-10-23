@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { plusJakartaSans, bebasNeue, playfairDisplay, caveat } from './fonts';
-import { ThemeProvider } from '@/components/ThemeProvider';
+import { instrumentSerif, hankenGrotesk } from './fonts';
+
+const themeScript = `(function(){try{var t=localStorage.getItem('theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.classList.toggle('dark',d);}catch(e){}})();`;
 
 export const metadata: Metadata = {
   title: 'Manoj Waghmare | Senior Mobile Developer',
@@ -46,16 +47,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${plusJakartaSans.variable} ${bebasNeue.variable} ${playfairDisplay.variable} ${caveat.variable}`}
-    >
-      <body className="antialiased min-h-screen selection:bg-[#345DE3] selection:text-white">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-        </ThemeProvider>
-      </body>
+    <html lang="en" suppressHydrationWarning className={`${instrumentSerif.variable} ${hankenGrotesk.variable}`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body>{children}</body>
     </html>
   );
 }
