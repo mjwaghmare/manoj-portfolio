@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { PortfolioData } from '@/data/portfolio-data';
 import { FadeIn } from './FadeIn';
 
@@ -25,20 +26,23 @@ export function TechStackSection() {
             <li
               data-s
               key={g.title}
-              className="grid grid-cols-[28px_1fr] md:grid-cols-[40px_220px_1fr] gap-x-4 gap-y-2 py-6 border-b border-[var(--rule)]"
+              className="grid grid-cols-[28px_1fr] md:grid-cols-[40px_220px_1fr] gap-x-4 gap-y-2 py-5 md:py-6 border-b border-[var(--rule)]"
             >
               <span className="text-[11px] text-[var(--faint)] pt-1">{String(i + 1).padStart(2, '0')}</span>
-              <h3 className="text-[14px] font-semibold">{g.title}</h3>
-              <p className="col-start-2 md:col-start-3 text-[14px] leading-[1.9] text-[var(--ink)]">
+              <h3 className="text-[15px] md:text-[14px] font-semibold">{g.title}</h3>
+              <p className="col-start-2 md:col-start-3 text-[15px] md:text-[14px] leading-[1.85] text-[var(--ink)]">
                 {g.skills.map((s, j) => (
-                  <span key={s}>
-                    {j > 0 && (
-                      <span className="text-[var(--faint)]" aria-hidden>
-                        {' / '}
-                      </span>
-                    )}
-                    {s}
-                  </span>
+                  // The separator trails each item and stays with it, so a wrapped line never starts with "/".
+                  <Fragment key={s}>
+                    <span className="whitespace-nowrap">
+                      {s}
+                      {j < g.skills.length - 1 && (
+                        <span className="text-[var(--faint)]" aria-hidden>
+                          {' / '}
+                        </span>
+                      )}
+                    </span>{' '}
+                  </Fragment>
                 ))}
               </p>
             </li>

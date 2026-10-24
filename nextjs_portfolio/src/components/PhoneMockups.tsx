@@ -158,12 +158,11 @@ export function DualDeviceMockup({ project }: PhoneMockupProps) {
 
         {/* Real Pixel 9 Pro Transparent Hardware Mockup Frame */}
         <Image
-          src={getAssetPath('/images/mockups/pixel-9-pro-obsidian.png')}
+          src={getAssetPath('/images/mockups/pixel-9-pro-obsidian.webp')}
           alt="Android Device Frame"
           fill
           sizes="200px"
           className="object-contain pointer-events-none select-none z-20"
-          priority
         />
       </div>
 
@@ -278,12 +277,11 @@ export function DualDeviceMockup({ project }: PhoneMockupProps) {
 
         {/* Real iPhone 16 Transparent Hardware Mockup Frame */}
         <Image
-          src={getAssetPath('/images/mockups/iphone-16-black.png')}
+          src={getAssetPath('/images/mockups/iphone-16-black.webp')}
           alt="iOS Device Frame"
           fill
           sizes="200px"
           className="object-contain pointer-events-none select-none z-20"
-          priority
         />
       </div>
     </div>
