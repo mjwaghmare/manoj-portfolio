@@ -90,7 +90,7 @@ export function Header() {
     }`;
 
   return (
-    <header className="sticky top-0 z-50 bg-[var(--bg)]/90 backdrop-blur border-b border-[color-mix(in_srgb,var(--rule)_40%,transparent)]">
+    <header className="print:hidden sticky top-0 z-50 bg-[var(--bg)]/90 backdrop-blur border-b border-[color-mix(in_srgb,var(--rule)_40%,transparent)]">
       <div className="wrap flex items-center justify-between gap-4 min-h-[72px]">
         <a
           href="#home"

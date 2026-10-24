@@ -13,6 +13,7 @@ export interface Profile {
   location: string;
   email: string;
   resumeUrl: string;
+  resumeUpdated: { iso: string; label: string };
   photoAsset: string;
   headline: string;
   headlineAccent: string;
@@ -79,6 +80,8 @@ export const PortfolioData = {
     location: 'Pune, India',
     email: 'mjwaghmare@gmail.com',
     resumeUrl: '/Manoj_Waghmare_Resume.pdf',
+    // Matches the PDF's own modified date. Update both when the resume changes.
+    resumeUpdated: { iso: '2026-10-17', label: 'Oct 2026' },
     photoAsset: '/images/mj.webp',
     headline: 'Building high\u2011performance mobile experiences',
     headlineAccent: 'mobile experiences',

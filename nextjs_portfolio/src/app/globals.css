@@ -106,3 +106,54 @@ section[id] {
   .js [data-s],
   .js .stagger > * { opacity: 1; }
 }
+
+/* Print: always light, no UI chrome, no hidden reveal states, keep blocks whole, show contact URLs. */
+@media print {
+  :root,
+  :root.dark {
+    --bg: #ffffff;
+    --ink: #17181c;
+    --muted: #3f4249;
+    --rule: #cfcdc5;
+    --faint: #5f5d54;
+    --accent: #3b4cca;
+    --surface: #ffffff;
+    color-scheme: light;
+  }
+  body {
+    background: #fff;
+  }
+  .hero-fill {
+    min-height: 0;
+  }
+  .js [data-s],
+  .js .stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  section,
+  article,
+  li,
+  figure {
+    break-inside: avoid;
+  }
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+  /* Project panels and the hero blob are backgrounds: ask the browser to print them. */
+  article > div:first-child,
+  figure div {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  #contact a[href^='http']::after {
+    content: ' ' attr(href);
+    display: block;
+    margin-top: 2px;
+    font-size: 10px;
+    font-weight: 400;
+    word-break: break-all;
+    color: var(--muted);
+  }
+}

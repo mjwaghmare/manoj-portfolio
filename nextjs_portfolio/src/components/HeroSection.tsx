@@ -29,7 +29,7 @@ export function HeroSection() {
             <strong className="font-semibold text-[var(--ink)]">7+ years</strong>
             {profile.heroIntroLines.join(' ').replace('7+ years', '').replace('production-ready', 'production\u2011ready')}
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-3 print:hidden">
             <ResumeDownloadButton url={profile.resumeUrl} />
             <a
               href="#contact"
@@ -38,6 +38,9 @@ export function HeroSection() {
               <Mail size={16} aria-hidden />
               Contact Me
             </a>
+            <p className="text-[12px] text-[var(--muted)] sm:ml-1">
+              Resume updated <time dateTime={profile.resumeUpdated.iso}>{profile.resumeUpdated.label}</time>
+            </p>
           </div>
         </Stagger>
 
