@@ -96,12 +96,13 @@ section[id] {
   scroll-margin-top: calc(var(--header-h) - 1px);
 }
 
-[data-s],
-.stagger > * {
+/* Hidden only when JS is on (the head script adds .js), so the page is readable without it. */
+.js [data-s],
+.js .stagger > * {
   opacity: 0;
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  [data-s],
-  .stagger > * { opacity: 1; }
+  .js [data-s],
+  .js .stagger > * { opacity: 1; }
 }

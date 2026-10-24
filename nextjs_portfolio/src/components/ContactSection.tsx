@@ -1,5 +1,6 @@
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Mail } from 'lucide-react';
 import { PortfolioData } from '@/data/portfolio-data';
+import { CopyEmail } from './CopyEmail';
 import { FadeIn } from './FadeIn';
 
 export function ContactSection() {
@@ -18,6 +19,16 @@ export function ContactSection() {
           Let&apos;s work <span className="accent-word">together</span>
         </h2>
         <p data-s className="mt-5 max-w-[48ch] text-[16px] leading-[1.6] text-[var(--muted)]">{p.contactMessage}</p>
+        <div data-s className="mt-8 flex flex-wrap gap-3">
+          <a
+            href={`mailto:${p.email}`}
+            className="inline-flex items-center justify-center gap-2 min-h-11 px-6 rounded-full bg-[var(--ink)] text-[var(--bg)] text-[14px] font-semibold hover:opacity-85 transition-opacity"
+          >
+            <Mail size={16} aria-hidden />
+            Email me
+          </a>
+          <CopyEmail email={p.email} />
+        </div>
         <ul className="mt-10 grid gap-x-6 gap-y-2 sm:grid-cols-2 lg:grid-cols-4">
           {links.map((l) => (
             <li data-s key={l.label} className="border-t border-[var(--rule)]">

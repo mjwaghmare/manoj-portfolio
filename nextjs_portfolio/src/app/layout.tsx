@@ -1,11 +1,28 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { instrumentSerif, hankenGrotesk } from './fonts';
+import { getAssetPath } from '@/lib/utils';
+import { SITE_URL, SITE_TITLE, SITE_SHORT_DESCRIPTION } from '@/lib/site';
 
-const themeScript = `(function(){try{var t=localStorage.getItem('theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.classList.toggle('dark',d);}catch(e){}})();`;
+const themeScript = `(function(){try{var t=localStorage.getItem('theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.classList.toggle('dark',d);}catch(e){}document.documentElement.classList.add('js');})();`;
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#F6F5F1' },
+    { media: '(prefers-color-scheme: dark)', color: '#0E0F13' },
+  ],
+};
+
+const ogImage = {
+  url: `${SITE_URL}og.png`,
+  width: 1200,
+  height: 630,
+  alt: 'Manoj Waghmare, Senior Mobile Developer',
+};
 
 export const metadata: Metadata = {
-  title: 'Manoj Waghmare | Senior Mobile Developer',
+  metadataBase: new URL(SITE_URL),
+  title: SITE_TITLE,
   description:
     'Manoj Waghmare is a Senior Mobile Developer in Pune, India with 7+ years of experience building production Android and iOS apps with Flutter and Dart.',
   authors: [{ name: 'Manoj Waghmare' }],
@@ -19,25 +36,30 @@ export const metadata: Metadata = {
     'mobile developer',
     'Pune',
   ],
+  alternates: { canonical: SITE_URL },
   openGraph: {
     type: 'profile',
-    title: 'Manoj Waghmare | Senior Mobile Developer',
-    description: 'Senior Mobile Developer with 7+ years of experience building production Android and iOS apps.',
-    url: 'https://mjwaghmare.github.io/manoj-portfolio/',
+    title: SITE_TITLE,
+    description: SITE_SHORT_DESCRIPTION,
+    url: SITE_URL,
+    siteName: 'MWStudio',
     firstName: 'Manoj',
     lastName: 'Waghmare',
+    images: [ogImage],
   },
   twitter: {
-    card: 'summary',
-    title: 'Manoj Waghmare | Senior Mobile Developer',
-    description: 'Senior Mobile Developer with 7+ years of experience building production Android and iOS apps.',
+    card: 'summary_large_image',
+    title: SITE_TITLE,
+    description: SITE_SHORT_DESCRIPTION,
+    images: [ogImage.url],
   },
+  // Metadata icon URLs are not base-path aware, so prefix them explicitly.
   icons: {
     icon: [
-      { url: '/favicon.png', type: 'image/png' },
-      { url: '/favicon.ico' },
+      { url: getAssetPath('/favicon.ico'), sizes: 'any' },
+      { url: getAssetPath('/favicon.png'), type: 'image/png' },
     ],
-    apple: '/icons/Icon-192.png',
+    apple: getAssetPath('/icons/Icon-192.png'),
   },
 };
 
