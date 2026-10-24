@@ -15,7 +15,7 @@ export function AboutSection() {
   const [lead, ...rest] = PortfolioData.profile.about.split(/(?<=\.)\s+/);
 
   return (
-    <section id="about" className="border-t border-[color-mix(in_srgb,var(--rule)_40%,transparent)] py-16 md:py-24">
+    <section id="about" className="border-t border-[color-mix(in_srgb,var(--rule)_40%,transparent)] py-14 md:py-20">
       <FadeIn className="wrap grid gap-10 md:grid-cols-[1fr_2fr] md:gap-16">
         <h2 data-s className="h2 md:sticky md:top-28 self-start">
           About <span className="accent-word">me</span>

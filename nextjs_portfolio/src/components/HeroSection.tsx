@@ -11,7 +11,7 @@ export function HeroSection() {
   const profile = PortfolioData.profile;
 
   return (
-    <section id="home" className="min-h-[calc(100svh-73px)] flex flex-col justify-center py-12 md:py-16">
+    <section id="home" className="hero-fill flex flex-col justify-center py-12 md:py-16">
       <div className="wrap w-full grid gap-12 md:grid-cols-[1.4fr_1fr] md:gap-16 items-end">
         <Stagger>
           <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--muted)] mb-6">

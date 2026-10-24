@@ -84,6 +84,12 @@ body {
   font-weight: 400;
 }
 
+/* Hero fills the first screen on tall desktop windows only; on phones and short windows it sizes to its content. */
+.hero-fill { min-height: 0; }
+@media (min-width: 768px) and (min-height: 640px) {
+  .hero-fill { min-height: calc(100svh - 73px); }
+}
+
 section[id] {
   scroll-margin-top: 80px;
 }
