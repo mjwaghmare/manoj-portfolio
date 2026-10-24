@@ -46,10 +46,10 @@ export function HeroSection() {
 
         <FadeIn>
         <figure data-s className="relative w-full max-w-[340px] mx-auto md:mx-0 md:ml-auto">
-          <div className="relative aspect-[526/475]">
+          <div className="relative aspect-[853/962]">
             <div
               aria-hidden
-              className="absolute inset-x-[14%] bottom-0 top-[4%] bg-[color-mix(in_srgb,var(--accent)_16%,var(--bg))] rounded-[58%_42%_52%_48%/48%_56%_44%_52%]"
+              className="absolute inset-x-[10%] bottom-0 top-[4%] bg-[color-mix(in_srgb,var(--accent)_16%,var(--bg))] rounded-[58%_42%_52%_48%/48%_56%_44%_52%]"
             />
             <Image
               src={getAssetPath(profile.photoAsset)}
