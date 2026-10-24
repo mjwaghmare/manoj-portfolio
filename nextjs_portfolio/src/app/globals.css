@@ -5,6 +5,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
+  --header-h: 73px; /* sticky header: 72px + 1px border */
   --bg: #F6F5F1;
   --ink: #17181C;
   --muted: #575A63;
@@ -87,11 +88,12 @@ body {
 /* Hero fills the first screen on tall desktop windows only; on phones and short windows it sizes to its content. */
 .hero-fill { min-height: 0; }
 @media (min-width: 768px) and (min-height: 640px) {
-  .hero-fill { min-height: calc(100svh - 73px); }
+  .hero-fill { min-height: calc(100svh - var(--header-h)); }
 }
 
+/* Land 1px under the header so a section's top divider hides behind the header's own bottom line. */
 section[id] {
-  scroll-margin-top: 80px;
+  scroll-margin-top: calc(var(--header-h) - 1px);
 }
 
 [data-s],
