@@ -1,5 +1,6 @@
 import { PortfolioData } from '@/data/portfolio-data';
 import { FadeIn } from './FadeIn';
+import { RevealHeading } from './RevealHeading';
 
 const focus = ['Performance', 'Clean architecture', 'User experience'];
 
@@ -17,9 +18,9 @@ export function AboutSection() {
   return (
     <section id="about" className="border-t border-[color-mix(in_srgb,var(--rule)_40%,transparent)] py-14 md:py-20">
       <FadeIn className="wrap grid gap-10 md:grid-cols-[1fr_2fr] md:gap-16">
-        <h2 data-s className="h2 md:sticky md:top-28 self-start">
+        <RevealHeading className="md:sticky md:top-28 self-start">
           About <span className="accent-word">me</span>
-        </h2>
+        </RevealHeading>
         <div>
           <p data-s className="display text-[clamp(26px,3.4vw,38px)] leading-[1.15] tracking-[-0.01em] max-w-[24ch]">
             {lead}

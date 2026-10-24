@@ -2,6 +2,7 @@ import { ArrowUpRight, Mail } from 'lucide-react';
 import { PortfolioData } from '@/data/portfolio-data';
 import { CopyEmail } from './CopyEmail';
 import { FadeIn } from './FadeIn';
+import { RevealHeading } from './RevealHeading';
 
 export function ContactSection() {
   const p = PortfolioData.profile;
@@ -15,9 +16,9 @@ export function ContactSection() {
   return (
     <section id="contact" className="border-t border-[color-mix(in_srgb,var(--rule)_40%,transparent)] py-14 md:py-20">
       <FadeIn className="wrap">
-        <h2 data-s className="h2">
+        <RevealHeading>
           Let&apos;s work <span className="accent-word">together</span>
-        </h2>
+        </RevealHeading>
         <p data-s className="mt-5 max-w-[48ch] text-[16px] leading-[1.6] text-[var(--muted)]">{p.contactMessage}</p>
         <div data-s className="mt-8 flex flex-wrap gap-3 print:hidden">
           <a

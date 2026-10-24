@@ -1,20 +1,27 @@
 import { PortfolioData } from '@/data/portfolio-data';
 import { FadeIn } from './FadeIn';
+import { RevealHeading } from './RevealHeading';
+import { TracingBeam } from './TracingBeam';
 
 export function ExperienceSection() {
   return (
     <section id="experience" className="border-t border-[color-mix(in_srgb,var(--rule)_40%,transparent)] py-14 md:py-20">
       <FadeIn className="wrap">
-        <h2 data-s className="h2">
+        <RevealHeading>
           Professional <span className="accent-word">experience</span>
-        </h2>
-        <div className="mt-10">
+        </RevealHeading>
+        <TracingBeam className="mt-10">
           {PortfolioData.experiences.map((e) => (
             <article
               data-s
               key={e.company}
-              className="grid gap-3 md:grid-cols-[1fr_2.2fr] md:gap-16 py-8 border-t border-[var(--rule)]"
+              className="relative grid gap-3 md:grid-cols-[1fr_2.2fr] md:gap-16 py-8 border-t border-[var(--rule)]"
             >
+              <span
+                data-dot
+                aria-hidden
+                className="absolute -left-6 md:-left-8 top-[42px] size-[7px] rounded-full bg-[var(--rule)] transition-colors duration-500"
+              />
               <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-[var(--muted)] pt-3">
                 {e.period.replace(' - ', ' — ')}
               </p>
@@ -25,7 +32,7 @@ export function ExperienceSection() {
               </div>
             </article>
           ))}
-        </div>
+        </TracingBeam>
       </FadeIn>
     </section>
   );

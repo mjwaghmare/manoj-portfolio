@@ -2,6 +2,7 @@ import { ArrowRight, ExternalLink } from 'lucide-react';
 import { PortfolioData, Project } from '@/data/portfolio-data';
 import { DualDeviceMockup } from './PhoneMockups';
 import { FadeIn } from './FadeIn';
+import { RevealHeading } from './RevealHeading';
 
 const panelColors: Record<string, string> = {
   'Marine Marketplace': '#0F6B5C',
@@ -13,7 +14,10 @@ function ProjectCard({ project }: { project: Project }) {
   const typeLabel = project.type === 'professional' ? 'Client App' : 'Personal Project';
 
   return (
-    <article data-s className="group flex flex-col bg-[var(--surface)] border border-[var(--rule)] rounded-[20px] overflow-hidden">
+    <article
+      data-s
+      className="group flex flex-col bg-[var(--surface)] border border-[var(--rule)] rounded-[20px] overflow-hidden transition-[translate,box-shadow,border-color] duration-300 motion-safe:hover:-translate-y-1.5 hover:border-[color-mix(in_srgb,var(--accent)_45%,var(--rule))] hover:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.35)]"
+    >
       <div
         className="relative h-[210px] overflow-hidden p-5 text-white"
         style={{ background: panelColors[project.title] ?? project.bannerGradient[0] }}
@@ -69,9 +73,9 @@ export function ProjectsSection() {
     <section id="projects" className="border-t border-[color-mix(in_srgb,var(--rule)_40%,transparent)] py-14 md:py-20">
       <FadeIn className="wrap">
         <div data-s className="flex items-end justify-between gap-4 mb-10">
-          <h2 className="h2">
+          <RevealHeading>
             Featured <span className="accent-word">projects</span>
-          </h2>
+          </RevealHeading>
           <a
             href={moreProjectsUrl}
             target="_blank"

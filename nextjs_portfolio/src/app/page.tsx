@@ -1,4 +1,5 @@
 import { Header } from '@/components/Header';
+import { ScrollProgress } from '@/components/ScrollProgress';
 import { HeroSection } from '@/components/HeroSection';
 import { AboutSection } from '@/components/AboutSection';
 import { TechStackSection } from '@/components/TechStackSection';
@@ -30,6 +31,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, '\\u003c') }}
       />
+      <ScrollProgress />
       <Header />
       <main>
         <HeroSection />

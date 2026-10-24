@@ -96,6 +96,11 @@ section[id] {
   scroll-margin-top: calc(var(--header-h) - 1px);
 }
 
+/* Heading words start below their mask; RevealHeading slides them up. */
+.js .rw {
+  transform: translateY(110%);
+}
+
 /* Hidden only when JS is on (the head script adds .js), so the page is readable without it. */
 .js [data-s],
 .js .stagger > * {
@@ -127,7 +132,8 @@ section[id] {
     min-height: 0;
   }
   .js [data-s],
-  .js .stagger > * {
+  .js .stagger > *,
+  .js .rw {
     opacity: 1 !important;
     transform: none !important;
   }

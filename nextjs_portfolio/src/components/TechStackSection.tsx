@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { PortfolioData } from '@/data/portfolio-data';
 import { FadeIn } from './FadeIn';
+import { RevealHeading } from './RevealHeading';
 
 export function TechStackSection() {
   const { techStack, skillGroups } = PortfolioData;
@@ -8,10 +9,10 @@ export function TechStackSection() {
   return (
     <section id="skills" className="border-t border-[color-mix(in_srgb,var(--rule)_40%,transparent)] py-14 md:py-20">
       <FadeIn className="wrap">
-        <h2 data-s className="h2 max-w-[16ch]">
+        <RevealHeading className="max-w-[16ch]">
           Tech stack <span className="accent-word">&amp;</span>{' '}
           <span className="whitespace-nowrap">engineering skills</span>
-        </h2>
+        </RevealHeading>
 
         <ul data-s className="mt-10 py-6 border-y border-[var(--rule)] flex flex-wrap gap-x-10 gap-y-2">
           {techStack.map((t) => (
