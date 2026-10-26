@@ -1,59 +1,90 @@
 # Manoj Waghmare — Portfolio
 
-Personal portfolio site for Manoj Waghmare, Senior Flutter Developer. Built with Flutter Web, with light and dark themes and responsive layouts for mobile, tablet and desktop.
+Personal portfolio website for **Manoj Waghmare**, Senior Mobile Developer (Flutter, Android, iOS).
 
-## Run locally
+Built with **Next.js 15 (App Router)**, **TypeScript**, and **Tailwind CSS**, pre-rendered as a static export and hosted on **GitHub Pages**.
 
-Requires the Flutter stable SDK (Dart 3.13+).
+🔗 **Live Site:** [https://mjwaghmare.github.io/manoj-portfolio/](https://mjwaghmare.github.io/manoj-portfolio/)
 
-```sh
-flutter pub get
-flutter run -d chrome
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+* Node.js 20+ (recommended: Node 22)
+* npm 10+
+
+### Run Locally
+
+```bash
+# Install dependencies
+npm install
+
+# Start local dev server
+npm run dev
 ```
 
-Build for release (output in `build/web/`):
+Open [http://localhost:3000/manoj-portfolio/](http://localhost:3000/manoj-portfolio/) (or [http://localhost:3000](http://localhost:3000)) in your browser.
 
-```sh
-flutter build web --release
+### Build & Static Export
+
+```bash
+# Type check and build static export into out/
+npm run build
 ```
 
-Checks:
+The output is generated into the `out/` directory ready for static hosting.
 
-```sh
-flutter analyze
-flutter test
-```
+---
 
-## Editing content
+## ✏️ Editing Portfolio Content
 
-All copy, links, experience and projects live in [`lib/data/portfolio_data.dart`](lib/data/portfolio_data.dart). Edit that file; the sections read from it.
+All copy, profile information, experiences, projects, and skills live in a single structured file:
 
-| What | Where |
+📁 **[`src/data/portfolio-data.ts`](src/data/portfolio-data.ts)**
+
+| Section | What to Edit |
 | --- | --- |
-| Headline, summary, about text, contact links | `PortfolioData.profile` |
-| Experience timeline | `PortfolioData.experiences` |
-| Project cards (type, tags, image, link) | `PortfolioData.projects` |
-| Tech stack tiles | `PortfolioData.techStack` |
-| Resume download | replace `web/Manoj_Waghmare_Resume.pdf` |
-| Portrait / logo | `assets/images/` (referenced from `profile`) |
+| **Profile & Hero** | `PortfolioData.profile` (name, role, headline, about, social links) |
+| **Experience** | `PortfolioData.experiences` (companies, roles, dates, descriptions) |
+| **Featured Projects** | `PortfolioData.projects` (titles, tags, category, mockups, URLs) |
+| **Tech Stack & Skills**| `PortfolioData.techStack` & `PortfolioData.skillGroups` |
+| **Resume PDF** | Replace `public/Manoj_Waghmare_Resume.pdf` (and update `resumeUpdated` in `portfolio-data.ts`) |
+| **Images & Logos** | `public/images/` and `public/icons/` |
 
-Colors, gradients and type live in [`lib/core/theme/`](lib/core/theme/); spacing and breakpoints in [`lib/core/constants/app_constants.dart`](lib/core/constants/app_constants.dart).
+---
 
-## Project structure
+## 📁 Project Structure
 
+```text
+├── public/                 # Static assets (images, icons, resume PDF, favicons)
+│   ├── icons/              # PWA and technology icons (SVG)
+│   └── images/             # Portrait, logos, and phone mockups
+├── src/
+│   ├── app/                # Next.js App Router (layout, page, sitemap, robots, manifest)
+│   ├── components/         # React UI sections & interactive components
+│   ├── data/               # Portfolio content (portfolio-data.ts)
+│   └── lib/                # Utilities and site configuration
+├── .github/workflows/      # Automated GitHub Pages CI/CD workflow (deploy.yml)
+├── next.config.ts          # Next.js configuration (static export, basePath)
+└── tsconfig.json           # TypeScript configuration
 ```
-lib/
-  core/        theme (colors, fonts, light/dark), constants, theme persistence
-  data/        portfolio content
-  models/      content models
-  sections/    page sections (hero, about, skills, experience, projects, contact, footer)
-  widgets/     shared widgets (header, cards, buttons, links)
-  main.dart    app entry; loads the saved theme before the first frame
-web/           index.html (SEO metadata), icons, resume PDF
+
+---
+
+## 🚢 CI/CD & Deployment
+
+Deployments are automated with GitHub Actions via [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
+Pushing commits to the `main` branch automatically triggers a build and publishes to GitHub Pages.
+
+---
+
+## 📜 Historical Version
+
+The original Flutter Web version of this portfolio has been archived in git history and tagged under `archive/flutter-version`.
+To inspect or restore the Flutter version at any time:
+
+```bash
+git checkout archive/flutter-version
 ```
-
-## Third-party assets
-
-- Fonts: Plus Jakarta Sans, Bebas Neue, Playfair Display, Caveat — SIL Open Font License 1.1 (licenses in `assets/fonts/`). Fonts are subset to Latin to keep downloads small.
-- Brand icons (GitHub, LinkedIn): Font Awesome Free — icons CC BY 4.0, font SIL OFL 1.1.
-- Technology logos: [Devicon](https://devicon.dev) — MIT License.
