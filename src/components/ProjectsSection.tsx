@@ -1,6 +1,9 @@
+import Image from 'next/image';
 import { ArrowUpRight, ExternalLink } from 'lucide-react';
 import { PortfolioData, Project } from '@/data/portfolio-data';
+import { getAssetPath } from '@/lib/utils';
 import { DualDeviceMockup } from './PhoneMockups';
+import { ViewportGifMedia } from './ViewportGifMedia';
 import { FadeIn } from './FadeIn';
 import { RevealHeading } from './RevealHeading';
 
@@ -13,6 +16,82 @@ const panelColors: Record<string, string> = {
   'Tesla Controller': '#9F1239',
 };
 
+function ProjectCardTop({ project }: { project: Project }) {
+  // Case 1: Full-width Animated GIF (e.g. Tesla Controller) with viewport-play observer
+  if (project.gifAsset) {
+    return (
+      <div className="relative h-52.5 w-full overflow-hidden bg-[#0A0D14]">
+        <ViewportGifMedia
+          gifSrc={project.gifAsset}
+          posterSrc={project.posterAsset}
+          alt={`${project.title} animated preview`}
+        />
+        {/* Top Floating Glass Badge */}
+        <div className="absolute top-4 left-4 z-10">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-[0.12em] bg-black/65 text-white backdrop-blur-md border border-white/15 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+            {project.category}
+          </span>
+        </div>
+        {/* Bottom subtle gradient scrim with headline */}
+        <div className="absolute inset-x-0 bottom-0 p-4 pt-10 bg-linear-to-t from-black/85 via-black/40 to-transparent z-10 pointer-events-none">
+          <p className="display text-[22px] leading-[1.1] text-white">
+            {project.headline} <span className="italic">{project.headlineAccent}</span>
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Case 2: Full-width Banner Image (e.g. Travel Discovery)
+  if (project.bannerImage) {
+    return (
+      <div className="relative h-52.5 w-full overflow-hidden bg-[#0A0D14]">
+        <Image
+          src={getAssetPath(project.bannerImage)}
+          alt={`${project.title} banner preview`}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
+        />
+        {/* Top Floating Glass Badge */}
+        <div className="absolute top-4 left-4 z-10">
+          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-[0.12em] bg-black/65 text-white backdrop-blur-md border border-white/15 shadow-sm">
+            {project.category}
+          </span>
+        </div>
+        {/* Bottom subtle gradient scrim with headline */}
+        <div className="absolute inset-x-0 bottom-0 p-4 pt-10 bg-linear-to-t from-black/85 via-black/40 to-transparent z-10 pointer-events-none">
+          <p className="display text-[22px] leading-[1.1] text-white">
+            {project.headline} <span className="italic">{project.headlineAccent}</span>
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Case 3 & 4: App Screenshots (app ss) OR Dummy fallback
+  return (
+    <div
+      className="relative h-52.5 overflow-hidden p-5 text-white"
+      style={{ background: panelColors[project.title] ?? project.bannerGradient[0] }}
+    >
+      <div className="relative z-10 max-w-[52%]">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/85">
+          {project.category}
+        </p>
+        <p className="display mt-2 text-[26px] leading-[1.05]">
+          {project.headline} <span className="italic">{project.headlineAccent}</span>
+        </p>
+      </div>
+      {/* iOS + Android pair, laid out on the original 1.94:1 banner and pinned to the panel's bottom edge */}
+      <div className="absolute inset-x-0 bottom-0 aspect-[1.94/1]">
+        <DualDeviceMockup project={project} />
+      </div>
+    </div>
+  );
+}
+
 function ProjectCard({ project }: { project: Project }) {
   const typeLabel = project.type === 'professional' ? 'Client App' : 'Personal Project';
 
@@ -21,21 +100,7 @@ function ProjectCard({ project }: { project: Project }) {
       data-s
       className="group flex flex-col bg-(--surface) border border-(--rule) rounded-[20px] overflow-hidden transition-[translate,box-shadow,border-color] duration-300 motion-safe:hover:-translate-y-1.5 hover:border-(--accent)/45 hover:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.35)]"
     >
-      <div
-        className="relative h-52.5 overflow-hidden p-5 text-white"
-        style={{ background: panelColors[project.title] ?? project.bannerGradient[0] }}
-      >
-        <div className="relative z-10 max-w-[52%]">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/85">{project.category}</p>
-          <p className="display mt-2 text-[26px] leading-[1.05]">
-            {project.headline} <span className="italic">{project.headlineAccent}</span>
-          </p>
-        </div>
-        {/* iOS + Android pair, laid out on the original 1.94:1 banner and pinned to the panel's bottom edge */}
-        <div className="absolute inset-x-0 bottom-0 aspect-[1.94/1]">
-          <DualDeviceMockup project={project} />
-        </div>
-      </div>
+      <ProjectCardTop project={project} />
 
       <div className="p-4 flex flex-col flex-1">
         <div className="flex items-start justify-between gap-3">

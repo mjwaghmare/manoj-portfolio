@@ -65,6 +65,9 @@ export interface Project {
   bannerGradient: [string, string];
   url?: string;
   screens?: string[];
+  bannerImage?: string;
+  gifAsset?: string;
+  posterAsset?: string;
 }
 
 export const PortfolioData = {
@@ -268,10 +271,7 @@ export const PortfolioData = {
       headlineAccent: 'curated journeys',
       bannerGradient: ['#0284C7', '#075985'],
       url: 'https://github.com/mjwaghmare/travelappui',
-      screens: [
-        '/images/projects/travel/screen-android.webp',
-        '/images/projects/travel/screen-ios.webp',
-      ],
+      bannerImage: '/images/projects/travel/banner.webp',
     },
     {
       title: 'Tesla Controller',
@@ -284,10 +284,8 @@ export const PortfolioData = {
       headlineAccent: 'vehicle telemetry',
       bannerGradient: ['#BE123C', '#4C0519'],
       url: 'https://github.com/mjwaghmare/tesla_car_controller_app',
-      screens: [
-        '/images/projects/tesla/screen-android.webp',
-        '/images/projects/tesla/screen-ios.webp',
-      ],
+      gifAsset: '/images/projects/tesla/animated_tesla_app.gif',
+      posterAsset: '/images/projects/tesla/poster.webp',
     },
   ] as Project[],
 };

@@ -1,22 +1,23 @@
-import Image from 'next/image';
-import { PortfolioData } from '@/data/portfolio-data';
-import { getAssetPath } from '@/lib/utils';
-
 export function FooterSection() {
   return (
-    <footer className="border-t border-(--rule)/40">
-      <div className="wrap flex flex-wrap items-center justify-between gap-3 py-8">
-        <a href="#home" aria-label="MWStudio, back to top" className="inline-flex items-center min-h-11">
-          <Image
-            src={getAssetPath(PortfolioData.profile.logoAsset)}
-            alt="MWStudio"
-            width={468}
-            height={96}
-            className="h-6 w-auto"
-          />
-        </a>
-        <p className="text-[11px] text-(--muted)">© 2026 Manoj Waghmare. All rights reserved.</p>
+    <footer className="relative overflow-hidden border-t border-(--rule)/40 pt-10 pb-0 md:pt-14">
+      {/* Centered Copyright */}
+      <div className="relative z-10 wrap text-center">
+        <p className="text-[12px] text-(--muted)/80 tracking-wide">
+          © 2026 Manoj Waghmare. All rights reserved.
+        </p>
+      </div>
+
+      {/* Giant MWSTUDIO Backdrop Watermark */}
+      <div
+        aria-hidden="true"
+        className="w-full overflow-hidden select-none pointer-events-none text-center -mt-3 sm:-mt-6 md:-mt-10"
+      >
+        <p className="font-black tracking-[-0.04em] leading-[0.78] text-[clamp(64px,17vw,240px)] uppercase bg-clip-text text-transparent bg-linear-to-b from-(--ink)/8 to-(--ink)/1 dark:from-white/18 dark:to-white/3 mb-[-0.06em]">
+          MWSTUDIO
+        </p>
       </div>
     </footer>
   );
 }
+
