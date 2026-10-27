@@ -1,4 +1,4 @@
-import { ArrowRight, ExternalLink } from 'lucide-react';
+import { ArrowUpRight, ExternalLink } from 'lucide-react';
 import { PortfolioData, Project } from '@/data/portfolio-data';
 import { DualDeviceMockup } from './PhoneMockups';
 import { FadeIn } from './FadeIn';
@@ -81,9 +81,10 @@ export function ProjectsSection() {
             href={moreProjectsUrl}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="More on GitHub (opens in a new tab)"
             className="inline-flex items-center gap-1.5 min-h-11 text-[13px] font-semibold text-(--accent) hover:underline"
           >
-            View All Projects <ArrowRight size={14} aria-hidden />
+            More on GitHub <ArrowUpRight size={14} aria-hidden />
           </a>
         </div>
         <div className="grid gap-5 md:grid-cols-3">

@@ -70,7 +70,7 @@ export interface Project {
 export const PortfolioData = {
   githubUrl: 'https://github.com/mjwaghmare',
   youtubeUrl: 'https://www.youtube.com/@MWStudiooo',
-  moreProjectsUrl: 'https://github.com/mjwaghmare',
+  moreProjectsUrl: 'https://github.com/mjwaghmare?tab=repositories',
 
   profile: {
     name: 'Manoj Waghmare',
