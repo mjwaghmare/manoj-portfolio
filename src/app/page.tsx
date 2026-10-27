@@ -1,5 +1,6 @@
 import { Header } from '@/components/Header';
 import { ScrollProgress } from '@/components/ScrollProgress';
+import { ParticleBackground } from '@/components/ParticleBackground';
 import { HeroSection } from '@/components/HeroSection';
 import { AboutSection } from '@/components/AboutSection';
 import { TechStackSection } from '@/components/TechStackSection';
@@ -31,9 +32,10 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, '\\u003c') }}
       />
+      <ParticleBackground />
       <ScrollProgress />
       <Header />
-      <main>
+      <main className="relative z-10">
         <HeroSection />
         <AboutSection />
         <TechStackSection />

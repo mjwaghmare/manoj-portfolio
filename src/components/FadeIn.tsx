@@ -15,7 +15,10 @@ export function FadeIn({ children, className = '' }: { children: React.ReactNode
     if (!root) return;
     const items = Array.from(root.querySelectorAll<HTMLElement>('[data-s]'));
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      items.forEach((i) => (i.style.opacity = '1'));
+      items.forEach((i) => {
+        i.style.opacity = '1';
+        i.style.transform = 'none';
+      });
       return;
     }
     const stops = items.map((item) => {
@@ -23,13 +26,22 @@ export function FadeIn({ children, className = '' }: { children: React.ReactNode
       return inView(
         item,
         () => {
-          animate(
+          item.style.willChange = 'transform, opacity';
+          const animation = animate(
             item,
-            { opacity: [0, 1], y: [18, 0] },
-            { duration: 0.6, ease: 'easeOut', delay: Math.min(index, 3) * 0.08 },
+            { opacity: [0, 1], y: [12, 0] },
+            {
+              duration: 0.42,
+              ease: [0.16, 1, 0.3, 1],
+              delay: Math.min(index, 4) * 0.035,
+            },
           );
+          animation.finished.then(() => {
+            item.style.willChange = 'auto';
+          });
         },
-        { margin: '0px 0px -40px 0px' },
+        // Pre-trigger 50px before entering viewport so items arrive already animating smoothly without hesitation
+        { margin: '0px 0px 50px 0px' },
       );
     });
     return () => stops.forEach((stop) => stop());
