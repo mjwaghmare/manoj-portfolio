@@ -48,6 +48,8 @@ function IosBatteryIcon({ className }: { className?: string }) {
 
 export function DualDeviceMockup({ project }: PhoneMockupProps) {
   const [c1, c2] = project.bannerGradient;
+  const androidScreen = project.screens?.[0];
+  const iosScreen = project.screens?.[1] ?? project.screens?.[0];
 
   return (
     <div className="absolute inset-0 pointer-events-none select-none">
@@ -56,7 +58,7 @@ export function DualDeviceMockup({ project }: PhoneMockupProps) {
           Position: left 71%, top 18%, width 27.5%, rotated 8deg
           ---------------------------------------------------- */}
       <div
-        className="absolute w-[27.5%] aspect-[1620/3136] transition-transform duration-500 ease-out group-hover:translate-x-1 group-hover:-translate-y-1"
+        className="absolute w-[27.5%] aspect-1620/3136 transition-transform duration-500 ease-out group-hover:translate-x-1 group-hover:-translate-y-1"
         style={{
           left: '71%',
           top: '18%',
@@ -88,72 +90,86 @@ export function DualDeviceMockup({ project }: PhoneMockupProps) {
             borderRadius: '11.5% / 5.2%',
           }}
         >
-          {/* Android Status Bar (right-aligned for clean overlap) */}
-          <div className="pt-[5%] px-[8%] pb-[2%] flex items-center justify-end gap-1 text-white/70">
-            <span className="text-[4px] font-bold tracking-tighter opacity-75">5G</span>
-            <IosBatteryIcon className="w-[8.5px] h-[4.2px] text-white/75" />
-          </div>
-
-          {/* Android App Content */}
-          <div className="px-[7%] flex flex-col gap-1.5 flex-1 pt-1">
-            {/* Themed Android Metric Card */}
-            <div
-              className="p-1.5 rounded-[6px] flex flex-col gap-1"
-              style={{
-                background: `linear-gradient(135deg, ${c1}40, ${c2}25)`,
-                border: `1px solid ${c1}50`,
-              }}
-            >
-              <div className="flex items-center justify-between">
-                <div className="w-8 h-1.5 rounded-full bg-white/70" />
-                <div
-                  className="w-2 h-2 rounded-full"
-                  style={{ backgroundColor: c1 }}
-                />
-              </div>
-              <div className="w-12 h-2 rounded-full bg-white/90" />
-              {/* Mini Bar Chart */}
-              <div className="flex items-end gap-1 h-4 pt-1">
-                <div className="flex-1 h-[45%] rounded-t-[1px] bg-white/30" />
-                <div className="flex-1 h-[70%] rounded-t-[1px] bg-white/50" />
-                <div
-                  className="flex-1 h-[100%] rounded-t-[1px]"
-                  style={{ backgroundColor: c1 }}
-                />
-                <div className="flex-1 h-[60%] rounded-t-[1px] bg-white/40" />
-                <div className="flex-1 h-[85%] rounded-t-[1px] bg-white/60" />
-              </div>
+          {androidScreen ? (
+            <div className="relative w-full h-full">
+              <Image
+                src={getAssetPath(androidScreen)}
+                alt={`${project.title} Android screen`}
+                fill
+                sizes="(max-width: 768px) 150px, 200px"
+                className="object-cover object-top"
+              />
             </div>
+          ) : (
+            <>
+              {/* Android Status Bar (right-aligned for clean overlap) */}
+              <div className="pt-[5%] px-[8%] pb-[2%] flex items-center justify-end gap-1 text-white/70">
+                <span className="text-[4px] font-bold tracking-tighter opacity-75">5G</span>
+                <IosBatteryIcon className="w-[8.5px] h-[4.2px] text-white/75" />
+              </div>
 
-            {/* 2 Android Material List Items */}
-            <div className="flex flex-col gap-1">
-              <div className="p-1 rounded-[5px] bg-white/5 border border-white/10 flex items-center gap-1.5">
+              {/* Android App Content */}
+              <div className="px-[7%] flex flex-col gap-1.5 flex-1 pt-1">
+                {/* Themed Android Metric Card */}
                 <div
-                  className="w-3.5 h-3.5 rounded-[3px] shrink-0"
-                  style={{ backgroundColor: `${c1}60` }}
-                />
-                <div className="flex-1 flex flex-col gap-0.5">
-                  <div className="w-full h-1 rounded-full bg-white/60" />
-                  <div className="w-2/3 h-1 rounded-full bg-white/30" />
+                  className="p-1.5 rounded-md flex flex-col gap-1"
+                  style={{
+                    background: `linear-gradient(135deg, ${c1}40, ${c2}25)`,
+                    border: `1px solid ${c1}50`,
+                  }}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="w-8 h-1.5 rounded-full bg-white/70" />
+                    <div
+                      className="w-2 h-2 rounded-full"
+                      style={{ backgroundColor: c1 }}
+                    />
+                  </div>
+                  <div className="w-12 h-2 rounded-full bg-white/90" />
+                  {/* Mini Bar Chart */}
+                  <div className="flex items-end gap-1 h-4 pt-1">
+                    <div className="flex-1 h-[45%] rounded-t-[1px] bg-white/30" />
+                    <div className="flex-1 h-[70%] rounded-t-[1px] bg-white/50" />
+                    <div
+                      className="flex-1 h-full rounded-t-[1px]"
+                      style={{ backgroundColor: c1 }}
+                    />
+                    <div className="flex-1 h-[60%] rounded-t-[1px] bg-white/40" />
+                    <div className="flex-1 h-[85%] rounded-t-[1px] bg-white/60" />
+                  </div>
+                </div>
+
+                {/* 2 Android Material List Items */}
+                <div className="flex flex-col gap-1">
+                  <div className="p-1 rounded-[5px] bg-white/5 border border-white/10 flex items-center gap-1.5">
+                    <div
+                      className="w-3.5 h-3.5 rounded-[3px] shrink-0"
+                      style={{ backgroundColor: `${c1}60` }}
+                    />
+                    <div className="flex-1 flex flex-col gap-0.5">
+                      <div className="w-full h-1 rounded-full bg-white/60" />
+                      <div className="w-2/3 h-1 rounded-full bg-white/30" />
+                    </div>
+                  </div>
+                  <div className="p-1 rounded-[5px] bg-white/5 border border-white/10 flex items-center gap-1.5">
+                    <div
+                      className="w-3.5 h-3.5 rounded-[3px] shrink-0"
+                      style={{ backgroundColor: `${c2}60` }}
+                    />
+                    <div className="flex-1 flex flex-col gap-0.5">
+                      <div className="w-4/5 h-1 rounded-full bg-white/60" />
+                      <div className="w-1/2 h-1 rounded-full bg-white/30" />
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="p-1 rounded-[5px] bg-white/5 border border-white/10 flex items-center gap-1.5">
-                <div
-                  className="w-3.5 h-3.5 rounded-[3px] shrink-0"
-                  style={{ backgroundColor: `${c2}60` }}
-                />
-                <div className="flex-1 flex flex-col gap-0.5">
-                  <div className="w-4/5 h-1 rounded-full bg-white/60" />
-                  <div className="w-1/2 h-1 rounded-full bg-white/30" />
-                </div>
-              </div>
-            </div>
-          </div>
 
-          {/* Android Gesture Navigation Pill */}
-          <div className="pb-1.5 pt-1 flex justify-center">
-            <div className="w-8 h-[2px] bg-white/40 rounded-full" />
-          </div>
+              {/* Android Gesture Navigation Pill */}
+              <div className="pb-1.5 pt-1 flex justify-center">
+                <div className="w-8 h-0.5 bg-white/40 rounded-full" />
+              </div>
+            </>
+          )}
         </div>
 
         {/* Real Pixel 9 Pro Transparent Hardware Mockup Frame */}
@@ -171,7 +187,7 @@ export function DualDeviceMockup({ project }: PhoneMockupProps) {
           Position: left 52.5%, top 9%, width 30.5%, rotated -4deg
           ---------------------------------------------------- */}
       <div
-        className="absolute w-[30.5%] aspect-[1379/2756] transition-transform duration-500 ease-out group-hover:-translate-x-1 group-hover:-translate-y-1.5"
+        className="absolute w-[30.5%] aspect-1379/2756 transition-transform duration-500 ease-out group-hover:-translate-x-1 group-hover:-translate-y-1.5"
         style={{
           left: '52.5%',
           top: '9%',
@@ -203,76 +219,90 @@ export function DualDeviceMockup({ project }: PhoneMockupProps) {
             borderRadius: '14% / 6.5%',
           }}
         >
-          {/* iOS Status Bar with Dynamic Island spacing */}
-          <div className="pt-[4.5%] px-[9.5%] pb-[2%] flex items-center justify-between text-white/85">
-            <span className="text-[5px] font-semibold tracking-tight">9:41</span>
-            {/* Dynamic Island physical pill is inside frame.png at center */}
-            <IosBatteryIcon className="w-[9.5px] h-[4.8px] text-white/85" />
-          </div>
-
-          {/* iOS App UI Screen */}
-          <div className="px-[7%] flex flex-col gap-1.5 flex-1 pt-1">
-            {/* Top Themed Hero Banner */}
-            <div
-              className="w-full rounded-[7px] p-[8%] flex flex-col justify-end gap-1 shadow-sm"
-              style={{
-                background: `linear-gradient(135deg, ${c1}, ${c2})`,
-              }}
-            >
-              <div className="w-[65%] h-[3.5px] bg-white rounded-full shadow-xs" />
-              <div className="w-[42%] h-[2.5px] bg-white/75 rounded-full" />
-            </div>
-
-            {/* 3 Quick Action Chips */}
-            <div className="flex gap-1 py-0.5">
-              <div
-                className="flex-1 h-[5px] rounded-full"
-                style={{ backgroundColor: c1 }}
-              />
-              <div
-                className="flex-1 h-[5px] rounded-full opacity-40"
-                style={{ backgroundColor: c1 }}
-              />
-              <div
-                className="flex-1 h-[5px] rounded-full opacity-25"
-                style={{ backgroundColor: c1 }}
+          {iosScreen ? (
+            <div className="relative w-full h-full">
+              <Image
+                src={getAssetPath(iosScreen)}
+                alt={`${project.title} iOS screen`}
+                fill
+                sizes="(max-width: 768px) 180px, 240px"
+                className="object-cover object-top"
               />
             </div>
+          ) : (
+            <>
+              {/* iOS Status Bar with Dynamic Island spacing */}
+              <div className="pt-[4.5%] px-[9.5%] pb-[2%] flex items-center justify-between text-white/85">
+                <span className="text-[5px] font-semibold tracking-tight">9:41</span>
+                {/* Dynamic Island physical pill is inside frame.png at center */}
+                <IosBatteryIcon className="w-[9.5px] h-[4.8px] text-white/85" />
+              </div>
 
-            {/* iOS Styled Card Rows */}
-            <div className="flex flex-col gap-1.5">
-              <div className="p-1.5 rounded-[7px] bg-[#171922] border border-white/10 flex items-center gap-1.5">
+              {/* iOS App UI Screen */}
+              <div className="px-[7%] flex flex-col gap-1.5 flex-1 pt-1">
+                {/* Top Themed Hero Banner */}
                 <div
-                  className="w-4 h-4 rounded-[5px] shrink-0 flex items-center justify-center"
-                  style={{ backgroundColor: c1 }}
+                  className="w-full rounded-[7px] p-[8%] flex flex-col justify-end gap-1 shadow-sm"
+                  style={{
+                    background: `linear-gradient(135deg, ${c1}, ${c2})`,
+                  }}
                 >
-                  <div className="w-1.5 h-1.5 rounded-full bg-white/90" />
+                  <div className="w-[65%] h-[3.5px] bg-white rounded-full shadow-xs" />
+                  <div className="w-[42%] h-[2.5px] bg-white/75 rounded-full" />
                 </div>
-                <div className="flex-1 flex flex-col gap-0.5">
-                  <div className="w-[85%] h-[2.5px] rounded-full bg-white/80" />
-                  <div className="w-[50%] h-[2px] rounded-full bg-white/40" />
+
+                {/* 3 Quick Action Chips */}
+                <div className="flex gap-1 py-0.5">
+                  <div
+                    className="flex-1 h-1.25 rounded-full"
+                    style={{ backgroundColor: c1 }}
+                  />
+                  <div
+                    className="flex-1 h-1.25 rounded-full opacity-40"
+                    style={{ backgroundColor: c1 }}
+                  />
+                  <div
+                    className="flex-1 h-1.25 rounded-full opacity-25"
+                    style={{ backgroundColor: c1 }}
+                  />
+                </div>
+
+                {/* iOS Styled Card Rows */}
+                <div className="flex flex-col gap-1.5">
+                  <div className="p-1.5 rounded-[7px] bg-[#171922] border border-white/10 flex items-center gap-1.5">
+                    <div
+                      className="w-4 h-4 rounded-[5px] shrink-0 flex items-center justify-center"
+                      style={{ backgroundColor: c1 }}
+                    >
+                      <div className="w-1.5 h-1.5 rounded-full bg-white/90" />
+                    </div>
+                    <div className="flex-1 flex flex-col gap-0.5">
+                      <div className="w-[85%] h-[2.5px] rounded-full bg-white/80" />
+                      <div className="w-[50%] h-0.5 rounded-full bg-white/40" />
+                    </div>
+                  </div>
+
+                  <div className="p-1.5 rounded-[7px] bg-[#171922] border border-white/10 flex items-center gap-1.5">
+                    <div
+                      className="w-4 h-4 rounded-[5px] shrink-0 flex items-center justify-center"
+                      style={{ backgroundColor: c2 }}
+                    >
+                      <div className="w-1.5 h-1.5 rounded-full bg-white/90" />
+                    </div>
+                    <div className="flex-1 flex flex-col gap-0.5">
+                      <div className="w-[75%] h-[2.5px] rounded-full bg-white/80" />
+                      <div className="w-[45%] h-0.5 rounded-full bg-white/40" />
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className="p-1.5 rounded-[7px] bg-[#171922] border border-white/10 flex items-center gap-1.5">
-                <div
-                  className="w-4 h-4 rounded-[5px] shrink-0 flex items-center justify-center"
-                  style={{ backgroundColor: c2 }}
-                >
-                  <div className="w-1.5 h-1.5 rounded-full bg-white/90" />
-                </div>
-                <div className="flex-1 flex flex-col gap-0.5">
-                  <div className="w-[75%] h-[2.5px] rounded-full bg-white/80" />
-                  <div className="w-[45%] h-[2px] rounded-full bg-white/40" />
-                </div>
+              {/* iOS Home Indicator Bar */}
+              <div className="pb-1.5 pt-1 flex justify-center">
+                <div className="w-10 h-[2.5px] bg-white/50 rounded-full" />
               </div>
-            </div>
-          </div>
-
-          {/* iOS Home Indicator Bar */}
-          <div className="pb-1.5 pt-1 flex justify-center">
-            <div className="w-10 h-[2.5px] bg-white/50 rounded-full" />
-          </div>
+            </>
+          )}
         </div>
 
         {/* Real iPhone 16 Transparent Hardware Mockup Frame */}

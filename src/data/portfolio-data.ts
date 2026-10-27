@@ -236,6 +236,58 @@ export const PortfolioData = {
       headlineAccent: 'one watchlist',
       bannerGradient: ['#8C6BC8', '#3A2D6B'],
       url: 'https://github.com/mjwaghmare/TellyBinge',
+      screens: [
+        '/images/projects/popverse/screen-android.webp',
+        '/images/projects/popverse/screen-ios.webp',
+      ],
+    },
+    {
+      title: 'Smartwatch Companion',
+      description:
+        'Wearable fitness app tracking daily activity rings, continuous heart rate, workouts and health stats.',
+      type: 'personal',
+      tags: ['Flutter', 'Health & Fitness', 'BLE'],
+      category: 'Wearable & Health',
+      headline: 'Daily fitness,',
+      headlineAccent: 'real-time health',
+      bannerGradient: ['#059669', '#064E3B'],
+      url: 'https://github.com/mjwaghmare/noise_app_clone',
+      screens: [
+        '/images/projects/smartwatch/screen-android.webp',
+        '/images/projects/smartwatch/screen-ios.webp',
+      ],
+    },
+    {
+      title: 'Travel Discovery',
+      description:
+        'Explore scenic world destinations, custom travel itineraries and trip highlights with fluid UI animations.',
+      type: 'personal',
+      tags: ['Flutter', 'UI/UX', 'Animations'],
+      category: 'Travel & Exploration',
+      headline: 'Wanderlust,',
+      headlineAccent: 'curated journeys',
+      bannerGradient: ['#0284C7', '#075985'],
+      url: 'https://github.com/mjwaghmare/travelappui',
+      screens: [
+        '/images/projects/travel/screen-android.webp',
+        '/images/projects/travel/screen-ios.webp',
+      ],
+    },
+    {
+      title: 'Tesla Controller',
+      description:
+        'Automotive companion app with vehicle telemetry, climate control, battery status and door locks.',
+      type: 'personal',
+      tags: ['Flutter', 'IoT / Telemetry', 'Interactive UI'],
+      category: 'Automotive IoT',
+      headline: 'Smart control,',
+      headlineAccent: 'vehicle telemetry',
+      bannerGradient: ['#BE123C', '#4C0519'],
+      url: 'https://github.com/mjwaghmare/tesla_car_controller_app',
+      screens: [
+        '/images/projects/tesla/screen-android.webp',
+        '/images/projects/tesla/screen-ios.webp',
+      ],
     },
   ] as Project[],
 };

@@ -8,6 +8,9 @@ const panelColors: Record<string, string> = {
   'Marine Marketplace': '#0F6B5C',
   'Live Auction App': '#1F5FD0',
   PopVerse: '#6B4FB8',
+  'Smartwatch Companion': '#047857',
+  'Travel Discovery': '#0369A1',
+  'Tesla Controller': '#9F1239',
 };
 
 function ProjectCard({ project }: { project: Project }) {
@@ -87,7 +90,7 @@ export function ProjectsSection() {
             More on GitHub <ArrowUpRight size={14} aria-hidden />
           </a>
         </div>
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((p) => (
             <ProjectCard key={p.title} project={p} />
           ))}
