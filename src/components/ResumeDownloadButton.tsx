@@ -9,7 +9,7 @@ export function ResumeDownloadButton({ url = '/Manoj_Waghmare_Resume.pdf' }: { u
     <a
       href={getAssetPath(url)}
       download="Manoj_Waghmare_Resume.pdf"
-      className="inline-flex items-center justify-center gap-2 min-h-11 px-6 rounded-full bg-[var(--ink)] text-[var(--bg)] text-[14px] font-semibold hover:opacity-85 transition-opacity"
+      className="inline-flex items-center justify-center gap-2 min-h-11 px-6 rounded-full bg-(--ink) text-(--bg) text-[14px] font-semibold hover:opacity-85 transition-opacity"
     >
       <Download size={16} aria-hidden />
       Download Resume

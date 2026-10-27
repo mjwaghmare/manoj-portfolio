@@ -7,7 +7,7 @@ export function TechStackSection() {
   const { techStack, skillGroups } = PortfolioData;
 
   return (
-    <section id="skills" className="border-t border-[color-mix(in_srgb,var(--rule)_40%,transparent)] py-14 md:py-20">
+    <section id="skills" className="border-t border-(--rule)/40 py-14 md:py-20">
       <FadeIn className="wrap">
         <RevealHeading className="text-[clamp(21px,5.5vw,64px)] whitespace-nowrap">
           Tech stack <span className="accent-word">&amp;</span> engineering skills

@@ -16,7 +16,7 @@ function ProjectCard({ project }: { project: Project }) {
   return (
     <article
       data-s
-      className="group flex flex-col bg-[var(--surface)] border border-[var(--rule)] rounded-[20px] overflow-hidden transition-[translate,box-shadow,border-color] duration-300 motion-safe:hover:-translate-y-1.5 hover:border-[color-mix(in_srgb,var(--accent)_45%,var(--rule))] hover:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.35)]"
+      className="group flex flex-col bg-(--surface) border border-(--rule) rounded-[20px] overflow-hidden transition-[translate,box-shadow,border-color] duration-300 motion-safe:hover:-translate-y-1.5 hover:border-(--accent)/45 hover:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.35)]"
     >
       <div
         className="relative h-[210px] overflow-hidden p-5 text-white"
@@ -36,13 +36,14 @@ function ProjectCard({ project }: { project: Project }) {
 
       <div className="p-4 flex flex-col flex-1">
         <div className="flex items-start justify-between gap-3">
-          <h3 className="text-[15px] font-semibold text-[var(--ink)]">
+          <h3 className="text-[15px] font-semibold text-(--ink)">
             {project.url ? (
               <a
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 hover:text-[var(--accent)]"
+                aria-label={`${project.title} (opens in a new tab)`}
+                className="inline-flex items-center gap-1.5 hover:text-(--accent)"
               >
                 {project.title}
                 <ExternalLink size={13} aria-hidden />
@@ -51,12 +52,12 @@ function ProjectCard({ project }: { project: Project }) {
               project.title
             )}
           </h3>
-          <span className="shrink-0 rounded-full border border-[var(--rule)] px-2.5 py-0.5 text-[10px] text-[var(--muted)]">
+          <span className="shrink-0 rounded-full border border-(--rule) px-2.5 py-0.5 text-[10px] text-(--muted)">
             {typeLabel}
           </span>
         </div>
-        <p className="mt-3 text-[13px] leading-[1.65] text-[var(--muted)] flex-1">{project.description}</p>
-        <ul className="mt-4 flex flex-wrap gap-x-3 gap-y-1 text-[11px] font-medium text-[var(--ink)]">
+        <p className="mt-3 text-[13px] leading-[1.65] text-(--muted) flex-1">{project.description}</p>
+        <ul className="mt-4 flex flex-wrap gap-x-3 gap-y-1 text-[11px] font-medium text-(--ink)">
           {project.tags.map((t) => (
             <li key={t}>{t}</li>
           ))}
@@ -70,7 +71,7 @@ export function ProjectsSection() {
   const { projects, moreProjectsUrl } = PortfolioData;
 
   return (
-    <section id="projects" className="border-t border-[color-mix(in_srgb,var(--rule)_40%,transparent)] py-14 md:py-20">
+    <section id="projects" className="border-t border-(--rule)/40 py-14 md:py-20">
       <FadeIn className="wrap">
         <div data-s className="flex items-end justify-between gap-4 mb-10">
           <RevealHeading>
@@ -80,7 +81,7 @@ export function ProjectsSection() {
             href={moreProjectsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 min-h-11 text-[13px] font-semibold text-[var(--accent)] hover:underline"
+            className="inline-flex items-center gap-1.5 min-h-11 text-[13px] font-semibold text-(--accent) hover:underline"
           >
             View All Projects <ArrowRight size={14} aria-hidden />
           </a>

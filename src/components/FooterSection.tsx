@@ -4,7 +4,7 @@ import { getAssetPath } from '@/lib/utils';
 
 export function FooterSection() {
   return (
-    <footer className="border-t border-[color-mix(in_srgb,var(--rule)_40%,transparent)]">
+    <footer className="border-t border-(--rule)/40">
       <div className="wrap flex flex-wrap items-center justify-between gap-3 py-8">
         <a href="#home" aria-label="MWStudio, back to top" className="inline-flex items-center min-h-11">
           <Image
@@ -15,7 +15,7 @@ export function FooterSection() {
             className="h-[24px] w-auto"
           />
         </a>
-        <p className="text-[11px] text-[var(--muted)]">© 2026 Manoj Waghmare. All rights reserved.</p>
+        <p className="text-[11px] text-(--muted)">© 2026 Manoj Waghmare. All rights reserved.</p>
       </div>
     </footer>
   );

@@ -39,7 +39,7 @@ export function ThemeToggle() {
       onClick={toggle}
       suppressHydrationWarning
       aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
-      className="w-11 h-11 inline-flex items-center justify-center rounded-full text-[var(--ink)] hover:bg-[var(--rule)]/50 transition-colors cursor-pointer"
+      className="w-11 h-11 inline-flex items-center justify-center rounded-full text-(--ink) hover:bg-(--rule)/50 transition-colors cursor-pointer"
     >
       {dark ? <Sun size={18} aria-hidden /> : <Moon size={18} aria-hidden />}
     </button>

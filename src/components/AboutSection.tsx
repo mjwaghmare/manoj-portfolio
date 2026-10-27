@@ -16,7 +16,7 @@ export function AboutSection() {
   const [lead, ...rest] = PortfolioData.profile.about.split(/(?<=\.)\s+/);
 
   return (
-    <section id="about" className="border-t border-[color-mix(in_srgb,var(--rule)_40%,transparent)] py-14 md:py-20">
+    <section id="about" className="border-t border-(--rule)/40 py-14 md:py-20">
       <FadeIn className="wrap grid gap-10 md:grid-cols-[1fr_2fr] md:gap-16">
         <RevealHeading className="md:sticky md:top-28 self-start">
           About <span className="accent-word">me</span>
@@ -25,16 +25,16 @@ export function AboutSection() {
           <p data-s className="display text-[clamp(26px,3.4vw,38px)] leading-[1.15] tracking-[-0.01em] max-w-[24ch]">
             {lead}
           </p>
-          <p data-s className="mt-6 max-w-[58ch] text-[16px] leading-[1.75] text-[var(--muted)]">
+          <p data-s className="mt-6 max-w-[58ch] text-[16px] leading-[1.75] text-(--muted)">
             {rest.join(' ')}
           </p>
           <dl className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-8">
             {stats.map((s, i) => (
-              <div data-s key={s.value} className="border-t border-[var(--rule)] pt-5">
-                <dd className={`display text-[44px] leading-none ${i === 0 ? 'text-[var(--accent)]' : ''}`}>
+              <div data-s key={s.value} className="border-t border-(--rule) pt-5">
+                <dd className={`display text-[44px] leading-none ${i === 0 ? 'text-(--accent)' : ''}`}>
                   {s.value}
                 </dd>
-                <dt className="mt-3 text-[11px] font-medium uppercase tracking-[0.14em] text-[var(--muted)]">
+                <dt className="mt-3 text-[11px] font-medium uppercase tracking-[0.14em] text-(--muted)">
                   {s.label}
                 </dt>
               </div>
@@ -42,26 +42,26 @@ export function AboutSection() {
           </dl>
 
           <dl className="mt-10">
-            <div data-s className="grid gap-1 sm:grid-cols-[160px_1fr] sm:gap-6 py-5 border-t border-[var(--rule)]">
-              <dt className="text-[11px] font-medium uppercase tracking-[0.14em] text-[var(--muted)] pt-1">
+            <div data-s className="grid gap-1 sm:grid-cols-[160px_1fr] sm:gap-6 py-5 border-t border-(--rule)">
+              <dt className="text-[11px] font-medium uppercase tracking-[0.14em] text-(--muted) pt-1">
                 Currently at
               </dt>
               <dd className="text-[15px]">
                 <span className="display text-[24px] leading-tight">{current.company}</span>
-                <span className="block text-[var(--muted)]">
+                <span className="block text-(--muted)">
                   {current.role} · {current.period.replace(' - ', ' — ')}
                 </span>
               </dd>
             </div>
-            <div data-s className="grid gap-1 sm:grid-cols-[160px_1fr] sm:gap-6 py-5 border-t border-[var(--rule)]">
-              <dt className="text-[11px] font-medium uppercase tracking-[0.14em] text-[var(--muted)] pt-1">
+            <div data-s className="grid gap-1 sm:grid-cols-[160px_1fr] sm:gap-6 py-5 border-t border-(--rule)">
+              <dt className="text-[11px] font-medium uppercase tracking-[0.14em] text-(--muted) pt-1">
                 What I focus on
               </dt>
               <dd className="display text-[24px] leading-tight">
                 {focus.map((f, i) => (
                   <span key={f}>
                     {i > 0 && (
-                      <span className="text-[var(--faint)]" aria-hidden>
+                      <span className="text-(--faint)" aria-hidden>
                         {' / '}
                       </span>
                     )}

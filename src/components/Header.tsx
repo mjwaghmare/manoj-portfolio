@@ -79,18 +79,22 @@ export function Header() {
 
   useEffect(() => {
     if (!open) return;
+    document.body.style.overflow = 'hidden';
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+    };
   }, [open]);
 
   const linkClass = (id: string) =>
-    `relative px-3 min-h-11 inline-flex items-center text-[13px] font-medium transition-colors hover:text-[var(--accent)] ${
-      active === id ? 'text-[var(--ink)]' : 'text-[var(--muted)]'
+    `relative px-3 min-h-11 inline-flex items-center text-[13px] font-medium transition-colors hover:text-(--accent) ${
+      active === id ? 'text-(--ink)' : 'text-(--muted)'
     }`;
 
   return (
-    <header className="print:hidden sticky top-0 z-50 bg-[var(--bg)]/90 backdrop-blur border-b border-[color-mix(in_srgb,var(--rule)_40%,transparent)]">
+    <header className="print:hidden sticky top-0 z-50 bg-(--bg)/90 backdrop-blur border-b border-(--rule)/40">
       <div className="wrap flex items-center justify-between gap-4 min-h-[72px]">
         <a
           href="#home"
@@ -120,7 +124,7 @@ export function Header() {
               {item.label}
               <span
                 aria-hidden
-                className={`absolute left-3 right-3 bottom-2 h-px bg-[var(--accent)] origin-left transition-transform duration-300 ${
+                className={`absolute left-3 right-3 bottom-2 h-px bg-(--accent) origin-left transition-transform duration-300 ${
                   active === item.id ? 'scale-x-100' : 'scale-x-0'
                 }`}
               />
@@ -132,7 +136,7 @@ export function Header() {
           <a
             href="#contact"
             onClick={() => goTo('contact')}
-            className="hidden sm:inline-flex items-center justify-center min-h-11 px-5 mr-1 rounded-full bg-[var(--ink)] text-[var(--bg)] text-[13px] font-semibold hover:opacity-85 transition-opacity"
+            className="hidden sm:inline-flex items-center justify-center min-h-11 px-5 mr-1 rounded-full bg-(--ink) text-(--bg) text-[13px] font-semibold hover:opacity-85 transition-opacity"
           >
             Let&apos;s talk
           </a>
@@ -143,7 +147,7 @@ export function Header() {
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? 'Close menu' : 'Open menu'}
-            className="md:hidden w-11 h-11 inline-flex items-center justify-center rounded-full text-[var(--ink)] hover:bg-[var(--rule)]/50 transition-colors cursor-pointer"
+            className="md:hidden w-11 h-11 inline-flex items-center justify-center rounded-full text-(--ink) hover:bg-(--rule)/50 transition-colors cursor-pointer"
           >
             {open ? <X size={20} aria-hidden /> : <Menu size={20} aria-hidden />}
           </button>
@@ -154,7 +158,7 @@ export function Header() {
         <nav
           id="mobile-nav"
           aria-label="Mobile"
-          className="md:hidden border-t border-[color-mix(in_srgb,var(--rule)_40%,transparent)] bg-[var(--bg)]"
+          className="md:hidden border-t border-(--rule)/40 bg-(--bg)"
         >
           <div className="wrap flex flex-col py-3">
             {navItems.map((item) => (
@@ -166,8 +170,8 @@ export function Header() {
                   goTo(item.id);
                 }}
                 aria-current={active === item.id ? 'location' : undefined}
-                className={`min-h-12 flex items-center justify-between text-[18px] display border-b border-[color-mix(in_srgb,var(--rule)_40%,transparent)] ${
-                  active === item.id ? 'text-[var(--accent)]' : 'text-[var(--ink)]'
+                className={`min-h-12 flex items-center justify-between text-[18px] display border-b border-(--rule)/40 ${
+                  active === item.id ? 'text-(--accent)' : 'text-(--ink)'
                 }`}
               >
                 {item.label}
@@ -179,7 +183,7 @@ export function Header() {
                 setOpen(false);
                 goTo('contact');
               }}
-              className="sm:hidden mt-4 inline-flex items-center justify-center min-h-11 rounded-full bg-[var(--ink)] text-[var(--bg)] text-[14px] font-semibold"
+              className="sm:hidden mt-4 inline-flex items-center justify-center min-h-11 rounded-full bg-(--ink) text-(--bg) text-[14px] font-semibold"
             >
               Let&apos;s talk
             </a>

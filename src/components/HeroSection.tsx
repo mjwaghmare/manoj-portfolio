@@ -14,7 +14,7 @@ export function HeroSection() {
     <section id="home" className="hero-fill flex flex-col justify-center py-12 md:py-16">
       <div className="wrap w-full grid gap-12 md:grid-cols-[1.4fr_1fr] md:gap-16 items-end">
         <Stagger>
-          <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-[var(--muted)] mb-6">
+          <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-(--muted) mb-6">
             {profile.name} · {profile.role}
           </p>
           <h1
@@ -25,20 +25,20 @@ export function HeroSection() {
             <br />
             that feel <WordRotate words={['reliable', 'fluid', 'fast', 'polished']} />
           </h1>
-          <p className="mt-6 max-w-[40ch] text-[18px] md:text-[19px] leading-[1.55] text-balance text-[var(--muted)]">
-            <strong className="font-semibold text-[var(--ink)]">7+ years</strong>
+          <p className="mt-6 max-w-[40ch] text-[18px] md:text-[19px] leading-[1.55] text-balance text-(--muted)">
+            <strong className="font-semibold text-(--ink)">7+ years</strong>
             {profile.heroIntroLines.join(' ').replace('7+ years', '').replace('production-ready', 'production\u2011ready')}
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3 print:hidden">
             <ResumeDownloadButton url={profile.resumeUrl} />
             <a
               href="#contact"
-              className="inline-flex items-center justify-center gap-2 min-h-11 px-6 rounded-full border border-[var(--ink)] text-[var(--ink)] text-[14px] font-semibold hover:bg-[var(--ink)] hover:text-[var(--bg)] transition-colors"
+              className="inline-flex items-center justify-center gap-2 min-h-11 px-6 rounded-full border border-(--ink) text-(--ink) text-[14px] font-semibold hover:bg-(--ink) hover:text-(--bg) transition-colors"
             >
               <Mail size={16} aria-hidden />
               Contact Me
             </a>
-            <p className="text-[12px] text-[var(--muted)] sm:ml-1">
+            <p className="text-[12px] text-(--muted) sm:ml-1">
               Resume updated <time dateTime={profile.resumeUpdated.iso}>{profile.resumeUpdated.label}</time>
             </p>
           </div>
@@ -60,7 +60,7 @@ export function HeroSection() {
               className="object-contain object-bottom"
             />
           </div>
-          <figcaption className="display italic mt-4 min-h-11 flex flex-wrap items-center gap-x-5 gap-y-1 text-[18px] text-[var(--muted)]">
+          <figcaption className="display italic mt-4 min-h-11 flex flex-wrap items-center gap-x-5 gap-y-1 text-[18px] text-(--muted)">
             {profile.handwrittenNote.map((t) => (
               <span key={t}>{t}</span>
             ))}

@@ -35,7 +35,18 @@ export function TracingBeam({ children, className = '' }: { children: React.Reac
         offset: ['start 65%', 'end 65%'],
       },
     );
-    const stopDots = dots.map((d) => inView(d, () => light(d), { margin: '0px 0px -35% 0px' }));
+    const stopDots = dots.map((d) =>
+      inView(
+        d,
+        () => {
+          light(d);
+          return () => {
+            d.style.backgroundColor = 'var(--rule)';
+          };
+        },
+        { margin: '0px 0px -35% 0px' },
+      ),
+    );
     return () => {
       stopScroll();
       stopDots.forEach((stop) => stop());

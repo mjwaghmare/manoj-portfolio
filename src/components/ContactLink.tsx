@@ -31,14 +31,14 @@ export function ContactLink({ label, value, href, copyText }: ContactLinkProps) 
   };
 
   return (
-    <li data-s className="border-t border-[var(--rule)]">
+    <li data-s className="border-t border-(--rule)">
       <a
         href={href}
         onClick={onClick}
         {...(href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-        className="group relative block min-h-11 pt-4 pb-7 pr-8 hover:text-[var(--accent)] focus-visible:text-[var(--accent)]"
+        className="group relative block min-h-11 pt-4 pb-7 pr-8 hover:text-(--accent) focus-visible:text-(--accent)"
       >
-        <span className="block text-[10px] font-medium uppercase tracking-[0.14em] text-[var(--muted)]">{label}</span>
+        <span className="block text-[10px] font-medium uppercase tracking-[0.14em] text-(--muted)">{label}</span>
         <span className="mt-1 block text-[14px] font-semibold break-words">{value}</span>
         <ArrowUpRight
           size={18}
@@ -48,7 +48,7 @@ export function ContactLink({ label, value, href, copyText }: ContactLinkProps) 
         {copyText && (
           <span
             role="status"
-            className={`absolute left-0 bottom-2 text-[11px] font-medium text-[var(--accent)] transition-all duration-200 ${
+            className={`absolute left-0 bottom-2 text-[11px] font-medium text-(--accent) transition-all duration-200 ${
               copied ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-1'
             }`}
           >

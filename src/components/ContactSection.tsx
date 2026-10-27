@@ -13,12 +13,12 @@ export function ContactSection() {
   ];
 
   return (
-    <section id="contact" className="border-t border-[color-mix(in_srgb,var(--rule)_40%,transparent)] py-14 md:py-20">
+    <section id="contact" className="border-t border-(--rule)/40 py-14 md:py-20">
       <FadeIn className="wrap">
         <RevealHeading>
           Let&apos;s work <span className="accent-word">together</span>
         </RevealHeading>
-        <p data-s className="mt-5 max-w-[48ch] text-[16px] leading-[1.6] text-[var(--muted)]">{p.contactMessage}</p>
+        <p data-s className="mt-5 max-w-[48ch] text-[16px] leading-[1.6] text-(--muted)">{p.contactMessage}</p>
         <ul className="mt-10 grid gap-x-6 gap-y-2 sm:grid-cols-2 lg:grid-cols-4">
           {links.map((l) => (
             <ContactLink

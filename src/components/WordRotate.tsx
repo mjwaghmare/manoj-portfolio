@@ -45,12 +45,17 @@ export function WordRotate({ words, interval = 2600 }: { words: string[]; interv
     if (steps.current >= words.length * CYCLES) return;
     const el = word.current;
     if (!el) return;
+    let active = true;
     const timer = setTimeout(async () => {
       await animate(el, { opacity: 0, y: -12 }, { duration: 0.25, ease: 'easeIn' });
+      if (!active) return;
       steps.current += 1;
       setIndex((i) => (i + 1) % words.length);
     }, interval);
-    return () => clearTimeout(timer);
+    return () => {
+      active = false;
+      clearTimeout(timer);
+    };
   }, [index, paused, words.length, interval]);
 
   return (
