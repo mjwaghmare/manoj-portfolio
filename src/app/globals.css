@@ -6,13 +6,13 @@
 
 :root {
   --header-h: 73px; /* sticky header: 72px + 1px border */
-  --bg: #F6F5F1;
-  --ink: #17181C;
-  --muted: #575A63;
-  --rule: #D9D7CF;
-  --faint: #6F6D64;
-  --accent: #3B4CCA;
-  --surface: #FFFFFF;
+  --bg: #EFECE6;
+  --ink: #1F2126;
+  --muted: #5E626D;
+  --rule: #D5D1C7;
+  --faint: #75736A;
+  --accent: #3242B8;
+  --surface: #F9F8F5;
 }
 
 .dark {

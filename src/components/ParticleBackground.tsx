@@ -68,29 +68,29 @@ export function ParticleBackground() {
       const area = width * height;
 
       // Both modes use balanced density so the NASA particle field is clearly visible
-      const divisor = isDark ? 11000 : 12000;
-      const minCount = isDark ? 45 : 40;
-      const maxCount = isDark ? 160 : 130;
+      const divisor = isDark ? 11000 : 9500;
+      const minCount = isDark ? 45 : 55;
+      const maxCount = isDark ? 160 : 150;
 
       const count = prefersReducedMotion
-        ? (isDark ? 35 : 25)
+        ? (isDark ? 35 : 30)
         : Math.min(maxCount, Math.max(minCount, Math.floor(area / divisor)));
 
       for (let i = 0; i < count; i++) {
         const isAccent = Math.random() < 0.4;
-        // Crisp circular dots matching dark mode range (0.8px to 2.4px)
-        const radiusScale = Math.random() * 1.5 + 0.8;
+        // Crisp circular dots matching dark mode range (0.9px to 2.5px)
+        const radiusScale = Math.random() * 1.6 + 0.9;
         const baseRadius = radiusScale * dpr;
 
-        // In light mode: clear visibility (0.16 to 0.68) so dots twinkle and drift clearly
+        // In light mode: boost opacity (0.28 to 0.88) so dots are clearly visible & twinkle against light background
         // In dark mode: crisp high-contrast starlight (0.12 to 0.95)
         const minOpacity = isDark
           ? Math.random() * 0.15 + 0.12
-          : Math.random() * 0.12 + 0.16;
+          : Math.random() * 0.14 + 0.28;
 
         const maxOpacity = isDark
           ? Math.random() * 0.35 + 0.60
-          : Math.random() * 0.22 + 0.48;
+          : Math.random() * 0.18 + 0.70;
 
         particles.push({
           x: Math.random() * width,
@@ -232,7 +232,7 @@ export function ParticleBackground() {
 
         // Opacity envelope
         let alpha = progress < 0.2 ? progress / 0.2 : (1 - progress) / 0.8;
-        const peakAlpha = isDark ? 0.88 : 0.42;
+        const peakAlpha = isDark ? 0.88 : 0.75;
         alpha *= peakAlpha;
 
         if (alpha <= 0.01) continue;
@@ -240,8 +240,8 @@ export function ParticleBackground() {
         const tailX = currentX - Math.cos(m.angle) * m.length;
         const tailY = currentY - Math.sin(m.angle) * m.length;
 
-        const meteorHead = isDark ? '255, 255, 255' : '99, 102, 241';
-        const meteorTail = isDark ? '154, 166, 255' : '139, 92, 246';
+        const meteorHead = isDark ? '255, 255, 255' : '37, 99, 235';
+        const meteorTail = isDark ? '154, 166, 255' : '99, 102, 241';
 
         const grad = ctx.createLinearGradient(currentX, currentY, tailX, tailY);
         grad.addColorStop(0, `rgba(${meteorHead}, ${alpha.toFixed(3)})`);
@@ -249,7 +249,7 @@ export function ParticleBackground() {
         grad.addColorStop(1, `rgba(${meteorTail}, 0)`);
 
         ctx.strokeStyle = grad;
-        ctx.lineWidth = (isDark ? 1.6 : 1.1) * dpr;
+        ctx.lineWidth = (isDark ? 1.6 : 1.3) * dpr;
         ctx.lineCap = 'round';
         ctx.beginPath();
         ctx.moveTo(currentX, currentY);
@@ -257,7 +257,7 @@ export function ParticleBackground() {
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.arc(currentX, currentY, (isDark ? 1.7 : 1.1) * dpr, 0, Math.PI * 2);
+        ctx.arc(currentX, currentY, (isDark ? 1.7 : 1.3) * dpr, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${meteorHead}, ${alpha.toFixed(3)})`;
         ctx.fill();
       }
@@ -266,9 +266,9 @@ export function ParticleBackground() {
       // 2. NASA Circular Particles (Subtle in both Light & Dark)
       // ----------------------------------------------------
       // In dark mode: crisp stardust + lavender accent
-      // In light mode: clean slate + royal blue accent (clearly visible)
-      const colorPrimary = isDark ? '241, 240, 235' : '71, 85, 105';
-      const colorAccent = isDark ? '154, 166, 255' : '59, 76, 202';
+      // In light mode: deep slate-navy + vivid royal sapphire (clearly visible & elegant)
+      const colorPrimary = isDark ? '241, 240, 235' : '47, 59, 82';
+      const colorAccent = isDark ? '154, 166, 255' : '37, 99, 235';
 
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
@@ -342,11 +342,11 @@ export function ParticleBackground() {
         ctx.fillStyle = `rgba(${rgb}, ${renderAlpha.toFixed(3)})`;
         ctx.fill();
 
-        // Starlight halo only in dark mode for larger stars
-        if (isDark && p.baseRadius > 1.8 * dpr && renderAlpha > 0.4) {
+        // Subtle atmospheric halo for prominent stars
+        if (p.baseRadius > 1.7 * dpr && renderAlpha > 0.45) {
           ctx.beginPath();
-          ctx.arc(px, py, renderRadius * 2.2, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${rgb}, ${(renderAlpha * 0.18).toFixed(3)})`;
+          ctx.arc(px, py, renderRadius * 2.0, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${rgb}, ${(renderAlpha * (isDark ? 0.18 : 0.12)).toFixed(3)})`;
           ctx.fill();
         }
       }
