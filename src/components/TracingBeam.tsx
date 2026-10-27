@@ -44,10 +44,10 @@ export function TracingBeam({ children, className = '' }: { children: React.Reac
 
   return (
     <div ref={root} className={`relative pl-6 md:pl-8 ${className}`}>
-      <div aria-hidden className="absolute left-[3px] top-0 bottom-0 w-px bg-[var(--rule)]">
+      <div aria-hidden className="absolute left-0.75 top-0 bottom-0 w-px bg-(--rule)">
         <div
           ref={fill}
-          className="h-full w-full origin-top bg-[var(--accent)] will-change-transform"
+          className="h-full w-full origin-top bg-(--accent) will-change-transform"
           style={{ transform: 'scaleY(0)' }}
         />
       </div>
