@@ -19,7 +19,7 @@ function ProjectCard({ project }: { project: Project }) {
       className="group flex flex-col bg-(--surface) border border-(--rule) rounded-[20px] overflow-hidden transition-[translate,box-shadow,border-color] duration-300 motion-safe:hover:-translate-y-1.5 hover:border-(--accent)/45 hover:shadow-[0_18px_40px_-18px_rgba(0,0,0,0.35)]"
     >
       <div
-        className="relative h-[210px] overflow-hidden p-5 text-white"
+        className="relative h-52.5 overflow-hidden p-5 text-white"
         style={{ background: panelColors[project.title] ?? project.bannerGradient[0] }}
       >
         <div className="relative z-10 max-w-[52%]">

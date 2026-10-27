@@ -39,7 +39,7 @@ export function ContactLink({ label, value, href, copyText }: ContactLinkProps) 
         className="group relative block min-h-11 pt-4 pb-7 pr-8 hover:text-(--accent) focus-visible:text-(--accent)"
       >
         <span className="block text-[10px] font-medium uppercase tracking-[0.14em] text-(--muted)">{label}</span>
-        <span className="mt-1 block text-[14px] font-semibold break-words">{value}</span>
+        <span className="mt-1 block text-[14px] font-semibold wrap-break-word">{value}</span>
         <ArrowUpRight
           size={18}
           aria-hidden

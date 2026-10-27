@@ -95,7 +95,7 @@ export function Header() {
 
   return (
     <header className="print:hidden sticky top-0 z-50 bg-(--bg)/90 backdrop-blur border-b border-(--rule)/40">
-      <div className="wrap flex items-center justify-between gap-4 min-h-[72px]">
+      <div className="wrap flex items-center justify-between gap-4 min-h-18">
         <a
           href="#home"
           onClick={() => goTo('home')}
@@ -108,7 +108,7 @@ export function Header() {
             width={468}
             height={96}
             priority
-            className="h-[28px] w-auto"
+            className="h-7 w-auto"
           />
         </a>
 

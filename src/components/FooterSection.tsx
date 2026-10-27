@@ -12,7 +12,7 @@ export function FooterSection() {
             alt="MWStudio"
             width={468}
             height={96}
-            className="h-[24px] w-auto"
+            className="h-6 w-auto"
           />
         </a>
         <p className="text-[11px] text-(--muted)">© 2026 Manoj Waghmare. All rights reserved.</p>

@@ -21,7 +21,7 @@ export function ScrollProgress() {
       ref={ref}
       aria-hidden
       style={{ opacity: 0, transform: 'scaleX(0)' }}
-      className="print:hidden fixed top-0 left-0 z-[60] h-[2px] w-full origin-left bg-(--accent)"
+      className="print:hidden fixed top-0 left-0 z-60 h-0.5 w-full origin-left bg-(--accent)"
     />
   );
 }

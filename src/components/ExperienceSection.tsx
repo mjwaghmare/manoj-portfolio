@@ -20,7 +20,7 @@ export function ExperienceSection() {
               <span
                 data-dot
                 aria-hidden
-                className="absolute -left-6 md:-left-8 top-[42px] size-[7px] rounded-full bg-(--rule) transition-colors duration-500"
+                className="absolute -left-6 md:-left-8 top-10.5 size-1.75 rounded-full bg-(--rule) transition-colors duration-500"
               />
               <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-(--muted) pt-3">
                 {e.period.replace(' - ', ' — ')}
