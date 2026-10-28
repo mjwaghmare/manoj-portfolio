@@ -35,7 +35,7 @@ export default function Home() {
       <ParticleBackground />
       <ScrollProgress />
       <Header />
-      <main className="relative z-10">
+      <main className="relative z-10 max-w-full overflow-x-clip">
         <HeroSection />
         <AboutSection />
         <TechStackSection />

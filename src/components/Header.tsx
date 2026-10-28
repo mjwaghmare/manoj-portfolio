@@ -19,10 +19,41 @@ const sectionIds = [...navItems.map((n) => n.id), 'contact'];
 export function Header() {
   const [active, setActive] = useState('home');
   const [open, setOpen] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const lastScrollY = useRef(0);
 
   // While a nav click is scrolling the page, ignore the sections it passes over.
   const locked = useRef(false);
   const unlockTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  // Smart auto-hide on mobile: hide when scrolling down, reveal when scrolling up
+  useEffect(() => {
+    let ticking = false;
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentY = window.scrollY;
+          if (currentY < 60 || open) {
+            setVisible(true);
+          } else if (!locked.current) {
+            const diff = currentY - lastScrollY.current;
+            if (diff > 8) {
+              setVisible(false);
+            } else if (diff < -6) {
+              setVisible(true);
+            }
+          }
+          lastScrollY.current = Math.max(0, currentY);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [open]);
 
   const syncActive = useCallback(() => {
     const y = window.innerHeight * 0.47;
@@ -43,6 +74,7 @@ export function Header() {
   }, [syncActive]);
 
   const goTo = (id: string) => {
+    setVisible(true);
     setActive(id);
     locked.current = true;
     clearTimeout(unlockTimer.current);
@@ -94,8 +126,12 @@ export function Header() {
     }`;
 
   return (
-    <header className="print:hidden sticky top-0 z-50 bg-(--bg)/90 backdrop-blur border-b border-(--rule)/40">
-      <div className="wrap flex items-center justify-between gap-4 min-h-18">
+    <header
+      className={`print:hidden sticky top-0 z-50 bg-(--bg)/90 backdrop-blur border-b border-(--rule)/40 transition-transform duration-300 ease-out will-change-transform ${
+        visible ? 'translate-y-0' : '-translate-y-full md:translate-y-0'
+      }`}
+    >
+      <div className="wrap flex items-center justify-between gap-4 min-h-16 sm:min-h-18">
         <a
           href="#home"
           onClick={() => goTo('home')}

@@ -38,14 +38,11 @@ export function HeroSection() {
               <Mail size={16} aria-hidden />
               Contact Me
             </a>
-            <p className="text-[12px] text-(--muted) sm:ml-1">
-              Resume updated <time dateTime={profile.resumeUpdated.iso}>{profile.resumeUpdated.label}</time>
-            </p>
           </div>
         </Stagger>
 
         <FadeIn>
-        <figure data-s className="relative w-full max-w-85 mx-auto md:mx-0 md:ml-auto">
+        <figure data-s className="relative w-full max-w-56 sm:max-w-64 md:max-w-85 mx-auto md:mx-0 md:ml-auto">
           <div className="relative aspect-853/962">
             <div
               aria-hidden
@@ -56,11 +53,11 @@ export function HeroSection() {
               alt={`Portrait of ${profile.name}`}
               fill
               priority
-              sizes="(min-width: 768px) 340px, 90vw"
+              sizes="(min-width: 768px) 340px, 65vw"
               className="object-contain object-bottom"
             />
           </div>
-          <figcaption className="display italic mt-4 min-h-11 flex flex-wrap items-center gap-x-5 gap-y-1 text-[18px] text-(--muted)">
+          <figcaption className="display italic mt-3 md:mt-4 min-h-11 flex flex-wrap items-center justify-center md:justify-start gap-x-4 md:gap-x-5 gap-y-1 text-[16px] md:text-[18px] text-(--muted)">
             {profile.handwrittenNote.map((t) => (
               <span key={t}>{t}</span>
             ))}

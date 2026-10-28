@@ -13,7 +13,7 @@ export function ContactSection() {
   ];
 
   return (
-    <section id="contact" className="border-t border-(--rule)/40 py-14 md:py-20">
+    <section id="contact" className="border-t border-(--rule)/40 pt-14 pb-4 md:pt-20 md:pb-6">
       <FadeIn className="wrap">
         <RevealHeading>
           Let&apos;s work <span className="accent-word">together</span>

@@ -9,7 +9,7 @@ export function TechStackSection() {
   return (
     <section id="skills" className="border-t border-(--rule)/40 py-14 md:py-20">
       <FadeIn className="wrap">
-        <RevealHeading className="text-[clamp(21px,5.5vw,64px)] whitespace-nowrap">
+        <RevealHeading className="text-[clamp(32px,5.2vw,60px)] leading-[1.08] lg:whitespace-nowrap text-balance">
           Tech stack <span className="accent-word">&amp;</span> engineering skills
         </RevealHeading>
 
